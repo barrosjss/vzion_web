@@ -294,33 +294,33 @@
   @media (min-width: 1024px) {
     .slide-body--split-short {
       display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-      gap: 1rem 1.75rem;
-      align-items: start;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: 1rem 1.5rem;
+      align-items: center;
     }
 
-    .slide-body--split-short > .slide-block--paragraph,
-    .slide-body--split-short > .slide-block--heading,
-    .slide-body--split-short > .slide-block--quote,
-    .slide-body--split-short > .slide-block--list,
-    .slide-body--split-short > .slide-block--callout,
-    .slide-body--split-short > .slide-block--cards,
-    .slide-body--split-short > .slide-block--code,
-    .slide-body--split-short > .slide-block--boxes {
+    .slide-body--split-short .slide-body__complements {
       grid-column: 1;
+      min-width: 0;
     }
 
-    .slide-body--split-short > .slide-block--youtube {
+    .slide-body--split-short .slide-body__short {
       grid-column: 2;
-      grid-row: 1 / -1;
-      align-self: center;
       justify-self: center;
       width: 100%;
-      max-width: 20rem;
+      max-width: 18rem;
     }
 
     .slide-body--split-short .slide-youtube {
       @apply max-w-none;
+    }
+
+    .slide-body--split-short .slide-block--paragraph p {
+      @apply text-[15px] leading-relaxed sm:text-base;
+    }
+
+    .slide-body--split-short .slide-list-numbered {
+      @apply gap-2;
     }
   }
 

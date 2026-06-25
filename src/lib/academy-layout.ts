@@ -40,3 +40,14 @@ export function usesSplitSlideLayout(blocks?: SlideBlock[]): boolean {
 export function usesBareSlideBody(blocks?: SlideBlock[]): boolean {
   return blocks?.length === 1 && blocks[0].type === "youtube";
 }
+
+export function getSplitShortBlocks(blocks?: SlideBlock[]) {
+  if (!blocks?.length) {
+    return { complements: [], short: [] as SlideBlock[] };
+  }
+
+  const short = blocks.filter((block) => block.type === "youtube" && block.short);
+  const complements = blocks.filter((block) => !(block.type === "youtube" && block.short));
+
+  return { complements, short };
+}

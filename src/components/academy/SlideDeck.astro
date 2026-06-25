@@ -2,6 +2,7 @@
 import type { Slide } from "../../data/academy/types";
 import SlideBlock from "./SlideBlock.astro";
 import {
+  getSplitShortBlocks,
   usesBareSlideBody,
   usesSplitShortLayout,
   usesSplitSlideLayout,
@@ -57,24 +58,43 @@ const slideVariants = {
   <!-- Móvil: lectura continua -->
   <div class="slide-deck__mobile md:hidden">
     {
-      slides.map((slide, index) => (
+      slides.map((slide, index) => {
+        const splitShort = usesSplitShortLayout(slide.blocks);
+        const { complements, short } = getSplitShortBlocks(slide.blocks);
+
+        return (
         <article class:list={[slideVariants[slide.variant ?? "content"], "slide-panel--stacked"]}>
           {slide.eyebrow && <p class="slide-eyebrow">{slide.eyebrow}</p>}
           {slide.title && <h2 class="slide-title">{slide.title}</h2>}
           {slide.subtitle && <p class="slide-subtitle">{slide.subtitle}</p>}
           <div
             class:list={[
-              "slide-body space-y-4",
-              usesSplitShortLayout(slide.blocks) && "slide-body--split-short",
+              "slide-body",
+              !splitShort && "space-y-4",
+              splitShort && "slide-body--split-short",
               usesSplitSlideLayout(slide.blocks) && "slide-body--split",
               usesBareSlideBody(slide.blocks) && "slide-body--bare",
             ]}
           >
-            <SlideBlock blocks={slide.blocks ?? []} />
+            {
+              splitShort ? (
+                <>
+                  <div class="slide-body__complements space-y-3">
+                    <SlideBlock blocks={complements} />
+                  </div>
+                  <div class="slide-body__short">
+                    <SlideBlock blocks={short} />
+                  </div>
+                </>
+              ) : (
+                <SlideBlock blocks={slide.blocks ?? []} />
+              )
+            }
           </div>
           {index < slides.length - 1 && <div class="slide-divider" aria-hidden="true" />}
         </article>
-      ))
+        );
+      })
     }
     {
       nextLessonHref && (
@@ -91,7 +111,11 @@ const slideVariants = {
   <!-- Escritorio: una slide a la vez -->
   <div class="slide-deck__viewport hidden md:flex" data-active-variant={slides[0]?.variant ?? "content"} aria-live="polite">
     {
-      slides.map((slide, index) => (
+      slides.map((slide, index) => {
+        const splitShort = usesSplitShortLayout(slide.blocks);
+        const { complements, short } = getSplitShortBlocks(slide.blocks);
+
+        return (
         <article
           class:list={[slideVariants[slide.variant ?? "content"], "slide-panel--deck"]}
           data-slide-index={index}
@@ -103,13 +127,27 @@ const slideVariants = {
           {slide.subtitle && <p class="slide-subtitle">{slide.subtitle}</p>}
           <div
             class:list={[
-              "slide-body space-y-4",
-              usesSplitShortLayout(slide.blocks) && "slide-body--split-short",
+              "slide-body",
+              !splitShort && "space-y-4",
+              splitShort && "slide-body--split-short",
               usesSplitSlideLayout(slide.blocks) && "slide-body--split",
               usesBareSlideBody(slide.blocks) && "slide-body--bare",
             ]}
           >
-            <SlideBlock blocks={slide.blocks ?? []} />
+            {
+              splitShort ? (
+                <>
+                  <div class="slide-body__complements space-y-3">
+                    <SlideBlock blocks={complements} />
+                  </div>
+                  <div class="slide-body__short">
+                    <SlideBlock blocks={short} />
+                  </div>
+                </>
+              ) : (
+                <SlideBlock blocks={slide.blocks ?? []} />
+              )
+            }
           </div>
           {
             index === slides.length - 1 && nextLessonHref && (
@@ -123,7 +161,8 @@ const slideVariants = {
             )
           }
         </article>
-      ))
+        );
+      })
     }
   </div>
 

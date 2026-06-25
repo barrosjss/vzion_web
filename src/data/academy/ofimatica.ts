@@ -923,6 +923,37 @@ export const ofimaticaCourse: Course = {
             },
             {
               variant: "content",
+              title: "BUSCARV — demostración",
+              blocks: [
+                {
+                  type: "paragraph",
+                  text: "En este video se aplica BUSCARV con el mismo escenario del ejemplo: un código en la hoja de ventas y el precio que se trae desde el catálogo. Observa dónde se escribe la fórmula y cómo se arrastra.",
+                },
+                {
+                  type: "list",
+                  style: "numbered",
+                  items: [
+                    "Identifica la celda con el código a buscar (columna A)",
+                    "Fíjate en el rango del catálogo que se referencia",
+                    "Comprueba que la columna 3 devuelve el precio correcto",
+                    "Arrastra la fórmula hacia abajo para completar el pedido",
+                  ],
+                },
+                {
+                  type: "callout",
+                  variant: "tip",
+                  text: "Pausa el video en la barra de fórmulas y repite los pasos en tu archivo con las tablas que copiaste en la slide anterior.",
+                },
+                {
+                  type: "youtube",
+                  videoId: "DnYbcfWtCDc",
+                  title: "BUSCARV en Excel — demostración",
+                  short: true,
+                },
+              ],
+            },
+            {
+              variant: "content",
               title: "BUSCARH — ¿para qué sirve?",
               blocks: [
                 {
@@ -994,6 +1025,18 @@ export const ofimaticaCourse: Course = {
               ],
             },
             {
+              variant: "content",
+              title: "BUSCARH — demostración",
+              subtitle: "Video: aplicación paso a paso de la búsqueda horizontal en Excel",
+              blocks: [
+                {
+                  type: "youtube",
+                  videoId: "T2NcbRLtdk0",
+                  title: "BUSCARH en Excel — demostración",
+                },
+              ],
+            },
+            {
               variant: "summary",
               title: "Resumen",
               blocks: [
@@ -1021,21 +1064,340 @@ export const ofimaticaCourse: Course = {
             {
               variant: "cover",
               eyebrow: "Módulo avanzado · Día 2",
-              title: "INDICE + COINCIDIR",
-              subtitle: "Más flexible que BUSCARV para búsquedas en cualquier dirección",
+              title: "INDICE + COINCIDIR y funciones condicionales",
+              subtitle: "Búsqueda flexible en cualquier dirección y cálculos con criterios",
             },
             {
               variant: "content",
-              title: "Por qué INDICE + COINCIDIR",
+              title: "¿Por qué INDICE + COINCIDIR?",
               blocks: [
                 {
                   type: "paragraph",
-                  text: "A diferencia de BUSCARV, no exige que el valor buscado esté en la primera columna. Puedes buscar hacia la izquierda o en tablas más complejas.",
+                  text: "BUSCARV solo busca hacia la derecha y exige que el valor esté en la primera columna. Cuando necesitas traer un dato a la izquierda del criterio o trabajar con tablas más flexibles, combinas COINCIDIR (encuentra la posición) con INDICE (devuelve el valor de esa fila o columna).",
+                },
+                {
+                  type: "code",
+                  language: "excel",
+                  code: "=INDICE(rango_resultado; COINCIDIR(valor_buscado; rango_búsqueda; 0))",
+                },
+                {
+                  type: "paragraph",
+                  text: "Útil en nómina (buscar por nombre y traer cédula), inventarios (buscar producto y traer código) o reportes donde el criterio no está siempre a la izquierda.",
+                },
+              ],
+            },
+            {
+              variant: "content",
+              title: "INDICE + COINCIDIR — ¿para qué sirve?",
+              blocks: [
+                {
+                  type: "paragraph",
+                  text: "COINCIDIR localiza en qué fila (o columna) está un valor. INDICE lee el dato que necesitas de esa misma posición. Juntas sustituyen a BUSCARV cuando la columna que quieres devolver queda a la izquierda del criterio.",
+                },
+                {
+                  type: "code",
+                  language: "excel",
+                  code: "=COINCIDIR(valor_buscado; rango_búsqueda; [tipo_coincidencia])",
+                },
+                {
+                  type: "code",
+                  language: "excel",
+                  code: "=INDICE(rango; número_fila; [número_columna])",
+                },
+                {
+                  type: "quote",
+                  text: "«Sé el nombre del producto y quiero que Excel me devuelva su código, que está en una columna a la izquierda — BUSCARV no puede hacerlo.»",
+                },
+              ],
+            },
+            {
+              variant: "content",
+              title: "INDICE + COINCIDIR — puntos clave",
+              blocks: [
+                {
+                  type: "list",
+                  style: "numbered",
+                  items: [
+                    "COINCIDIR con 0 busca coincidencia exacta — la más usada en trabajo",
+                    "El rango de INDICE y el de COINCIDIR deben tener el mismo número de filas",
+                    "INDICE puede devolver una celda de cualquier columna, no solo las de la derecha",
+                    "Si COINCIDIR no encuentra el valor, devuelve #N/D antes de que INDICE falle",
+                  ],
+                },
+                {
+                  type: "callout",
+                  variant: "tip",
+                  text: "Piensa en dos pasos: primero «¿en qué fila está?» (COINCIDIR), luego «¿qué dato de esa fila necesito?» (INDICE).",
+                },
+              ],
+            },
+            {
+              variant: "practice",
+              title: "INDICE + COINCIDIR — ejemplo práctico",
+              blocks: [
+                {
+                  type: "paragraph",
+                  text: "El catálogo tiene el código a la izquierda y el producto en el centro. Queremos buscar «Bolígrafo» y traer su código — algo que BUSCARV no puede hacer. Copia la tabla y pega la fórmula en la celda resaltada.",
+                },
+                {
+                  type: "spreadsheet",
+                  title: "Hoja «Catálogo»",
+                  headers: ["Código", "Producto", "Precio"],
+                  rows: [
+                    ["P001", "Cuaderno", "4500"],
+                    ["P002", "Bolígrafo", "1200"],
+                    ["P003", "Marcador", "2800"],
+                    ["", "", ""],
+                  ],
+                  highlights: [{ row: 3, col: 0 }],
+                  copyLabel: "Copiar catálogo",
+                  caption: "Pega en A1. La celda resaltada (A5) es donde va el resultado de la fórmula.",
+                },
+                {
+                  type: "code",
+                  language: "excel",
+                  code: "=INDICE(A2:A4;COINCIDIR(\"Bolígrafo\";B2:B4;0))",
+                },
+                {
+                  type: "callout",
+                  variant: "tip",
+                  text: "En clase: el resultado en A5 debe ser P002. Cambia «Bolígrafo» por «Marcador» en la fórmula y verifica que devuelve P003.",
+                },
+              ],
+            },
+            {
+              variant: "content",
+              title: "Funciones condicionales — ¿para qué sirven?",
+              blocks: [
+                {
+                  type: "paragraph",
+                  text: "Cuando necesitas sumar, contar o promediar solo los registros que cumplen una condición — una región, un vendedor, un rango de fechas — sin filtrar manualmente ni crear tablas auxiliares.",
                 },
                 {
                   type: "list",
                   style: "bullet",
-                  items: ["SUMAR.SI — suma solo las celdas que cumplen un criterio", "CONTAR.SI — cuenta cuántas veces aparece un valor", "PROMEDIO.SI — promedio condicionado"],
+                  items: [
+                    "SUMAR.SI — suma valores que cumplen un criterio",
+                    "CONTAR.SI — cuenta cuántas celdas cumplen un criterio",
+                    "PROMEDIO.SI — calcula el promedio de los valores que cumplen un criterio",
+                  ],
+                },
+                {
+                  type: "paragraph",
+                  text: "Aparecen en reportes de ventas por zona, control de asistencia, inventario por categoría y cualquier tabla donde el análisis depende de un filtro.",
+                },
+              ],
+            },
+            {
+              variant: "content",
+              title: "SUMAR.SI — ¿para qué sirve?",
+              blocks: [
+                {
+                  type: "paragraph",
+                  text: "Suma los valores de un rango solo cuando otra columna cumple el criterio que defines. Es la función condicional más usada en informes comerciales y financieros.",
+                },
+                {
+                  type: "code",
+                  language: "excel",
+                  code: "=SUMAR.SI(rango_criterio; criterio; [rango_suma])",
+                },
+                {
+                  type: "quote",
+                  text: "«Quiero el total de ventas de la región Norte sin sumar manualmente fila por fila.»",
+                },
+              ],
+            },
+            {
+              variant: "content",
+              title: "SUMAR.SI — puntos clave",
+              blocks: [
+                {
+                  type: "list",
+                  style: "numbered",
+                  items: [
+                    "El criterio puede ser texto entre comillas, un número o una celda de referencia",
+                    "Si omites rango_suma, Excel suma el mismo rango_criterio",
+                    "Usa comodines: «Norte*» incluye Norte, Noreste, etc.",
+                    "Para varios criterios a la vez necesitas SUMAR.SI.CONJUNTO",
+                  ],
+                },
+                {
+                  type: "callout",
+                  variant: "note",
+                  text: "El criterio y los rangos deben tener el mismo tamaño cuando usas rango_suma separado.",
+                },
+              ],
+            },
+            {
+              variant: "practice",
+              title: "SUMAR.SI — ejemplo práctico",
+              blocks: [
+                {
+                  type: "paragraph",
+                  text: "Tabla de ventas por vendedor y región. Copia los datos y calcula el total vendido solo en la región Norte.",
+                },
+                {
+                  type: "spreadsheet",
+                  title: "Hoja «Ventas»",
+                  headers: ["Vendedor", "Región", "Venta"],
+                  rows: [
+                    ["Ana", "Norte", "1200"],
+                    ["Luis", "Sur", "850"],
+                    ["María", "Norte", "1500"],
+                    ["Pedro", "Norte", "920"],
+                  ],
+                  highlights: [{ row: 0, col: 1 }, { row: 2, col: 1 }, { row: 3, col: 1 }],
+                  copyLabel: "Copiar ventas",
+                  caption: "Pega en A1. Las celdas resaltadas son las filas que debe incluir la suma.",
+                },
+                {
+                  type: "code",
+                  language: "excel",
+                  code: "=SUMAR.SI(B2:B5;\"Norte\";C2:C5)",
+                },
+                {
+                  type: "callout",
+                  variant: "tip",
+                  text: "El resultado esperado es 3620. Prueba cambiar el criterio a «Sur» y verifica que devuelve 850.",
+                },
+              ],
+            },
+            {
+              variant: "content",
+              title: "CONTAR.SI — ¿para qué sirve?",
+              blocks: [
+                {
+                  type: "paragraph",
+                  text: "Cuenta cuántas celdas de un rango cumplen un criterio. No suma valores: solo responde «¿cuántas veces aparece o se cumple esta condición?».",
+                },
+                {
+                  type: "code",
+                  language: "excel",
+                  code: "=CONTAR.SI(rango; criterio)",
+                },
+                {
+                  type: "quote",
+                  text: "«¿Cuántos pedidos se hicieron en la región Norte? No me importa el monto, solo la cantidad de registros.»",
+                },
+              ],
+            },
+            {
+              variant: "content",
+              title: "CONTAR.SI — puntos clave",
+              blocks: [
+                {
+                  type: "list",
+                  style: "numbered",
+                  items: [
+                    "Solo necesitas un rango y un criterio — más simple que SUMAR.SI",
+                    "Cuenta celdas con texto, números o fechas que coincidan",
+                    "Para contar celdas no vacías usa CONTAR, no CONTAR.SI",
+                    "Combina con SUMAR.SI para informes: cuántos + cuánto vendieron",
+                  ],
+                },
+                {
+                  type: "callout",
+                  variant: "tip",
+                  text: "CONTAR.SI(B2:B5;\"Norte\") sobre la tabla de ventas devuelve 3 registros.",
+                },
+              ],
+            },
+            {
+              variant: "content",
+              title: "PROMEDIO.SI — ¿para qué sirve?",
+              blocks: [
+                {
+                  type: "paragraph",
+                  text: "Calcula el promedio de un rango numérico solo para las filas que cumplen un criterio. Combina la lógica de SUMAR.SI con un promedio automático.",
+                },
+                {
+                  type: "code",
+                  language: "excel",
+                  code: "=PROMEDIO.SI(rango_criterio; criterio; [rango_promedio])",
+                },
+                {
+                  type: "quote",
+                  text: "«¿Cuál fue el ticket promedio de venta en la región Norte?»",
+                },
+              ],
+            },
+            {
+              variant: "content",
+              title: "PROMEDIO.SI — puntos clave",
+              blocks: [
+                {
+                  type: "list",
+                  style: "numbered",
+                  items: [
+                    "Misma estructura que SUMAR.SI: criterio + rango de valores a promediar",
+                    "Ignora filas que no cumplen el criterio, no las cuenta como cero",
+                    "Si ninguna fila cumple, devuelve #DIV/0!",
+                    "Útil para KPIs: venta promedio por zona, nota promedio por curso",
+                  ],
+                },
+                {
+                  type: "callout",
+                  variant: "note",
+                  text: "Sobre la tabla de ventas, PROMEDIO.SI(B2:B5;\"Norte\";C2:C5) da aproximadamente 1206,67.",
+                },
+              ],
+            },
+            {
+              variant: "practice",
+              title: "Funciones condicionales — ejemplo integrado",
+              blocks: [
+                {
+                  type: "paragraph",
+                  text: "Con la misma tabla de ventas, escribe las tres fórmulas en celdas libres para comparar resultados: cuánto suma, cuántos registros y cuál es el promedio en la región Norte.",
+                },
+                {
+                  type: "spreadsheet",
+                  title: "Hoja «Ventas» (reutilizar o copiar de nuevo)",
+                  headers: ["Vendedor", "Región", "Venta"],
+                  rows: [
+                    ["Ana", "Norte", "1200"],
+                    ["Luis", "Sur", "850"],
+                    ["María", "Norte", "1500"],
+                    ["Pedro", "Norte", "920"],
+                  ],
+                  copyLabel: "Copiar ventas",
+                  caption: "Pega en A1 si no tienes la tabla de la slide anterior.",
+                },
+                {
+                  type: "code",
+                  language: "excel",
+                  code: "=SUMAR.SI(B2:B5;\"Norte\";C2:C5)",
+                },
+                {
+                  type: "code",
+                  language: "excel",
+                  code: "=CONTAR.SI(B2:B5;\"Norte\")",
+                },
+                {
+                  type: "code",
+                  language: "excel",
+                  code: "=PROMEDIO.SI(B2:B5;\"Norte\";C2:C5)",
+                },
+                {
+                  type: "callout",
+                  variant: "tip",
+                  text: "En clase: coloca las tres fórmulas en E2, E3 y E4. Resultados esperados: 3620 · 3 · 1206,67.",
+                },
+              ],
+            },
+            {
+              variant: "summary",
+              title: "Resumen",
+              blocks: [
+                {
+                  type: "list",
+                  style: "check",
+                  items: [
+                    "INDICE + COINCIDIR busca en cualquier dirección, no solo hacia la derecha",
+                    "COINCIDIR encuentra la posición; INDICE devuelve el valor de esa fila",
+                    "SUMAR.SI, CONTAR.SI y PROMEDIO.SI analizan datos con criterios",
+                    "Copia las tablas y fórmulas de los ejemplos para practicar en vivo",
+                  ],
                 },
               ],
             },
