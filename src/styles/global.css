@@ -363,6 +363,31 @@
     @apply mt-2 max-w-md font-mono text-[11px] leading-relaxed text-text-dim;
   }
 
+  .slide-youtube {
+    @apply mx-auto w-full max-w-3xl overflow-hidden rounded-2xl border border-white/10 bg-surface-card;
+  }
+
+  .slide-youtube--short {
+    @apply max-w-sm;
+  }
+
+  .slide-youtube__frame {
+    @apply relative w-full overflow-hidden bg-black;
+    aspect-ratio: 16 / 9;
+  }
+
+  .slide-youtube--short .slide-youtube__frame {
+    aspect-ratio: 9 / 16;
+  }
+
+  .slide-youtube__frame iframe {
+    @apply absolute inset-0 h-full w-full border-0;
+  }
+
+  .slide-youtube__caption {
+    @apply border-t border-white/8 px-4 py-3 text-sm leading-relaxed text-text-muted sm:px-5;
+  }
+
   @keyframes slide-in {
     from {
       opacity: 0;

@@ -161,6 +161,25 @@ const boxStyles = {
       );
     }
 
+    if (block.type === "youtube") {
+      const embedTitle = block.title ?? "Video de YouTube";
+      return (
+        <figure class:list={["slide-youtube", block.short && "slide-youtube--short"]}>
+          <div class="slide-youtube__frame">
+            <iframe
+              src={`https://www.youtube.com/embed/${block.videoId}`}
+              title={embedTitle}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+              loading="lazy"
+              referrerpolicy="strict-origin-when-cross-origin"
+            />
+          </div>
+          {block.caption && <figcaption class="slide-youtube__caption">{block.caption}</figcaption>}
+        </figure>
+      );
+    }
+
     return null;
   })
 }

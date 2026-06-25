@@ -601,9 +601,10 @@ export const ofimaticaCourse: Course = {
                   text: "En la parte superior, la cinta agrupa comandos en pestañas: Inicio, Insertar, Diseño de página, Fórmulas, Datos, Revisar, Vista.",
                 },
                 {
-                  type: "imagePlaceholder",
-                  label: "Captura de la cinta de opciones de Excel (pestaña Inicio)",
-                  note: "Pendiente: imagen de la cinta con las pestañas principales señaladas.",
+                  type: "figure",
+                  src: "/academy/ofimatica/excel/cinta-opciones.png",
+                  alt: "Cinta de opciones de Excel con pestañas, grupos e indicador de cuadro de diálogo señalados",
+                  caption: "Pestañas (arriba), grupos de comandos (por ejemplo Estilos) e indicador de cuadro de diálogo (esquina del grupo Alineación).",
                 },
                 {
                   type: "list",
@@ -626,9 +627,10 @@ export const ofimaticaCourse: Course = {
                   text: "La cuadrícula central es donde trabajas. Las filas van numeradas y las columnas con letras. Abajo están las pestañas de cada hoja.",
                 },
                 {
-                  type: "imagePlaceholder",
-                  label: "Captura del área de trabajo: cuadrícula, filas, columnas y pestañas de hojas",
-                  note: "Pendiente: imagen anotada señalando cuadrícula y pestañas inferiores.",
+                  type: "figure",
+                  src: "/academy/ofimatica/excel/area-trabajo.png",
+                  alt: "Área de trabajo de Excel con la hoja de cálculo, barras de desplazamiento y pestañas de hojas señaladas",
+                  caption: "La hoja de cálculo (cuadrícula central), las barras de desplazamiento y las hojas del libro en la parte inferior.",
                 },
                 {
                   type: "callout",
@@ -646,9 +648,10 @@ export const ofimaticaCourse: Course = {
                   text: "Justo debajo de la cinta: el cuadro de nombre muestra la celda seleccionada y la barra de fórmulas permite editar su contenido.",
                 },
                 {
-                  type: "imagePlaceholder",
-                  label: "Captura de la barra de fórmulas y el cuadro de nombre (fx)",
-                  note: "Pendiente: imagen señalando cuadro de nombre, barra de fórmulas y botón fx.",
+                  type: "figure",
+                  src: "/academy/ofimatica/excel/barra-formulas.png",
+                  alt: "Barra de fórmulas de Excel con el cuadro de nombre, botones Cancelar, Aceptar y fx resaltados",
+                  caption: "Cuadro de nombre (celda activa), botones de edición y barra de fórmulas, justo debajo de la cinta.",
                 },
                 {
                   type: "callout",
@@ -697,128 +700,19 @@ export const ofimaticaCourse: Course = {
           id: "interfaz-sheets",
           n: "07",
           title: "Google Sheets: interfaz y uso",
-          duration: "50 min",
-          summary: "Hojas de cálculo en la nube, colaboración y diferencias con Excel.",
+          duration: "10 min",
+          summary: "Video: interfaz de Google Sheets y uso básico en la nube.",
           slides: [
             {
-              variant: "cover",
+              variant: "content",
               eyebrow: "Clase 07 · Hojas de cálculo",
-              title: "Google Sheets",
+              title: "Google Sheets: interfaz y uso",
               subtitle: "Hojas de cálculo en la nube con colaboración en tiempo real",
-            },
-            {
-              variant: "content",
-              title: "¿Qué es Google Sheets?",
               blocks: [
                 {
-                  type: "paragraph",
-                  text: "Google Sheets (Hojas de cálculo de Google) es la alternativa en la nube de Excel. Funciona en el navegador y se integra con Gmail y Google Drive.",
-                },
-                {
-                  type: "columns",
-                  cols: 2,
-                  columns: [
-                    [
-                      { type: "heading", text: "Ventajas", level: 3 },
-                      {
-                        type: "list",
-                        style: "check",
-                        items: [
-                          "Gratis con cuenta Google",
-                          "Varias personas editan a la vez",
-                          "Historial de versiones automático",
-                          "Acceso desde cualquier dispositivo",
-                        ],
-                      },
-                    ],
-                    [
-                      { type: "heading", text: "vs. Excel", level: 3 },
-                      {
-                        type: "list",
-                        style: "bullet",
-                        items: [
-                          "Menos funciones avanzadas que Excel de escritorio",
-                          "Requiere internet (modo sin conexión limitado)",
-                          "Muchas fórmulas son compatibles (SUMA, SI, BUSCARV)",
-                        ],
-                      },
-                    ],
-                  ],
-                },
-              ],
-            },
-            {
-              variant: "content",
-              title: "Interfaz de Google Sheets",
-              blocks: [
-                {
-                  type: "paragraph",
-                  text: "La interfaz es muy parecida a Excel: menú arriba, barra de herramientas, cuadrícula central y pestañas de hojas abajo.",
-                },
-                {
-                  type: "imagePlaceholder",
-                  label: "Captura de la interfaz de Google Sheets en el navegador",
-                  note: "Pendiente: imagen señalando menú, barra de herramientas, cuadrícula, pestañas y botón Compartir.",
-                },
-                {
-                  type: "list",
-                  style: "bullet",
-                  items: [
-                    "Menú — Archivo, Editar, Ver, Insertar, Formato, Datos, Herramientas",
-                    "Barra de herramientas — formato y funciones frecuentes",
-                    "Cuadrícula — filas, columnas y celdas (A1, B2…)",
-                    "Compartir — arriba a la derecha, clave para trabajo en equipo",
-                  ],
-                },
-              ],
-            },
-            {
-              variant: "content",
-              title: "Colaboración en la nube",
-              blocks: [
-                {
-                  type: "paragraph",
-                  text: "Al compartir una hoja puedes dar permiso de lectura, comentario o edición. Los cambios se ven al instante y cada colaborador tiene un color de cursor distinto.",
-                },
-                {
-                  type: "imagePlaceholder",
-                  label: "Captura del diálogo Compartir de Google Sheets",
-                  note: "Pendiente: imagen del botón Compartir y opciones de permiso (ver, comentar, editar).",
-                },
-                {
-                  type: "callout",
-                  variant: "tip",
-                  text: "Usa comentarios (@nombre) para pedir revisiones sin editar la celda directamente.",
-                },
-                {
-                  type: "boxes",
-                  items: [
-                    {
-                      variant: "brand",
-                      title: "Caso real",
-                      blocks: [
-                        {
-                          type: "paragraph",
-                          text: "Un equipo de ventas actualiza el mismo archivo de pedidos desde distintas sedes. Todos ven los mismos datos sin enviar adjuntos por correo.",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            },
-            {
-              variant: "summary",
-              title: "Resumen",
-              blocks: [
-                {
-                  type: "list",
-                  style: "check",
-                  items: [
-                    "Google Sheets es la hoja de cálculo de Google Workspace",
-                    "La interfaz es familiar si ya conoces Excel",
-                    "Compartir y colaborar en tiempo real es su mayor fortaleza",
-                  ],
+                  type: "youtube",
+                  videoId: "OsaLaWErpRw",
+                  title: "Google Sheets: interfaz y uso",
                 },
               ],
             },
@@ -828,123 +722,20 @@ export const ofimaticaCourse: Course = {
           id: "sheets-movil",
           n: "08",
           title: "Google Sheets desde el móvil",
-          duration: "40 min",
-          summary: "App móvil, edición táctil, compartir y buenas prácticas en pantalla pequeña.",
+          duration: "5 min",
+          summary: "Video corto: Google Sheets en celular y tablet.",
           slides: [
             {
-              variant: "cover",
+              variant: "content",
               eyebrow: "Clase 08 · Hojas de cálculo",
-              title: "Google Sheets en móvil",
+              title: "Google Sheets desde el móvil",
               subtitle: "Consulta y edita tus hojas desde el celular o la tablet",
-            },
-            {
-              variant: "content",
-              title: "Instalar y abrir",
               blocks: [
                 {
-                  type: "list",
-                  style: "numbered",
-                  items: [
-                    "Descarga «Google Sheets» en App Store o Google Play",
-                    "Inicia sesión con tu cuenta Google",
-                    "Tus archivos de Drive aparecen listados; también puedes abrir enlaces compartidos",
-                  ],
-                },
-                {
-                  type: "imagePlaceholder",
-                  label: "Captura de la app Google Sheets en el celular (pantalla de inicio)",
-                  note: "Pendiente: imagen de la lista de archivos en la app móvil.",
-                },
-                {
-                  type: "callout",
-                  variant: "note",
-                  text: "Si no tienes la app, puedes usar sheets.google.com en el navegador del móvil.",
-                },
-              ],
-            },
-            {
-              variant: "content",
-              title: "Navegar y editar",
-              blocks: [
-                {
-                  type: "imagePlaceholder",
-                  label: "Captura de edición de celda en Google Sheets móvil",
-                  note: "Pendiente: imagen mostrando selección de celda, teclado y botón fx.",
-                },
-                {
-                  type: "list",
-                  style: "bullet",
-                  items: [
-                    "Toca una celda para activarla; doble toque para editar",
-                    "El teclado aparece al editar; el botón fx abre funciones",
-                    "Pellizca para acercar columnas estrechas o texto pequeño",
-                    "Icono de pestañas abajo para cambiar de hoja",
-                  ],
-                },
-              ],
-            },
-            {
-              variant: "content",
-              title: "Compartir desde el móvil",
-              blocks: [
-                {
-                  type: "imagePlaceholder",
-                  label: "Captura del menú Compartir en Google Sheets móvil",
-                  note: "Pendiente: imagen del menú ⋮ → Compartir y exportar.",
-                },
-                {
-                  type: "list",
-                  style: "bullet",
-                  items: [
-                    "Toca los tres puntos ⋮ → Compartir y exportar → Compartir",
-                    "Elige contactos o copia el enlace",
-                    "Define si pueden ver, comentar o editar",
-                    "Activa «Acceso sin conexión» para editar sin internet (se sincroniza después)",
-                  ],
-                },
-                {
-                  type: "callout",
-                  variant: "warning",
-                  text: "En pantalla pequeña evita tablas muy anchas; prioriza columnas esenciales o usa vista horizontal.",
-                },
-              ],
-            },
-            {
-              variant: "content",
-              title: "Buenas prácticas móvil",
-              blocks: [
-                {
-                  type: "boxes",
-                  items: [
-                    {
-                      title: "Consultar",
-                      blocks: [{ type: "paragraph", text: "Ideal para revisar cifras, marcar asistencia o verificar un dato en reunión." }],
-                    },
-                    {
-                      title: "Editar ligero",
-                      blocks: [{ type: "paragraph", text: "Corregir un valor, agregar una fila o dejar un comentario." }],
-                    },
-                    {
-                      variant: "warning",
-                      title: "Evitar",
-                      blocks: [{ type: "paragraph", text: "Diseñar tablas complejas o fórmulas largas; mejor en computador." }],
-                    },
-                  ],
-                },
-              ],
-            },
-            {
-              variant: "summary",
-              title: "Resumen",
-              blocks: [
-                {
-                  type: "list",
-                  style: "check",
-                  items: [
-                    "La app de Sheets sincroniza con Drive y la versión web",
-                    "Toca, edita y comparte desde cualquier lugar",
-                    "Usa el móvil para consultas rápidas; el PC para trabajo pesado",
-                  ],
+                  type: "youtube",
+                  videoId: "h8C8KhGRJBI",
+                  title: "Google Sheets desde el móvil",
+                  short: true,
                 },
               ],
             },

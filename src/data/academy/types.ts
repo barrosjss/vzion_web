@@ -23,7 +23,8 @@ export type SlideBlock =
       }[];
     }
   | { type: "figure"; src: string; alt: string; caption?: string }
-  | { type: "imagePlaceholder"; label: string; note?: string };
+  | { type: "imagePlaceholder"; label: string; note?: string }
+  | { type: "youtube"; videoId: string; title?: string; caption?: string; short?: boolean };
 
 export type Slide = {
   variant?: "cover" | "content" | "summary" | "practice";
