@@ -474,27 +474,91 @@ export const ofimaticaCourse: Course = {
               title: "Conceptos básicos",
               blocks: [
                 {
-                  type: "boxes",
+                  type: "paragraph",
+                  text: "Excel organiza la información en tres niveles: el libro (el archivo), las hojas (pestañas dentro del archivo) y las celdas (cada casilla de la cuadrícula).",
+                },
+                {
+                  type: "list",
+                  style: "numbered",
                   items: [
-                    {
-                      variant: "brand",
-                      title: "Libro",
-                      blocks: [{ type: "paragraph", text: "El archivo completo (.xlsx). Puede tener varias hojas." }],
-                    },
-                    {
-                      title: "Hoja",
-                      blocks: [{ type: "paragraph", text: "Cada pestaña inferior (Hoja1, Ventas, Gastos…)." }],
-                    },
-                    {
-                      title: "Celda",
-                      blocks: [{ type: "paragraph", text: "La intersección de fila y columna. Ejemplo: A1, B5, C10." }],
-                    },
+                    "Libro — el archivo .xlsx que guardas en tu computador",
+                    "Hoja — cada pestaña dentro del libro",
+                    "Celda — la intersección de una columna y una fila",
+                  ],
+                },
+              ],
+            },
+            {
+              variant: "content",
+              title: "El libro",
+              blocks: [
+                {
+                  type: "paragraph",
+                  text: "El libro es el archivo completo de Excel. Arriba verás su nombre — por ejemplo «Libro1.xlsx» — antes de guardarlo por primera vez.",
+                },
+                {
+                  type: "figure",
+                  src: "/academy/ofimatica/excel/libro.png",
+                  alt: "Barra de título de Excel resaltando el nombre del archivo Libro1",
+                  caption: "El nombre del archivo en la barra superior es tu libro de trabajo. Un mismo libro puede contener varias hojas.",
+                },
+              ],
+            },
+            {
+              variant: "content",
+              title: "Las hojas",
+              blocks: [
+                {
+                  type: "paragraph",
+                  text: "Cada hoja es una pestaña en la parte inferior. Puedes tener una sola hoja o varias — por ejemplo Ventas, Gastos, Inventario — dentro del mismo libro.",
+                },
+                {
+                  type: "columns",
+                  cols: 2,
+                  columns: [
+                    [
+                      {
+                        type: "figure",
+                        src: "/academy/ofimatica/excel/hoja-una.png",
+                        alt: "Pestaña Hoja1 resaltada en la parte inferior de Excel",
+                        caption: "Un libro con una hoja: la pestaña «Hoja1».",
+                      },
+                    ],
+                    [
+                      {
+                        type: "figure",
+                        src: "/academy/ofimatica/excel/hoja-varias.png",
+                        alt: "Pestañas Hoja1 y Hoja2 en Excel, con Hoja2 activa",
+                        caption: "Un libro con varias hojas: cambias de pestaña para ver cada una.",
+                      },
+                    ],
                   ],
                 },
                 {
-                  type: "code",
-                  language: "excel",
-                  code: "A1 → columna A, fila 1\nB3 → columna B, fila 3\nHoja1!C2 → celda C2 en la hoja «Hoja1»",
+                  type: "callout",
+                  variant: "tip",
+                  text: "El botón + junto a las pestañas sirve para agregar una hoja nueva.",
+                },
+              ],
+            },
+            {
+              variant: "content",
+              title: "La celda",
+              blocks: [
+                {
+                  type: "paragraph",
+                  text: "La celda es cada casilla de la cuadrícula. Se identifica con la letra de la columna y el número de la fila — por ejemplo C5 es columna C, fila 5.",
+                },
+                {
+                  type: "figure",
+                  src: "/academy/ofimatica/excel/celda.png",
+                  alt: "Celda C5 seleccionada en Excel con el cuadro de nombre mostrando C5",
+                  caption: "La celda activa tiene borde verde. El cuadro de nombre (arriba a la izquierda) muestra su dirección — aquí: C5.",
+                },
+                {
+                  type: "callout",
+                  variant: "note",
+                  text: "Para referirte a una celda en otra hoja escribes: Hoja1!C2 (celda C2 en la hoja «Hoja1»).",
                 },
               ],
             },
@@ -537,6 +601,11 @@ export const ofimaticaCourse: Course = {
                   text: "En la parte superior, la cinta agrupa comandos en pestañas: Inicio, Insertar, Diseño de página, Fórmulas, Datos, Revisar, Vista.",
                 },
                 {
+                  type: "imagePlaceholder",
+                  label: "Captura de la cinta de opciones de Excel (pestaña Inicio)",
+                  note: "Pendiente: imagen de la cinta con las pestañas principales señaladas.",
+                },
+                {
                   type: "list",
                   style: "bullet",
                   items: [
@@ -553,24 +622,13 @@ export const ofimaticaCourse: Course = {
               title: "Área de trabajo",
               blocks: [
                 {
-                  type: "columns",
-                  cols: 2,
-                  columns: [
-                    [
-                      { type: "heading", text: "Cuadrícula", level: 3 },
-                      {
-                        type: "paragraph",
-                        text: "Filas numeradas (1, 2, 3…) y columnas con letras (A, B, C…). Haz clic en una celda para seleccionarla.",
-                      },
-                    ],
-                    [
-                      { type: "heading", text: "Pestañas de hojas", level: 3 },
-                      {
-                        type: "paragraph",
-                        text: "Abajo puedes cambiar de hoja, renombrar con doble clic y agregar hojas con el botón +.",
-                      },
-                    ],
-                  ],
+                  type: "paragraph",
+                  text: "La cuadrícula central es donde trabajas. Las filas van numeradas y las columnas con letras. Abajo están las pestañas de cada hoja.",
+                },
+                {
+                  type: "imagePlaceholder",
+                  label: "Captura del área de trabajo: cuadrícula, filas, columnas y pestañas de hojas",
+                  note: "Pendiente: imagen anotada señalando cuadrícula y pestañas inferiores.",
                 },
                 {
                   type: "callout",
@@ -585,17 +643,17 @@ export const ofimaticaCourse: Course = {
               blocks: [
                 {
                   type: "paragraph",
-                  text: "Justo debajo de la cinta: muestra el contenido de la celda seleccionada y permite editar fórmulas largas con comodidad.",
+                  text: "Justo debajo de la cinta: el cuadro de nombre muestra la celda seleccionada y la barra de fórmulas permite editar su contenido.",
                 },
                 {
-                  type: "code",
-                  language: "excel",
-                  code: "=SUMA(A1:A10)\n=SI(B2>=70,\"Aprobado\",\"Reprobado\")",
+                  type: "imagePlaceholder",
+                  label: "Captura de la barra de fórmulas y el cuadro de nombre (fx)",
+                  note: "Pendiente: imagen señalando cuadro de nombre, barra de fórmulas y botón fx.",
                 },
                 {
                   type: "callout",
                   variant: "note",
-                  text: "Toda fórmula en Excel empieza con el signo = (igual).",
+                  text: "Toda fórmula en Excel empieza con el signo = (igual). Ejemplo: =SUMA(A1:A10)",
                 },
               ],
             },
@@ -694,14 +752,22 @@ export const ofimaticaCourse: Course = {
               title: "Interfaz de Google Sheets",
               blocks: [
                 {
+                  type: "paragraph",
+                  text: "La interfaz es muy parecida a Excel: menú arriba, barra de herramientas, cuadrícula central y pestañas de hojas abajo.",
+                },
+                {
+                  type: "imagePlaceholder",
+                  label: "Captura de la interfaz de Google Sheets en el navegador",
+                  note: "Pendiente: imagen señalando menú, barra de herramientas, cuadrícula, pestañas y botón Compartir.",
+                },
+                {
                   type: "list",
-                  style: "numbered",
+                  style: "bullet",
                   items: [
-                    "Menú superior — Archivo, Editar, Ver, Insertar, Formato, Datos, Herramientas",
-                    "Barra de herramientas — accesos rápidos a formato y funciones frecuentes",
-                    "Cuadrícula — igual que Excel: filas, columnas y celdas (A1, B2…)",
-                    "Pestañas de hojas — abajo, para organizar por tema o mes",
-                    "Botón Compartir — arriba a la derecha, clave para trabajo en equipo",
+                    "Menú — Archivo, Editar, Ver, Insertar, Formato, Datos, Herramientas",
+                    "Barra de herramientas — formato y funciones frecuentes",
+                    "Cuadrícula — filas, columnas y celdas (A1, B2…)",
+                    "Compartir — arriba a la derecha, clave para trabajo en equipo",
                   ],
                 },
               ],
@@ -713,6 +779,11 @@ export const ofimaticaCourse: Course = {
                 {
                   type: "paragraph",
                   text: "Al compartir una hoja puedes dar permiso de lectura, comentario o edición. Los cambios se ven al instante y cada colaborador tiene un color de cursor distinto.",
+                },
+                {
+                  type: "imagePlaceholder",
+                  label: "Captura del diálogo Compartir de Google Sheets",
+                  note: "Pendiente: imagen del botón Compartir y opciones de permiso (ver, comentar, editar).",
                 },
                 {
                   type: "callout",
@@ -780,6 +851,11 @@ export const ofimaticaCourse: Course = {
                   ],
                 },
                 {
+                  type: "imagePlaceholder",
+                  label: "Captura de la app Google Sheets en el celular (pantalla de inicio)",
+                  note: "Pendiente: imagen de la lista de archivos en la app móvil.",
+                },
+                {
                   type: "callout",
                   variant: "note",
                   text: "Si no tienes la app, puedes usar sheets.google.com en el navegador del móvil.",
@@ -791,12 +867,18 @@ export const ofimaticaCourse: Course = {
               title: "Navegar y editar",
               blocks: [
                 {
-                  type: "cards",
+                  type: "imagePlaceholder",
+                  label: "Captura de edición de celda en Google Sheets móvil",
+                  note: "Pendiente: imagen mostrando selección de celda, teclado y botón fx.",
+                },
+                {
+                  type: "list",
+                  style: "bullet",
                   items: [
-                    { icon: "👆", title: "Seleccionar celda", text: "Toca una celda para activarla; doble toque para editar" },
-                    { icon: "⌨️", title: "Teclado", text: "Aparece al editar; el botón fx abre funciones" },
-                    { icon: "🔍", title: "Zoom", text: "Pellizca para acercar columnas estrechas o texto pequeño" },
-                    { icon: "📑", title: "Hojas", text: "Icono de pestañas abajo para cambiar de hoja" },
+                    "Toca una celda para activarla; doble toque para editar",
+                    "El teclado aparece al editar; el botón fx abre funciones",
+                    "Pellizca para acercar columnas estrechas o texto pequeño",
+                    "Icono de pestañas abajo para cambiar de hoja",
                   ],
                 },
               ],
@@ -805,6 +887,11 @@ export const ofimaticaCourse: Course = {
               variant: "content",
               title: "Compartir desde el móvil",
               blocks: [
+                {
+                  type: "imagePlaceholder",
+                  label: "Captura del menú Compartir en Google Sheets móvil",
+                  note: "Pendiente: imagen del menú ⋮ → Compartir y exportar.",
+                },
                 {
                   type: "list",
                   style: "bullet",

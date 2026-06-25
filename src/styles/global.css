@@ -335,6 +335,34 @@
     @apply flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-brand text-xs font-bold text-bg;
   }
 
+  .slide-figure {
+    @apply overflow-hidden rounded-2xl border border-white/10 bg-surface-card;
+  }
+
+  .slide-figure__img {
+    @apply block h-auto w-full;
+  }
+
+  .slide-figure__caption {
+    @apply border-t border-white/8 px-4 py-3 text-sm leading-relaxed text-text-muted sm:px-5;
+  }
+
+  .slide-image-placeholder {
+    @apply flex min-h-[180px] flex-col items-center justify-center rounded-2xl border border-dashed border-brand/35 bg-brand/5 px-6 py-8 text-center;
+  }
+
+  .slide-image-placeholder__icon {
+    @apply mb-3 text-2xl opacity-70;
+  }
+
+  .slide-image-placeholder__label {
+    @apply text-sm font-medium text-text sm:text-base;
+  }
+
+  .slide-image-placeholder__note {
+    @apply mt-2 max-w-md font-mono text-[11px] leading-relaxed text-text-dim;
+  }
+
   @keyframes slide-in {
     from {
       opacity: 0;

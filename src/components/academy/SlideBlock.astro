@@ -142,6 +142,25 @@ const boxStyles = {
       );
     }
 
+    if (block.type === "figure") {
+      return (
+        <figure class="slide-figure">
+          <img src={block.src} alt={block.alt} class="slide-figure__img" loading="lazy" decoding="async" />
+          {block.caption && <figcaption class="slide-figure__caption">{block.caption}</figcaption>}
+        </figure>
+      );
+    }
+
+    if (block.type === "imagePlaceholder") {
+      return (
+        <div class="slide-image-placeholder" role="img" aria-label={block.label}>
+          <span class="slide-image-placeholder__icon" aria-hidden="true">🖼️</span>
+          <p class="slide-image-placeholder__label">{block.label}</p>
+          {block.note && <p class="slide-image-placeholder__note">{block.note}</p>}
+        </div>
+      );
+    }
+
     return null;
   })
 }

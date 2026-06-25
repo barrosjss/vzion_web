@@ -21,7 +21,9 @@ export type SlideBlock =
         title: string;
         blocks: SlideBlock[];
       }[];
-    };
+    }
+  | { type: "figure"; src: string; alt: string; caption?: string }
+  | { type: "imagePlaceholder"; label: string; note?: string };
 
 export type Slide = {
   variant?: "cover" | "content" | "summary" | "practice";
