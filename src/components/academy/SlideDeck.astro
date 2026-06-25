@@ -39,6 +39,7 @@ const slideVariants = {
   data-prev-lesson={prevLessonHref ?? ""}
   data-next-lesson={nextLessonHref ?? ""}
   data-next-lesson-title={nextLessonTitle ?? ""}
+  tabindex="-1"
 >
   <header class="slide-deck__header">
     <a href={courseHref} class="slide-deck__back">
@@ -76,12 +77,13 @@ const slideVariants = {
   </div>
 
   <!-- Escritorio: una slide a la vez -->
-  <div class="slide-deck__viewport hidden md:flex" aria-live="polite">
+  <div class="slide-deck__viewport hidden md:flex" data-active-variant={slides[0]?.variant ?? "content"} aria-live="polite">
     {
       slides.map((slide, index) => (
         <article
           class:list={[slideVariants[slide.variant ?? "content"], "slide-panel--deck"]}
           data-slide-index={index}
+          data-slide-variant={slide.variant ?? "content"}
           hidden={index !== 0}
         >
           {slide.eyebrow && <p class="slide-eyebrow">{slide.eyebrow}</p>}
@@ -90,6 +92,17 @@ const slideVariants = {
           <div class="slide-body space-y-4">
             <SlideBlock blocks={slide.blocks ?? []} />
           </div>
+          {
+            index === slides.length - 1 && nextLessonHref && (
+              <a href={nextLessonHref} class="slide-deck__next-lesson" data-next-lesson-btn>
+                <span class="font-mono text-[10px] uppercase tracking-widest text-text-dim">Siguiente tema</span>
+                <span class="mt-1 flex items-center justify-center gap-2 text-base font-medium text-brand">
+                  {nextLessonTitle}
+                  <span aria-hidden="true">→</span>
+                </span>
+              </a>
+            )
+          }
         </article>
       ))
     }
@@ -112,7 +125,7 @@ const slideVariants = {
 
 <script>
   function initSlideDeck(root: HTMLElement) {
-    const viewport = root.querySelector(".slide-deck__viewport");
+    const viewport = root.querySelector<HTMLElement>(".slide-deck__viewport");
     if (!viewport) return;
 
     const panels = Array.from(viewport.querySelectorAll<HTMLElement>("[data-slide-index]"));
@@ -127,22 +140,51 @@ const slideVariants = {
     const nextLessonTitle = root.dataset.nextLessonTitle || "";
 
     let current = 0;
+    let isNavigating = false;
+
+    function goToNextLesson() {
+      if (!nextLesson || isNavigating) return;
+      isNavigating = true;
+      const url = new URL(nextLesson, window.location.origin);
+      url.searchParams.set("continuar", "1");
+      window.location.assign(url.toString());
+    }
+
+    function goToPrevLesson() {
+      if (!prevLesson || isNavigating) return;
+      isNavigating = true;
+      const url = new URL(prevLesson, window.location.origin);
+      url.searchParams.set("continuar", "final");
+      window.location.assign(url.toString());
+    }
 
     function updateHint() {
       if (!hint) return;
       if (current === total - 1 && nextLesson) {
-        hint.textContent = `→ siguiente tema: ${nextLessonTitle}`;
+        hint.textContent = `→ pasa al siguiente tema: ${nextLessonTitle}`;
       } else if (current === 0 && prevLesson) {
         hint.textContent = "← tema anterior · → o Espacio · siguiente slide";
       } else {
-        hint.textContent = "← → o Espacio para navegar · Inicio / Fin";
+        hint.textContent = "← → o Espacio para navegar";
       }
     }
 
     function show(index: number) {
+      if (index >= total) {
+        goToNextLesson();
+        return;
+      }
+
+      if (index < 0) {
+        goToPrevLesson();
+        return;
+      }
+
       panels[current]?.setAttribute("hidden", "");
-      current = Math.max(0, Math.min(index, total - 1));
-      panels[current]?.removeAttribute("hidden");
+      current = index;
+      const panel = panels[current];
+      panel?.removeAttribute("hidden");
+      viewport.dataset.activeVariant = panel?.dataset.slideVariant ?? "content";
       counter && (counter.textContent = `${current + 1} / ${total}`);
       progressBar && (progressBar.style.width = `${((current + 1) / total) * 100}%`);
       updateHint();
@@ -150,7 +192,7 @@ const slideVariants = {
 
     function next() {
       if (current >= total - 1) {
-        if (nextLesson) window.location.href = nextLesson;
+        goToNextLesson();
         return;
       }
       show(current + 1);
@@ -158,15 +200,16 @@ const slideVariants = {
 
     function prev() {
       if (current <= 0) {
-        if (prevLesson) window.location.href = prevLesson;
+        goToPrevLesson();
         return;
       }
       show(current - 1);
     }
 
-    document.addEventListener("keydown", (event) => {
+    function onKeyDown(event: KeyboardEvent) {
       if (window.matchMedia("(max-width: 767px)").matches) return;
       if (event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement) return;
+      if (event.target instanceof HTMLAnchorElement) return;
 
       if (event.key === "ArrowRight" || event.key === " " || event.key === "PageDown") {
         event.preventDefault();
@@ -178,22 +221,47 @@ const slideVariants = {
       }
       if (event.key === "Home") {
         event.preventDefault();
-        show(0);
+        if (current >= total - 1) goToNextLesson();
+        else show(0);
       }
       if (event.key === "End") {
         event.preventDefault();
         show(total - 1);
       }
-    });
+    }
+
+    document.addEventListener("keydown", onKeyDown);
+    root.focus({ preventScroll: true });
 
     viewport.addEventListener("click", (event) => {
       if (!(event instanceof MouseEvent)) return;
+      root.focus({ preventScroll: true });
+      if ((event.target as HTMLElement).closest("[data-next-lesson-btn]")) return;
       const rect = viewport.getBoundingClientRect();
       if (event.clientX > rect.left + rect.width / 2) next();
       else prev();
     });
 
-    show(0);
+    root.querySelectorAll<HTMLAnchorElement>("[data-next-lesson-btn]").forEach((link) => {
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        goToNextLesson();
+      });
+    });
+
+    const params = new URLSearchParams(window.location.search);
+    let initial = 0;
+    if (params.get("continuar") === "final") {
+      initial = total - 1;
+    } else if (params.get("continuar") === "1" && total > 1) {
+      initial = 1;
+    }
+
+    if (params.has("continuar")) {
+      history.replaceState(null, "", window.location.pathname);
+    }
+
+    show(initial);
   }
 
   document.querySelectorAll<HTMLElement>("[data-slide-deck]").forEach(initSlideDeck);

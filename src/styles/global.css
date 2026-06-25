@@ -100,6 +100,7 @@
     display: flex;
     min-height: 100dvh;
     flex-direction: column;
+    outline: none;
   }
 
   .slide-deck__header {
@@ -124,13 +125,56 @@
   }
 
   .slide-deck__viewport {
-    @apply relative flex-1 cursor-pointer flex-col px-8 py-8 lg:px-14 lg:py-10;
+    @apply relative flex-1 cursor-pointer flex-col overflow-hidden px-8 py-8 lg:px-14 lg:py-10;
     min-height: 0;
+    background: var(--color-bg);
+  }
+
+  .slide-deck__viewport::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.55;
+    background: radial-gradient(closest-side at 50% 38%, rgba(247, 148, 29, 0.1), transparent 74%);
+    transition: opacity 0.35s ease, background 0.35s ease;
+  }
+
+  .slide-deck__viewport::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.35;
+    background-image:
+      linear-gradient(color-mix(in oklab, white 3.5%, transparent) 1px, transparent 1px),
+      linear-gradient(90deg, color-mix(in oklab, white 3.5%, transparent) 1px, transparent 1px);
+    background-size: 46px 46px;
+    mask-image: radial-gradient(circle at 50% 45%, #000, transparent 78%);
+    -webkit-mask-image: radial-gradient(circle at 50% 45%, #000, transparent 78%);
+  }
+
+  .slide-deck__viewport[data-active-variant="cover"]::before {
+    opacity: 1;
+    background: radial-gradient(closest-side at 50% 44%, rgba(247, 148, 29, 0.18), transparent 76%);
+  }
+
+  .slide-deck__viewport[data-active-variant="summary"]::before {
+    opacity: 0.75;
+    background: radial-gradient(closest-side at 50% 48%, rgba(247, 148, 29, 0.11), transparent 72%);
+  }
+
+  .slide-deck__viewport[data-active-variant="content"]::before,
+  .slide-deck__viewport[data-active-variant="practice"]::before {
+    opacity: 0.45;
   }
 
   .slide-panel--deck {
-    @apply m-auto flex h-full w-full max-w-5xl flex-col justify-center;
+    @apply relative z-[1] m-auto flex h-full w-full max-w-5xl flex-col justify-center;
     animation: slide-in 0.25s ease-out;
+    background: transparent;
   }
 
   .slide-panel--deck[hidden] {
@@ -138,18 +182,54 @@
   }
 
   .slide-panel--stacked {
-    @apply mb-8 rounded-[18px] border border-white/8 bg-surface-card p-5 sm:p-7;
+    @apply mb-8 overflow-hidden rounded-2xl border border-white/8 p-5 sm:p-7;
+    background:
+      radial-gradient(130% 120% at 50% 0%, rgba(247, 148, 29, 0.07), transparent 55%),
+      var(--color-surface-card);
   }
 
   .slide-panel--cover.slide-panel--deck {
     @apply items-center text-center;
-    background: radial-gradient(ellipse at 50% 0%, color-mix(in oklab, var(--color-brand) 12%, transparent), transparent 60%);
   }
 
-  .slide-panel--summary.slide-panel--deck,
+  .slide-panel--cover.slide-panel--deck .slide-eyebrow {
+    @apply mb-6 inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.03] px-4 py-1.5;
+  }
+
+  .slide-panel--cover.slide-panel--deck .slide-eyebrow::before {
+    content: "";
+    @apply h-1.5 w-1.5 shrink-0 rounded-full bg-brand;
+  }
+
+  .slide-panel--cover.slide-panel--stacked {
+    @apply text-center;
+    background:
+      radial-gradient(130% 120% at 50% 0%, rgba(247, 148, 29, 0.1), transparent 55%),
+      var(--color-surface-card);
+  }
+
+  .slide-panel--cover.slide-panel--stacked .slide-eyebrow {
+    @apply mb-4 inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.03] px-3 py-1.5;
+  }
+
+  .slide-panel--cover.slide-panel--stacked .slide-eyebrow::before {
+    content: "";
+    @apply h-1.5 w-1.5 shrink-0 rounded-full bg-brand;
+  }
+
+  .slide-panel--summary.slide-panel--deck .slide-title {
+    @apply mb-5;
+  }
+
+  .slide-panel--summary.slide-panel--deck .slide-body {
+    @apply max-h-none overflow-visible rounded-2xl border border-white/10 px-6 py-5 sm:px-8 sm:py-6;
+    background:
+      radial-gradient(130% 120% at 50% 0%, rgba(247, 148, 29, 0.06), transparent 55%),
+      var(--color-surface-card);
+  }
+
   .slide-panel--summary.slide-panel--stacked {
-    border-color: color-mix(in oklab, var(--color-brand) 25%, transparent);
-    background: color-mix(in oklab, var(--color-brand) 6%, var(--color-surface-card));
+    border-color: color-mix(in oklab, var(--color-brand) 22%, transparent);
   }
 
   .slide-eyebrow {
@@ -164,12 +244,27 @@
     @apply text-[clamp(1.75rem,4.5vw,3rem)];
   }
 
+  .slide-panel--cover .slide-title .accent,
+  .slide-panel--cover .slide-subtitle strong {
+    @apply text-brand;
+  }
+
   .slide-subtitle {
     @apply mb-6 text-base leading-relaxed text-text-muted sm:text-lg;
   }
 
+  .slide-panel--content.slide-panel--deck .slide-body,
+  .slide-panel--practice.slide-panel--deck .slide-body {
+    @apply max-h-[min(58vh,640px)] overflow-y-auto rounded-2xl border border-white/8 px-6 py-5 sm:px-8 sm:py-6;
+    background: color-mix(in oklab, var(--color-surface-card) 88%, transparent);
+  }
+
   .slide-body {
-    @apply max-h-[min(58vh,640px)] overflow-y-auto pr-1;
+    @apply pr-1;
+  }
+
+  .slide-body:empty {
+    display: none;
   }
 
   .slide-panel--stacked .slide-body {
@@ -187,6 +282,10 @@
 
   .slide-deck__topic-link {
     @apply block rounded-[14px] border border-brand/30 bg-brand/8 px-5 py-4 transition-colors hover:border-brand/50;
+  }
+
+  .slide-deck__next-lesson {
+    @apply mt-6 block rounded-[14px] border border-brand/35 bg-brand/10 px-5 py-4 text-center transition-colors hover:border-brand/55 hover:bg-brand/14;
   }
 
   .slide-deck__footer {
