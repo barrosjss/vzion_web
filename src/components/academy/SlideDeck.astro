@@ -1,0 +1,200 @@
+---
+import type { Slide } from "../../data/academy/types";
+import SlideBlock from "./SlideBlock.astro";
+
+type Props = {
+  slides: Slide[];
+  lessonTitle: string;
+  courseTitle: string;
+  courseHref: string;
+  prevLessonHref?: string;
+  prevLessonTitle?: string;
+  nextLessonHref?: string;
+  nextLessonTitle?: string;
+};
+
+const {
+  slides,
+  lessonTitle,
+  courseTitle,
+  courseHref,
+  prevLessonHref,
+  prevLessonTitle,
+  nextLessonHref,
+  nextLessonTitle,
+} = Astro.props;
+
+const slideVariants = {
+  cover: "slide-panel slide-panel--cover",
+  content: "slide-panel slide-panel--content",
+  summary: "slide-panel slide-panel--summary",
+  practice: "slide-panel slide-panel--practice",
+} as const;
+---
+
+<div
+  class="slide-deck"
+  data-slide-deck
+  data-total={slides.length}
+  data-prev-lesson={prevLessonHref ?? ""}
+  data-next-lesson={nextLessonHref ?? ""}
+  data-next-lesson-title={nextLessonTitle ?? ""}
+>
+  <header class="slide-deck__header">
+    <a href={courseHref} class="slide-deck__back">
+      ← {courseTitle}
+    </a>
+    <p class="slide-deck__lesson-title">{lessonTitle}</p>
+    <span class="slide-deck__counter md-only" data-slide-counter>1 / {slides.length}</span>
+  </header>
+
+  <!-- Móvil: lectura continua -->
+  <div class="slide-deck__mobile md:hidden">
+    {
+      slides.map((slide, index) => (
+        <article class:list={[slideVariants[slide.variant ?? "content"], "slide-panel--stacked"]}>
+          {slide.eyebrow && <p class="slide-eyebrow">{slide.eyebrow}</p>}
+          {slide.title && <h2 class="slide-title">{slide.title}</h2>}
+          {slide.subtitle && <p class="slide-subtitle">{slide.subtitle}</p>}
+          <div class="slide-body space-y-4">
+            <SlideBlock blocks={slide.blocks ?? []} />
+          </div>
+          {index < slides.length - 1 && <div class="slide-divider" aria-hidden="true" />}
+        </article>
+      ))
+    }
+    {
+      nextLessonHref && (
+        <div class="slide-deck__mobile-next">
+          <a href={nextLessonHref} class="slide-deck__topic-link">
+            <span class="font-mono text-[10px] uppercase tracking-widest text-text-dim">Siguiente tema</span>
+            <span class="mt-1 block text-base font-medium text-brand">{nextLessonTitle}</span>
+          </a>
+        </div>
+      )
+    }
+  </div>
+
+  <!-- Escritorio: una slide a la vez -->
+  <div class="slide-deck__viewport hidden md:flex" aria-live="polite">
+    {
+      slides.map((slide, index) => (
+        <article
+          class:list={[slideVariants[slide.variant ?? "content"], "slide-panel--deck"]}
+          data-slide-index={index}
+          hidden={index !== 0}
+        >
+          {slide.eyebrow && <p class="slide-eyebrow">{slide.eyebrow}</p>}
+          {slide.title && <h2 class="slide-title">{slide.title}</h2>}
+          {slide.subtitle && <p class="slide-subtitle">{slide.subtitle}</p>}
+          <div class="slide-body space-y-4">
+            <SlideBlock blocks={slide.blocks ?? []} />
+          </div>
+        </article>
+      ))
+    }
+  </div>
+
+  <footer class="slide-deck__footer hidden md:flex">
+    <div class="slide-deck__progress" aria-hidden="true">
+      <div class="slide-deck__progress-bar" data-progress-bar style="width: 0%" />
+    </div>
+    <div class="slide-deck__footer-row">
+      <span class="font-mono text-[11px] text-text-faint" data-slide-hint>
+        {prevLessonHref ? "← tema anterior" : ""} · → o Espacio · siguiente slide
+      </span>
+      <span class="font-mono text-[11px] text-text-dim" data-next-hint hidden={!nextLessonHref}>
+        Al final: → {nextLessonTitle}
+      </span>
+    </div>
+  </footer>
+</div>
+
+<script>
+  function initSlideDeck(root: HTMLElement) {
+    const viewport = root.querySelector(".slide-deck__viewport");
+    if (!viewport) return;
+
+    const panels = Array.from(viewport.querySelectorAll<HTMLElement>("[data-slide-index]"));
+    const total = panels.length;
+    if (total === 0) return;
+
+    const counter = root.querySelector<HTMLElement>("[data-slide-counter]");
+    const progressBar = root.querySelector<HTMLElement>("[data-progress-bar]");
+    const hint = root.querySelector<HTMLElement>("[data-slide-hint]");
+    const prevLesson = root.dataset.prevLesson || "";
+    const nextLesson = root.dataset.nextLesson || "";
+    const nextLessonTitle = root.dataset.nextLessonTitle || "";
+
+    let current = 0;
+
+    function updateHint() {
+      if (!hint) return;
+      if (current === total - 1 && nextLesson) {
+        hint.textContent = `→ siguiente tema: ${nextLessonTitle}`;
+      } else if (current === 0 && prevLesson) {
+        hint.textContent = "← tema anterior · → o Espacio · siguiente slide";
+      } else {
+        hint.textContent = "← → o Espacio para navegar · Inicio / Fin";
+      }
+    }
+
+    function show(index: number) {
+      panels[current]?.setAttribute("hidden", "");
+      current = Math.max(0, Math.min(index, total - 1));
+      panels[current]?.removeAttribute("hidden");
+      counter && (counter.textContent = `${current + 1} / ${total}`);
+      progressBar && (progressBar.style.width = `${((current + 1) / total) * 100}%`);
+      updateHint();
+    }
+
+    function next() {
+      if (current >= total - 1) {
+        if (nextLesson) window.location.href = nextLesson;
+        return;
+      }
+      show(current + 1);
+    }
+
+    function prev() {
+      if (current <= 0) {
+        if (prevLesson) window.location.href = prevLesson;
+        return;
+      }
+      show(current - 1);
+    }
+
+    document.addEventListener("keydown", (event) => {
+      if (window.matchMedia("(max-width: 767px)").matches) return;
+      if (event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement) return;
+
+      if (event.key === "ArrowRight" || event.key === " " || event.key === "PageDown") {
+        event.preventDefault();
+        next();
+      }
+      if (event.key === "ArrowLeft" || event.key === "PageUp") {
+        event.preventDefault();
+        prev();
+      }
+      if (event.key === "Home") {
+        event.preventDefault();
+        show(0);
+      }
+      if (event.key === "End") {
+        event.preventDefault();
+        show(total - 1);
+      }
+    });
+
+    viewport.addEventListener("click", (event) => {
+      if (!(event instanceof MouseEvent)) return;
+      const rect = viewport.getBoundingClientRect();
+      if (event.clientX > rect.left + rect.width / 2) next();
+      else prev();
+    });
+
+    show(0);
+  }
+
+  document.querySelectorAll<HTMLElement>("[data-slide-deck]").forEach(initSlideDeck);
+</script>

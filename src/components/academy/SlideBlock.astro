@@ -1,0 +1,147 @@
+---
+import type { SlideBlock } from "../../data/academy/types";
+
+type Props = {
+  blocks?: SlideBlock[];
+};
+
+const { blocks = [] } = Astro.props;
+
+const calloutStyles = {
+  tip: "border-brand/30 bg-brand/8",
+  note: "border-white/15 bg-white/[0.04]",
+  warning: "border-red-500/30 bg-red-500/8",
+} as const;
+
+const calloutLabels = {
+  tip: "Tip",
+  note: "Nota",
+  warning: "Atención",
+} as const;
+
+const boxStyles = {
+  default: "border-white/10 bg-white/[0.03]",
+  brand: "border-brand/30 bg-brand/8",
+  muted: "border-white/8 bg-surface-card",
+  warning: "border-red-500/25 bg-red-500/8",
+} as const;
+---
+
+{
+  blocks.map((block) => {
+    if (block.type === "heading") {
+      const Tag = block.level === 3 ? "h3" : "h2";
+      return (
+        <Tag
+          class:list={[
+            "font-semibold tracking-tight text-text",
+            block.level === 3 ? "mb-3 text-base sm:text-lg" : "mb-4 text-lg sm:text-xl",
+          ]}
+        >
+          {block.text}
+        </Tag>
+      );
+    }
+
+    if (block.type === "paragraph") {
+      return <p class="text-sm leading-relaxed text-text-muted sm:text-base">{block.text}</p>;
+    }
+
+    if (block.type === "quote") {
+      return (
+        <blockquote class="border-l-2 border-brand/50 py-1 pl-4 text-sm italic leading-relaxed text-text-muted sm:text-base">
+          {block.text}
+        </blockquote>
+      );
+    }
+
+    if (block.type === "list") {
+      const listClass =
+        block.style === "check"
+          ? "slide-list-check space-y-2"
+          : block.style === "numbered"
+            ? "slide-list-numbered space-y-2.5"
+            : "list-disc space-y-2 pl-5 marker:text-brand";
+
+      return (
+        <ul class:list={["text-sm leading-relaxed text-text-muted sm:text-base", listClass]}>
+          {block.items.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      );
+    }
+
+    if (block.type === "callout") {
+      return (
+        <div class:list={["rounded-[14px] border px-4 py-3.5 sm:px-5", calloutStyles[block.variant]]}>
+          <span class="mb-1 block font-mono text-[10px] font-medium uppercase tracking-widest text-brand">
+            {calloutLabels[block.variant]}
+          </span>
+          <p class="text-sm leading-relaxed text-text sm:text-[15px]">{block.text}</p>
+        </div>
+      );
+    }
+
+    if (block.type === "code") {
+      return (
+        <div class="overflow-x-auto rounded-[14px] border border-white/10 bg-black/40">
+          <div class="border-b border-white/8 px-4 py-2 font-mono text-[11px] uppercase tracking-wider text-text-dim">
+            {block.language}
+          </div>
+          <pre class="p-4 font-mono text-sm leading-relaxed text-text sm:text-[15px]">
+            <code>{block.code}</code>
+          </pre>
+        </div>
+      );
+    }
+
+    if (block.type === "columns") {
+      const gridClass =
+        block.cols === 3
+          ? "grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
+          : "grid gap-4 sm:grid-cols-2";
+
+      return (
+        <div class={gridClass}>
+          {block.columns.map((column) => (
+            <div class="space-y-3">
+              <Astro.self blocks={column} />
+            </div>
+          ))}
+        </div>
+      );
+    }
+
+    if (block.type === "cards") {
+      return (
+        <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {block.items.map((item) => (
+            <div class="rounded-[14px] border border-white/8 bg-surface-card p-4 text-center">
+              {item.icon && <div class="mb-2 text-2xl" aria-hidden="true">{item.icon}</div>}
+              <strong class="mb-1 block text-sm font-semibold text-text">{item.title}</strong>
+              <p class="text-xs leading-relaxed text-text-muted sm:text-sm">{item.text}</p>
+            </div>
+          ))}
+        </div>
+      );
+    }
+
+    if (block.type === "boxes") {
+      return (
+        <div class="grid gap-3 sm:grid-cols-2">
+          {block.items.map((item) => (
+            <div class:list={["rounded-[14px] border p-4", boxStyles[item.variant ?? "default"]]}>
+              <h3 class="mb-2 text-sm font-semibold text-text">{item.title}</h3>
+              <div class="space-y-2">
+                <Astro.self blocks={item.blocks} />
+              </div>
+            </div>
+          ))}
+        </div>
+      );
+    }
+
+    return null;
+  })
+}

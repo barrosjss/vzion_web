@@ -1,0 +1,30 @@
+---
+import "../styles/global.css";
+import { site } from "../data/site";
+
+type Props = {
+  title?: string;
+  description?: string;
+};
+
+const { title, description = site.description } = Astro.props;
+const pageTitle = title ? `${title} | ${site.name}` : `${site.name} — Academy`;
+---
+
+<!doctype html>
+<html lang={site.locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#0f0e0c" />
+    <meta name="robots" content="noindex, nofollow" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{pageTitle}</title>
+  </head>
+  <body class="academy-slide-body">
+    <div class="vz-grain" aria-hidden="true"></div>
+    <slot />
+  </body>
+</html>

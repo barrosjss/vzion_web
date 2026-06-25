@@ -86,4 +86,182 @@
       will-change: auto;
     }
   }
+
+  /* Academy slide deck */
+  .academy-slide-body {
+    @apply bg-bg text-text font-sans antialiased;
+    min-height: 100dvh;
+    overflow-x: hidden;
+  }
+
+  .slide-deck {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    min-height: 100dvh;
+    flex-direction: column;
+  }
+
+  .slide-deck__header {
+    @apply flex flex-wrap items-center gap-x-4 gap-y-2 border-b border-white/8 px-4 py-3 sm:px-6;
+    flex-shrink: 0;
+  }
+
+  .slide-deck__back {
+    @apply font-mono text-[12px] font-medium text-text-dim transition-colors hover:text-brand;
+  }
+
+  .slide-deck__lesson-title {
+    @apply min-w-0 flex-1 truncate text-sm font-medium text-text sm:text-base;
+  }
+
+  .slide-deck__counter {
+    @apply font-mono text-[11px] text-text-dim;
+  }
+
+  .slide-deck__mobile {
+    @apply flex-1 px-4 py-6 sm:px-6;
+  }
+
+  .slide-deck__viewport {
+    @apply relative flex-1 cursor-pointer flex-col px-8 py-8 lg:px-14 lg:py-10;
+    min-height: 0;
+  }
+
+  .slide-panel--deck {
+    @apply m-auto flex h-full w-full max-w-5xl flex-col justify-center;
+    animation: slide-in 0.25s ease-out;
+  }
+
+  .slide-panel--deck[hidden] {
+    display: none !important;
+  }
+
+  .slide-panel--stacked {
+    @apply mb-8 rounded-[18px] border border-white/8 bg-surface-card p-5 sm:p-7;
+  }
+
+  .slide-panel--cover.slide-panel--deck {
+    @apply items-center text-center;
+    background: radial-gradient(ellipse at 50% 0%, color-mix(in oklab, var(--color-brand) 12%, transparent), transparent 60%);
+  }
+
+  .slide-panel--summary.slide-panel--deck,
+  .slide-panel--summary.slide-panel--stacked {
+    border-color: color-mix(in oklab, var(--color-brand) 25%, transparent);
+    background: color-mix(in oklab, var(--color-brand) 6%, var(--color-surface-card));
+  }
+
+  .slide-eyebrow {
+    @apply mb-3 font-mono text-[11px] uppercase tracking-widest text-brand;
+  }
+
+  .slide-title {
+    @apply mb-3 text-[clamp(1.5rem,3.5vw,2.5rem)] leading-[1.1] font-medium tracking-[-0.03em] text-text;
+  }
+
+  .slide-panel--cover .slide-title {
+    @apply text-[clamp(1.75rem,4.5vw,3rem)];
+  }
+
+  .slide-subtitle {
+    @apply mb-6 text-base leading-relaxed text-text-muted sm:text-lg;
+  }
+
+  .slide-body {
+    @apply max-h-[min(58vh,640px)] overflow-y-auto pr-1;
+  }
+
+  .slide-panel--stacked .slide-body {
+    max-height: none;
+    overflow: visible;
+  }
+
+  .slide-divider {
+    @apply mt-8 h-px bg-white/8;
+  }
+
+  .slide-deck__mobile-next {
+    @apply mt-4;
+  }
+
+  .slide-deck__topic-link {
+    @apply block rounded-[14px] border border-brand/30 bg-brand/8 px-5 py-4 transition-colors hover:border-brand/50;
+  }
+
+  .slide-deck__footer {
+    @apply flex-shrink-0 flex-col border-t border-white/8;
+  }
+
+  .slide-deck__progress {
+    @apply h-1 w-full bg-white/6;
+  }
+
+  .slide-deck__progress-bar {
+    @apply h-full bg-brand transition-[width] duration-300 ease-out;
+  }
+
+  .slide-deck__footer-row {
+    @apply flex flex-wrap items-center justify-between gap-2 px-4 py-2.5 sm:px-6;
+  }
+
+  .slide-list-check {
+    list-style: none;
+    padding: 0;
+  }
+
+  .slide-list-check li {
+    @apply flex gap-2 pl-0;
+  }
+
+  .slide-list-check li::before {
+    content: "✓";
+    @apply font-bold text-brand;
+    flex-shrink: 0;
+  }
+
+  .slide-list-numbered {
+    list-style: none;
+    padding: 0;
+    counter-reset: slide-item;
+  }
+
+  .slide-list-numbered li {
+    @apply flex gap-3 pl-0;
+    counter-increment: slide-item;
+  }
+
+  .slide-list-numbered li::before {
+    content: counter(slide-item);
+    @apply flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-brand text-xs font-bold text-bg;
+  }
+
+  @keyframes slide-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .slide-panel--deck {
+      animation: none;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .md-only {
+      display: inline;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .md-only {
+      display: none;
+    }
+  }
 }
