@@ -145,9 +145,7 @@ const slideVariants = {
     function goToNextLesson() {
       if (!nextLesson || isNavigating) return;
       isNavigating = true;
-      const url = new URL(nextLesson, window.location.origin);
-      url.searchParams.set("continuar", "1");
-      window.location.assign(url.toString());
+      window.location.assign(nextLesson);
     }
 
     function goToPrevLesson() {
@@ -253,8 +251,6 @@ const slideVariants = {
     let initial = 0;
     if (params.get("continuar") === "final") {
       initial = total - 1;
-    } else if (params.get("continuar") === "1" && total > 1) {
-      initial = 1;
     }
 
     if (params.has("continuar")) {
