@@ -1,0 +1,19 @@
+---
+import { cn } from "../../lib/utils";
+
+type Props = {
+  class?: string;
+  padding?: "sm" | "md" | "lg" | "none";
+};
+
+const paddings = {
+  none: "",
+  sm: "py-12 md:py-16",
+  md: "py-16 md:py-24",
+  lg: "py-20 md:py-28",
+};
+---
+
+<section class={cn("relative", paddings[Astro.props.padding ?? "md"], Astro.props.class)}>
+  <slot />
+</section>

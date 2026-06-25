@@ -1,0 +1,94 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Container from "../../../components/ui/Container.astro";
+import Button from "../../../components/ui/Button.astro";
+import LessonContent from "../../../components/ui/LessonContent.astro";
+import { courses, getLessonById, getAdjacentLessons, getLessonPath } from "../../../data/academy";
+
+export function getStaticPaths() {
+  return courses.flatMap((course) =>
+    course.modules.flatMap((module) =>
+      module.lessons.map((lesson) => ({
+        params: { courseId: course.id, lessonId: lesson.id },
+      })),
+    ),
+  );
+}
+
+const { courseId, lessonId } = Astro.params;
+const result = getLessonById(courseId!, lessonId!);
+
+if (!result) {
+  return Astro.redirect("/academy");
+}
+
+const { course, module, lesson } = result;
+const { prev, next } = getAdjacentLessons(courseId!, lessonId!);
+---
+
+<BaseLayout title={`${lesson.title} — ${course.title}`} description={lesson.summary}>
+  <section class="pt-8 md:pt-12">
+    <Container size="md">
+      <a
+        href={`/academy/${course.id}`}
+        class="mb-8 inline-block font-mono text-[12.5px] font-medium text-text-dim transition-colors hover:text-text md:mb-10"
+      >
+        ← {course.title}
+      </a>
+
+      <div class="mb-6 flex flex-wrap items-center gap-2 font-mono text-[11px] text-text-dim">
+        <span>Módulo {module.n}</span>
+        <span aria-hidden="true">·</span>
+        <span>Clase {lesson.n}</span>
+        {lesson.duration && (
+          <>
+            <span aria-hidden="true">·</span>
+            <span>{lesson.duration}</span>
+          </>
+        )}
+      </div>
+
+      <h1 class="mb-3 text-[clamp(1.5rem,4vw,2.75rem)] leading-[1.08] font-medium tracking-[-0.03em]">
+        {lesson.title}
+      </h1>
+      <p class="mb-8 text-base leading-relaxed text-text-muted sm:mb-10 sm:text-lg">{lesson.summary}</p>
+
+      <LessonContent blocks={lesson.blocks} />
+
+      <nav class="mt-12 flex flex-col gap-3 border-t border-white/8 pt-8 sm:flex-row sm:items-center sm:justify-between">
+        {
+          prev ? (
+            <a
+              href={getLessonPath(course.id, prev.lesson.id)}
+              class="group rounded-[14px] border border-white/8 bg-white/[0.025] px-4 py-3 transition-colors hover:border-brand/40 sm:max-w-[45%]"
+            >
+              <span class="block font-mono text-[10px] uppercase tracking-widest text-text-dim">Anterior</span>
+              <span class="mt-1 block text-sm font-medium text-text group-hover:text-brand sm:text-base">
+                {prev.lesson.title}
+              </span>
+            </a>
+          ) : (
+            <div />
+          )
+        }
+        {
+          next ? (
+            <a
+              href={getLessonPath(course.id, next.lesson.id)}
+              class="group rounded-[14px] border border-white/8 bg-white/[0.025] px-4 py-3 text-left transition-colors hover:border-brand/40 sm:max-w-[45%] sm:text-right"
+            >
+              <span class="block font-mono text-[10px] uppercase tracking-widest text-text-dim">Siguiente</span>
+              <span class="mt-1 block text-sm font-medium text-text group-hover:text-brand sm:text-base">
+                {next.lesson.title}
+              </span>
+            </a>
+          ) : (
+            <Button href={`/academy/${course.id}`} variant="secondary" class="sm:ml-auto">
+              Volver al temario
+            </Button>
+          )
+        }
+      </nav>
+    </Container>
+  </section>
+</BaseLayout>

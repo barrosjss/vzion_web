@@ -1,0 +1,29 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHero from "../../components/ui/PageHero.astro";
+import Eyebrow from "../../components/ui/Eyebrow.astro";
+import ServiceCard from "../../components/ui/ServiceCard.astro";
+import Container from "../../components/ui/Container.astro";
+import { services } from "../../data/services";
+---
+
+<BaseLayout title="Servicios" description="Un solo equipo para todo tu ecosistema digital.">
+  <PageHero>
+    <Eyebrow class="mb-5">// servicios</Eyebrow>
+    <h1 class="mx-auto max-w-[18ch] text-[clamp(1.75rem,5vw,3.625rem)] leading-[1.05] font-medium tracking-[-0.035em]">
+      Un solo equipo para todo tu ecosistema digital.
+    </h1>
+    <p class="mx-auto mt-5 max-w-[58ch] text-base leading-relaxed text-text-muted sm:mt-6 sm:text-lg">
+      Elige un servicio para ver cómo nos acoplamos a tu operación. Y si lo que necesitas cruza varias áreas —
+      mejor, ahí brillamos.
+    </p>
+  </PageHero>
+
+  <section class="pb-16 md:pb-24">
+    <Container>
+      <div class="grid gap-3.5 lg:grid-cols-2">
+        {services.map((service) => <ServiceCard service={service} href={`/servicios/${service.id}`} layout="list" />)}
+      </div>
+    </Container>
+  </section>
+</BaseLayout>

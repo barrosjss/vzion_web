@@ -1,0 +1,22 @@
+---
+import Container from "../ui/Container.astro";
+import MonoLabel from "../ui/MonoLabel.astro";
+import { stack } from "../../data/services";
+---
+
+<section class="py-12 md:py-14">
+  <Container size="lg">
+    <div class="text-center">
+      <MonoLabel class="mb-6">// stack que tu operación necesita</MonoLabel>
+      <div class="flex flex-wrap justify-center gap-2.5">
+        {
+          stack.map((item) => (
+            <span class="rounded-full border border-white/9 bg-white/[0.02] px-4 py-2 font-mono text-[12.5px] text-text-muted">
+              {item}
+            </span>
+          ))
+        }
+      </div>
+    </div>
+  </Container>
+</section>

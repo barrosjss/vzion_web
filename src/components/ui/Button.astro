@@ -1,0 +1,43 @@
+---
+import { cn } from "../../lib/utils";
+
+type Props = {
+  href?: string;
+  variant?: "primary" | "secondary" | "ghost" | "mono";
+  size?: "sm" | "md" | "lg";
+  class?: string;
+  type?: "button" | "submit";
+};
+
+const variants = {
+  primary: "bg-brand text-bg hover:bg-brand-hover",
+  secondary: "bg-white/[0.04] text-text border border-white/16 hover:border-white/40",
+  ghost: "bg-transparent text-text-dim hover:text-text",
+  mono: "bg-white/[0.04] border border-white/16 text-text font-mono text-[13px] font-medium hover:border-white/40",
+};
+
+const sizes = {
+  sm: "px-5 py-2.5 text-[13.5px]",
+  md: "px-7 py-3.5 text-[15px]",
+  lg: "px-8 py-4 text-[15px]",
+};
+
+const classes = cn(
+  "inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-200",
+  variants[Astro.props.variant ?? "primary"],
+  sizes[Astro.props.size ?? "md"],
+  Astro.props.class,
+);
+---
+
+{
+  Astro.props.href ? (
+    <a href={Astro.props.href} class={classes}>
+      <slot />
+    </a>
+  ) : (
+    <button type={Astro.props.type ?? "button"} class={classes}>
+      <slot />
+    </button>
+  )
+}

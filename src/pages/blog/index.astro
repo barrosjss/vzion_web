@@ -1,0 +1,57 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHero from "../../components/ui/PageHero.astro";
+import Eyebrow from "../../components/ui/Eyebrow.astro";
+import Container from "../../components/ui/Container.astro";
+import BlogCard from "../../components/ui/BlogCard.astro";
+import { posts, featuredPost } from "../../data/blog";
+import BrandImage from "../../components/ui/BrandImage.astro";
+
+const rest = posts.filter((p) => !p.featured);
+---
+
+<BaseLayout title="Blog" description="Ideas desde la operación.">
+  <PageHero>
+    <Eyebrow class="mb-5">// blog</Eyebrow>
+    <h1 class="mx-auto max-w-[16ch] text-[clamp(1.75rem,5vw,3.625rem)] leading-[1.05] font-medium tracking-[-0.035em]">
+      Ideas desde la operación.
+    </h1>
+    <p class="mx-auto mt-5 max-w-[54ch] text-base leading-relaxed text-text-muted sm:mt-6 sm:text-lg">
+      Lo que aprendemos ejecutando — estrategia, IA, automatización y crecimiento, sin humo.
+    </p>
+  </PageHero>
+
+  <section class="pb-16 md:pb-24">
+    <Container>
+      <article
+        class="mb-6 grid items-center gap-6 rounded-[22px] border border-white/10 bg-white/[0.025] p-3 transition-colors hover:border-brand/40 sm:mb-7 sm:gap-8 sm:p-4 lg:grid-cols-[1.1fr_0.9fr]"
+      >
+        <div
+          class="relative flex aspect-[16/10] items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-brand to-brand-muted"
+        >
+          <BrandImage variant="black" class="h-14 opacity-85 sm:h-[78px]" width={78} height={78} />
+        </div>
+        <div class="px-2 py-3 sm:px-4 sm:py-4 lg:px-7">
+          <div class="mb-3 flex flex-wrap items-center gap-2.5 sm:mb-4">
+            <span class="font-mono text-[11px] font-medium uppercase tracking-wider text-brand">Destacado</span>
+            <span class="font-mono text-[11.5px] text-text-faint">· {featuredPost.read}</span>
+          </div>
+          <h2 class="mb-3 text-[clamp(1.375rem,4vw,2.125rem)] leading-tight font-medium tracking-[-0.03em] sm:mb-3.5">
+            {featuredPost.title}
+          </h2>
+          <p class="mb-3 text-sm leading-relaxed text-text-muted sm:mb-4 sm:text-base">
+            El cliente que vende servicios no quiere otro proveedor rígido. Quiere un equipo que entre en su mundo.
+            Aquí está la diferencia que lo cambia todo.
+          </p>
+          <span class="font-mono text-xs text-text-faint">
+            {featuredPost.date} · {featuredPost.author}
+          </span>
+        </div>
+      </article>
+
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {rest.map((post) => <BlogCard post={post} />)}
+      </div>
+    </Container>
+  </section>
+</BaseLayout>

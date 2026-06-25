@@ -1,0 +1,91 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Container from "../../components/ui/Container.astro";
+import Button from "../../components/ui/Button.astro";
+import { services, getServiceById } from "../../data/services";
+import { process } from "../../data/pitch";
+
+export function getStaticPaths() {
+  return services.map((service) => ({ params: { id: service.id } }));
+}
+
+const { id } = Astro.params;
+const service = getServiceById(id!);
+
+if (!service) {
+  return Astro.redirect("/servicios");
+}
+---
+
+<BaseLayout title={service.title} description={service.long}>
+  <section class="pt-8 md:pt-12">
+    <Container>
+      <a
+        href="/servicios"
+        class="mb-8 inline-block font-mono text-[12.5px] font-medium text-text-dim transition-colors hover:text-text md:mb-10"
+      >
+        ← todos_los_servicios
+      </a>
+    </Container>
+  </section>
+
+  <section class="pb-12 md:pb-14">
+    <Container>
+      <div class="grid items-start gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
+        <div>
+          <div class="mb-5 inline-flex flex-wrap items-center gap-2.5 sm:mb-6">
+            <span class="font-mono text-sm text-brand">{service.n}</span>
+            <span
+              class="rounded-full bg-brand/10 px-3 py-1 font-mono text-[10.5px] font-medium uppercase tracking-wider text-brand"
+            >
+              {service.tag}
+            </span>
+          </div>
+          <h1 class="mb-4 text-[clamp(1.75rem,5vw,3.375rem)] leading-[1.04] font-medium tracking-[-0.035em] sm:mb-5">
+            {service.title}
+          </h1>
+          <p class="mb-7 text-base leading-relaxed text-text-muted sm:mb-9 sm:text-lg md:text-xl">{service.long}</p>
+          <div class="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <Button href="/contacto" size="lg" class="w-full sm:w-auto">Solicitar este servicio</Button>
+            <Button href="/proyectos" variant="secondary" size="lg" class="w-full sm:w-auto">Ver casos</Button>
+          </div>
+        </div>
+
+        <div class="rounded-[20px] border border-white/10 bg-white/[0.025] p-5 sm:p-8">
+          <h3 class="mb-4 font-mono text-[11.5px] font-medium uppercase tracking-widest text-text-faint sm:mb-5">
+            // qué incluye
+          </h3>
+          {
+            service.items.map((item) => (
+              <div class="flex items-start gap-3 border-t border-white/7 py-3.5 first:border-t-0 first:pt-0 sm:gap-3.5 sm:py-4">
+                <span class="text-[15px] leading-snug font-bold text-brand">→</span>
+                <span class="text-sm leading-snug font-medium sm:text-base">{item}</span>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <section class="pb-16 md:pb-24">
+    <Container>
+      <div class="rounded-[22px] border border-white/10 bg-white/[0.02] px-5 py-8 sm:px-8 sm:py-12 md:px-12">
+        <h2 class="mb-8 max-w-[24ch] text-[clamp(1.375rem,4vw,2.125rem)] leading-tight font-medium tracking-[-0.03em] sm:mb-10">
+          Así nos acoplamos a tu operación
+        </h2>
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {
+            process.map((step) => (
+              <div>
+                <div class="mb-3 font-mono text-[13px] text-brand sm:mb-3.5">{step.n} /</div>
+                <h3 class="mb-2 text-base font-semibold sm:text-[17px]">{step.t}</h3>
+                <p class="text-[13px] leading-normal text-text-muted sm:text-[13.5px]">{step.d}</p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </Container>
+  </section>
+</BaseLayout>

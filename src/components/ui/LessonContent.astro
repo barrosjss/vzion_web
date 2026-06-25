@@ -1,0 +1,64 @@
+---
+import type { LessonBlock } from "../../data/academy";
+
+type Props = {
+  blocks: LessonBlock[];
+};
+
+const { blocks } = Astro.props;
+
+const calloutStyles = {
+  tip: "border-brand/30 bg-brand/8 text-text",
+  note: "border-white/15 bg-white/[0.04] text-text-muted",
+  warning: "border-red-500/30 bg-red-500/8 text-text",
+} as const;
+
+const calloutLabels = {
+  tip: "Tip",
+  note: "Nota",
+  warning: "Atención",
+} as const;
+---
+
+<div class="lesson-prose space-y-5">
+  {
+    blocks.map((block) => {
+      if (block.type === "heading") {
+        return <h2 class="text-xl font-semibold tracking-tight text-text sm:text-2xl">{block.text}</h2>;
+      }
+      if (block.type === "paragraph") {
+        return <p class="text-base leading-relaxed text-text-muted sm:text-lg">{block.text}</p>;
+      }
+      if (block.type === "list") {
+        return (
+          <ul class="space-y-2 pl-5 text-base leading-relaxed text-text-muted marker:text-brand sm:text-lg">
+            {block.items.map((item) => (
+              <li class="list-disc">{item}</li>
+            ))}
+          </ul>
+        );
+      }
+      if (block.type === "code") {
+        return (
+          <div class="overflow-x-auto rounded-[14px] border border-white/10 bg-black/40">
+            <div class="border-b border-white/8 px-4 py-2 font-mono text-[11px] uppercase tracking-wider text-text-dim">
+              {block.language}
+            </div>
+            <pre class="p-4 font-mono text-sm leading-relaxed text-text sm:text-[15px]"><code>{block.code}</code></pre>
+          </div>
+        );
+      }
+      if (block.type === "callout") {
+        return (
+          <div class:list={["rounded-[14px] border px-4 py-3.5 sm:px-5 sm:py-4", calloutStyles[block.variant]]}>
+            <span class="mb-1 block font-mono text-[10px] font-medium uppercase tracking-widest text-brand">
+              {calloutLabels[block.variant]}
+            </span>
+            <p class="text-sm leading-relaxed sm:text-[15px]">{block.text}</p>
+          </div>
+        );
+      }
+      return null;
+    })
+  }
+</div>

@@ -1,0 +1,23 @@
+---
+import { cn } from "../../lib/utils";
+
+type Props = {
+  class?: string;
+  variant?: "slash" | "bracket";
+};
+
+const variants = {
+  slash: "text-brand",
+  bracket: "text-brand",
+};
+---
+
+<p
+  class={cn(
+    "font-mono text-xs font-medium uppercase tracking-[0.14em]",
+    variants[Astro.props.variant ?? "bracket"],
+    Astro.props.class,
+  )}
+>
+  <slot />
+</p>

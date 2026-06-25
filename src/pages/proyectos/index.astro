@@ -1,0 +1,28 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHero from "../../components/ui/PageHero.astro";
+import Eyebrow from "../../components/ui/Eyebrow.astro";
+import Container from "../../components/ui/Container.astro";
+import ProjectCard from "../../components/ui/ProjectCard.astro";
+import { projects } from "../../data/projects";
+---
+
+<BaseLayout title="Proyectos" description="Operaciones que hemos puesto a funcionar.">
+  <PageHero>
+    <Eyebrow class="mb-5">// portafolio</Eyebrow>
+    <h1 class="mx-auto max-w-[16ch] text-[clamp(1.75rem,5vw,3.625rem)] leading-[1.05] font-medium tracking-[-0.035em]">
+      Operaciones que hemos puesto a funcionar.
+    </h1>
+    <p class="mx-auto mt-5 max-w-[54ch] text-base leading-relaxed text-text-muted sm:mt-6 sm:text-lg">
+      Una muestra del trabajo por servicio. Reemplazaremos estos con tus casos reales, métricas e imágenes.
+    </p>
+  </PageHero>
+
+  <section class="pb-16 md:pb-24">
+    <Container>
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {projects.map((project) => <ProjectCard project={project} />)}
+      </div>
+    </Container>
+  </section>
+</BaseLayout>

@@ -1,0 +1,95 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Container from "../../../components/ui/Container.astro";
+import Button from "../../../components/ui/Button.astro";
+import { courses, getCourseById, getCourseStats, getLessonPath } from "../../../data/academy";
+
+export function getStaticPaths() {
+  return courses.map((course) => ({ params: { courseId: course.id } }));
+}
+
+const { courseId } = Astro.params;
+const course = getCourseById(courseId!);
+
+if (!course) {
+  return Astro.redirect("/academy");
+}
+
+const { moduleCount, lessonCount } = getCourseStats(course);
+---
+
+<BaseLayout title={course.title} description={course.long}>
+  <section class="pt-8 md:pt-12">
+    <Container>
+      <a
+        href="/academy"
+        class="mb-8 inline-block font-mono text-[12.5px] font-medium text-text-dim transition-colors hover:text-text md:mb-10"
+      >
+        ← todos_los_cursos
+      </a>
+    </Container>
+  </section>
+
+  <section class="pb-10 md:pb-14">
+    <Container>
+      <div class="mb-10 max-w-3xl">
+        <div class="mb-5 inline-flex flex-wrap items-center gap-2.5 sm:mb-6">
+          <span class="font-mono text-sm text-brand">{course.n}</span>
+          <span
+            class="rounded-full bg-brand/10 px-3 py-1 font-mono text-[10.5px] font-medium uppercase tracking-wider text-brand"
+          >
+            {course.tag}
+          </span>
+          <span class="font-mono text-[11px] text-text-dim">{course.level}</span>
+        </div>
+        <h1 class="mb-4 text-[clamp(1.75rem,5vw,3.375rem)] leading-[1.04] font-medium tracking-[-0.035em] sm:mb-5">
+          {course.title}
+        </h1>
+        <p class="mb-4 text-base leading-relaxed text-text-muted sm:text-lg">{course.long}</p>
+        <p class="font-mono text-xs text-text-dim">
+          {moduleCount} módulos · {lessonCount} clases
+        </p>
+      </div>
+
+      <div class="space-y-8">
+        {
+          course.modules.map((module) => (
+            <div>
+              <div class="mb-3 flex items-center gap-3">
+                <span class="flex h-9 w-9 items-center justify-center rounded-[10px] bg-brand/10 font-mono text-sm text-brand">
+                  {module.n}
+                </span>
+                <h2 class="text-lg font-semibold tracking-tight sm:text-xl">{module.title}</h2>
+              </div>
+              <div class="space-y-2">
+                {module.lessons.map((lesson) => (
+                  <a
+                    href={getLessonPath(course.id, lesson.id)}
+                    class="group flex items-center gap-3 rounded-[14px] border border-white/8 bg-white/[0.025] px-4 py-4 transition-colors hover:border-brand/40 sm:gap-5 sm:px-6 sm:py-5"
+                  >
+                    <span class="w-8 shrink-0 font-mono text-sm text-text-faint">{lesson.n}</span>
+                    <div class="min-w-0 flex-1">
+                      <h3 class="text-base font-semibold tracking-tight sm:text-lg">{lesson.title}</h3>
+                      <p class="mt-0.5 text-sm text-text-muted">{lesson.summary}</p>
+                    </div>
+                    {lesson.duration && (
+                      <span class="hidden shrink-0 font-mono text-xs text-text-dim sm:block">{lesson.duration}</span>
+                    )}
+                    <span class="shrink-0 text-lg text-text-faint transition-colors group-hover:text-brand">→</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="mt-10 flex flex-col gap-3 sm:flex-row">
+        <Button href={`/academy/${course.id}/${course.modules[0].lessons[0].id}`} size="lg" class="w-full sm:w-auto">
+          Empezar curso
+        </Button>
+        <Button href="/academy" variant="secondary" size="lg" class="w-full sm:w-auto">Volver a cursos</Button>
+      </div>
+    </Container>
+  </section>
+</BaseLayout>

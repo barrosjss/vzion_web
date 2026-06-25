@@ -1,0 +1,26 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/sections/Hero.astro";
+import StackStrip from "../components/sections/StackStrip.astro";
+import Process from "../components/sections/Process.astro";
+import Services from "../components/sections/Services.astro";
+import Differentiators from "../components/sections/Differentiators.astro";
+import Portfolio from "../components/sections/Portfolio.astro";
+import Team from "../components/sections/Team.astro";
+import AcademyCTA from "../components/sections/AcademyCTA.astro";
+import BlogPreview from "../components/sections/BlogPreview.astro";
+---
+
+<BaseLayout>
+  <Hero />
+  <div class="cv-auto">
+    <StackStrip />
+    <Process />
+    <Services />
+    <Differentiators />
+    <Portfolio />
+    <Team />
+    <AcademyCTA />
+    <BlogPreview />
+  </div>
+</BaseLayout>

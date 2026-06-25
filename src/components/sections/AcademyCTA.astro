@@ -1,0 +1,29 @@
+---
+import Container from "../ui/Container.astro";
+import Eyebrow from "../ui/Eyebrow.astro";
+import Button from "../ui/Button.astro";
+import BrandImage from "../ui/BrandImage.astro";
+---
+
+<section class="py-16 md:pb-24">
+  <Container>
+    <div
+      class="relative overflow-hidden rounded-[22px] bg-gradient-to-br from-brand to-brand-dark px-6 py-10 text-bg sm:px-10 sm:py-12 md:px-14 md:py-16"
+    >
+      <div class="pointer-events-none absolute -right-6 -bottom-11 opacity-12" aria-hidden="true">
+        <BrandImage variant="black" class="h-[250px] w-auto" width={250} height={250} />
+      </div>
+      <div class="relative z-[2] max-w-[60ch]">
+        <Eyebrow class="mb-4 text-bg/65">[ 06 ] vzion academy</Eyebrow>
+        <h2 class="mb-4 text-[clamp(1.75rem,3.5vw,2.75rem)] leading-[1.06] font-semibold tracking-[-0.03em]">
+          Material de tus clases, en un solo lugar.
+        </h2>
+        <p class="mb-7 max-w-[52ch] text-lg leading-relaxed text-bg/78">
+          Cursos de Python y Ofimática con lecciones organizadas por módulos. Accede al temario y abre cada clase cuando
+          la necesites.
+        </p>
+        <Button href="/academy" class="!bg-bg !text-text hover:!bg-black">Ver cursos →</Button>
+      </div>
+    </div>
+  </Container>
+</section>

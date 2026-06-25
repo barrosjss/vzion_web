@@ -1,0 +1,31 @@
+---
+import Container from "../ui/Container.astro";
+import Eyebrow from "../ui/Eyebrow.astro";
+import Button from "../ui/Button.astro";
+import TeamCard from "../ui/TeamCard.astro";
+import { team } from "../../data/team";
+
+const preview = team.slice(0, 6);
+---
+
+<section class="py-16 md:py-24">
+  <Container>
+    <div class="grid items-center gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
+      <div>
+        <Eyebrow class="mb-5">[ 05 ] el equipo</Eyebrow>
+        <h2 class="mb-5 text-[clamp(1.75rem,3.5vw,2.625rem)] leading-[1.08] font-medium tracking-[-0.03em]">
+          Talento real detrás de cada entrega.
+        </h2>
+        <p class="mb-7 text-[17px] leading-relaxed text-text-muted">
+          Un equipo integrado y articulado — no freelancers sueltos. Cada socio aporta una pieza del ecosistema,
+          coordinada bajo un mismo proceso.
+        </p>
+        <Button href="/nosotros" variant="secondary">Conoce al equipo</Button>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3 sm:grid-cols-3">
+        {preview.map((member) => <TeamCard {...member} compact />)}
+      </div>
+    </div>
+  </Container>
+</section>

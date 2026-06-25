@@ -1,0 +1,66 @@
+/**
+ * VZION Design Tokens — handoff corporativo
+ * @see .handoff/.../VZION.dc.html
+ */
+@theme {
+  /* Brand orange */
+  --color-brand: #f7941d;
+  --color-brand-hover: #ffa838;
+  --color-brand-dark: #e07e0c;
+  --color-brand-muted: #c9650a;
+
+  /* Surfaces */
+  --color-bg: #0f0e0c;
+  --color-bg-footer: #0a0908;
+  --color-surface: #121110;
+  --color-surface-raised: #161412;
+  --color-surface-card: #1a1816;
+
+  /* Text */
+  --color-text: #f2ede4;
+  --color-text-muted: #a89f92;
+  --color-text-dim: #8c857a;
+  --color-text-faint: #6b645b;
+  --color-text-footer: #5c564e;
+
+  /* Typography */
+  --font-sans: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* Radius */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.125rem;
+  --radius-2xl: 1.375rem;
+  --radius-full: 9999px;
+}
+
+@keyframes vz-float {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) translateY(0);
+  }
+  50% {
+    transform: translate(-50%, -50%) translateY(-14px);
+  }
+}
+
+@keyframes vz-spin {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes vz-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}

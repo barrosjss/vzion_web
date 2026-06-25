@@ -1,0 +1,33 @@
+---
+description: Design system y tokens VZION
+globs: src/styles/**,src/components/ui/**
+alwaysApply: false
+---
+
+# Design System
+
+## Tokens (`src/styles/tokens.css`)
+
+- `brand-*` — primario índigo
+- `accent-*` — cyan highlights
+- `surface-*` — fondos oscuros
+
+## Componentes UI
+
+Extender existentes antes de crear nuevos:
+
+| Necesidad | Componente |
+|-----------|------------|
+| CTA / enlace | `Button` |
+| Superficie | `Card` |
+| Ancho página | `Container` |
+| Sección | `Section` |
+| Título | `Heading` |
+| Etiqueta | `Badge` |
+
+## Utilidades
+
+- `.text-gradient` — títulos destacados
+- `.surface-grid` — fondo hero
+
+Ver `docs/architecture/design-system.md` para detalle.

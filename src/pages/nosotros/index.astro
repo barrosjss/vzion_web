@@ -1,0 +1,51 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHero from "../../components/ui/PageHero.astro";
+import Eyebrow from "../../components/ui/Eyebrow.astro";
+import Container from "../../components/ui/Container.astro";
+import TeamCard from "../../components/ui/TeamCard.astro";
+import BrandImage from "../../components/ui/BrandImage.astro";
+import { team } from "../../data/team";
+import { values } from "../../data/pitch";
+---
+
+<BaseLayout title="Nosotros" description="El equipo que se convierte en tu equipo.">
+  <PageHero>
+    <Eyebrow class="mb-5">// nosotros</Eyebrow>
+    <h1 class="mx-auto max-w-[18ch] text-[clamp(1.75rem,5vw,3.625rem)] leading-[1.05] font-medium tracking-[-0.035em]">
+      El equipo que se convierte en <span class="text-brand">tu</span> equipo.
+    </h1>
+    <p class="mx-auto mt-5 max-w-[60ch] text-base leading-relaxed text-text-muted sm:mt-6 sm:text-lg md:text-[19px]">
+      VZION nació para resolver un cuello de botella: tienes la estrategia, el cliente y la metodología, pero no el
+      equipo para ejecutar. Nosotros somos esa operación — tecnología y talento humano que se acopla a tu forma de
+      trabajar.
+    </p>
+  </PageHero>
+
+  <section class="pb-16 md:pb-20">
+    <Container>
+      <h2 class="mb-6 text-center font-mono text-[11.5px] font-medium uppercase tracking-widest text-text-faint md:mb-7">
+        // socios & talento
+      </h2>
+      <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {team.map((member) => <TeamCard {...member} />)}
+      </div>
+    </Container>
+  </section>
+
+  <section class="pb-16 md:pb-24">
+    <Container>
+      <div class="grid gap-3.5 md:grid-cols-3">
+        {
+          values.map((value) => (
+            <div class="rounded-[18px] border border-white/8 bg-white/[0.025] px-6 py-7 sm:px-8 sm:py-8">
+              <BrandImage variant="orange" class="mb-5 h-[26px] w-auto" width={26} height={26} />
+              <h3 class="mb-2.5 text-lg font-semibold tracking-tight sm:text-[21px]">{value.t}</h3>
+              <p class="text-sm leading-relaxed text-text-muted sm:text-[15px]">{value.d}</p>
+            </div>
+          ))
+        }
+      </div>
+    </Container>
+  </section>
+</BaseLayout>

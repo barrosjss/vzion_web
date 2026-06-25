@@ -1,0 +1,37 @@
+---
+import { Image } from "astro:assets";
+import isotipoOrange from "../../assets/brand/isotipo-naranja.png";
+import isotipoWhite from "../../assets/brand/isotipo-blanco.png";
+import isotipoBlack from "../../assets/brand/isotipo-negro.png";
+
+type Variant = "orange" | "white" | "black";
+
+type Props = {
+  variant?: Variant;
+  class?: string;
+  width?: number;
+  height?: number;
+  priority?: boolean;
+};
+
+const assets: Record<Variant, ImageMetadata> = {
+  orange: isotipoOrange,
+  white: isotipoWhite,
+  black: isotipoBlack,
+};
+
+const { variant = "orange", class: className, width = 56, height = 56, priority = false } = Astro.props;
+---
+
+<Image
+  src={assets[variant]}
+  alt=""
+  class={className}
+  width={width}
+  height={height}
+  widths={[width, width * 2]}
+  sizes={`${width}px`}
+  loading={priority ? "eager" : "lazy"}
+  decoding="async"
+  fetchpriority={priority ? "high" : "auto"}
+/>

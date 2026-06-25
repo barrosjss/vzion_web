@@ -1,0 +1,14 @@
+---
+description: Estándares core del proyecto VZION Web
+alwaysApply: true
+---
+
+# VZION Web — Core
+
+- Astro 7 + TypeScript strict + Tailwind 4. Sin React salvo necesidad explícita.
+- **pnpm** — no usar npm ni yarn. `pnpm build` debe pasar antes de terminar.
+- Copy comercial en `src/data/` (`pitch.ts`, `site.ts`, `services.ts`). No hardcodear en componentes.
+- Reutilizar `src/components/ui/` (Button, Card, Container, Eyebrow, ServiceCard, etc.).
+- Tokens de color en `src/styles/tokens.css` — no hex sueltos en componentes.
+- Español en contenido público. Palabra clave de marca: **acoplamiento**.
+- Antes de cambios de negocio: leer `docs/knowledge/business-model.md`.

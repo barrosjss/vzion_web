@@ -1,0 +1,29 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHero from "../../components/ui/PageHero.astro";
+import Eyebrow from "../../components/ui/Eyebrow.astro";
+import Container from "../../components/ui/Container.astro";
+import CourseCard from "../../components/ui/CourseCard.astro";
+import { courses } from "../../data/academy";
+---
+
+<BaseLayout title="Academy" description="Cursos de Python y Ofimática con material de clase organizado por módulos.">
+  <PageHero>
+    <Eyebrow class="mb-5">// vzion academy</Eyebrow>
+    <h1 class="mx-auto max-w-[18ch] text-[clamp(1.75rem,5vw,3.625rem)] leading-[1.05] font-medium tracking-[-0.035em]">
+      Material de clase, organizado y accesible.
+    </h1>
+    <p class="mx-auto mt-5 max-w-[58ch] text-base leading-relaxed text-text-muted sm:mt-6 sm:text-lg">
+      Cursos activos con contenido por módulos y lecciones. Entra a un curso para ver el temario completo y abrir cada
+      clase.
+    </p>
+  </PageHero>
+
+  <section class="pb-16 md:pb-24">
+    <Container>
+      <div class="grid gap-4 lg:grid-cols-2">
+        {courses.map((course) => <CourseCard course={course} href={`/academy/${course.id}`} />)}
+      </div>
+    </Container>
+  </section>
+</BaseLayout>

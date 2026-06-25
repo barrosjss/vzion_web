@@ -1,0 +1,27 @@
+---
+import Container from "../ui/Container.astro";
+import Eyebrow from "../ui/Eyebrow.astro";
+import Button from "../ui/Button.astro";
+import ProjectCard from "../ui/ProjectCard.astro";
+import { projects } from "../../data/projects";
+
+const featured = projects.slice(0, 3);
+---
+
+<section class="py-16 md:py-24">
+  <Container>
+    <div class="mb-11 flex flex-wrap items-end justify-between gap-8">
+      <div class="max-w-[48ch]">
+        <Eyebrow class="mb-5">[ 04 ] portafolio</Eyebrow>
+        <h2 class="text-[clamp(2rem,4vw,2.875rem)] leading-[1.07] font-medium tracking-[-0.03em]">
+          Lo que hemos puesto a funcionar.
+        </h2>
+      </div>
+      <Button href="/proyectos" variant="mono">ver_todo →</Button>
+    </div>
+
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {featured.map((project) => <ProjectCard project={project} />)}
+    </div>
+  </Container>
+</section>

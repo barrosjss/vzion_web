@@ -1,0 +1,33 @@
+---
+import Container from "../ui/Container.astro";
+import Eyebrow from "../ui/Eyebrow.astro";
+import Button from "../ui/Button.astro";
+import BlogCard from "../ui/BlogCard.astro";
+import { posts } from "../../data/blog";
+
+const preview = posts.slice(0, 3);
+---
+
+<section class="pt-16 pb-20 md:pt-20 md:pb-28">
+  <Container>
+    <div class="mb-11 flex flex-wrap items-end justify-between gap-8">
+      <div class="max-w-[48ch]">
+        <Eyebrow class="mb-5">[ 07 ] blog</Eyebrow>
+        <h2 class="text-[clamp(2rem,4vw,2.875rem)] leading-[1.07] font-medium tracking-[-0.03em]">
+          Ideas desde la operación.
+        </h2>
+      </div>
+      <Button href="/blog" variant="mono">ver_blog →</Button>
+    </div>
+
+    <div class="grid gap-3.5 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        preview.map((post) => (
+          <div class="rounded-2xl border border-white/8 bg-white/[0.025] p-6 transition-colors hover:border-brand/40">
+            <BlogCard post={post} showImage={false} />
+          </div>
+        ))
+      }
+    </div>
+  </Container>
+</section>

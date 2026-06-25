@@ -1,0 +1,32 @@
+---
+import Container from "../ui/Container.astro";
+import Eyebrow from "../ui/Eyebrow.astro";
+import { process } from "../../data/pitch";
+---
+
+<section class="py-16 md:py-24">
+  <Container>
+    <div class="mb-12 max-w-[62ch]">
+      <Eyebrow class="mb-5">[ 01 ] cómo trabajamos</Eyebrow>
+      <h2 class="text-[clamp(2rem,4vw,2.875rem)] leading-[1.07] font-medium tracking-[-0.03em]">
+        No somos un favor. Somos un proceso definido, paso a paso.
+      </h2>
+      <p class="mt-5 text-lg leading-relaxed text-text-muted">
+        Nuestra filosofía es el <span class="font-semibold text-text">acoplamiento</span>: no te decimos «tómalo o
+        déjalo». Entendemos cómo funciona tu mundo y nos convertimos en parte de él.
+      </p>
+    </div>
+
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        process.map((step) => (
+          <div class="rounded-2xl border border-white/8 bg-white/[0.025] p-6 transition-colors duration-200 hover:border-brand/40">
+            <div class="mb-5 font-mono text-[13px] tracking-wide text-brand">{step.n} /</div>
+            <h3 class="mb-2.5 text-[19px] font-semibold tracking-tight">{step.t}</h3>
+            <p class="text-[14.5px] leading-normal text-text-muted">{step.d}</p>
+          </div>
+        ))
+      }
+    </div>
+  </Container>
+</section>

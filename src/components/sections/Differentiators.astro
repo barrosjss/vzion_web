@@ -1,0 +1,54 @@
+---
+import Container from "../ui/Container.astro";
+import Eyebrow from "../ui/Eyebrow.astro";
+import { differentiators } from "../../data/pitch";
+---
+
+<section class="py-16 md:py-24">
+  <Container size="lg">
+    <div class="mb-10 text-center md:mb-12">
+      <Eyebrow class="mb-5">[ 03 ] el diferenciador</Eyebrow>
+      <h2 class="mx-auto max-w-[22ch] text-[clamp(1.75rem,5vw,2.875rem)] leading-[1.07] font-medium tracking-[-0.03em]">
+        No somos otra agencia. Somos tu equipo.
+      </h2>
+    </div>
+
+    <!-- Mobile: cards apiladas -->
+    <div class="space-y-3 md:hidden">
+      {
+        differentiators.map((row) => (
+          <div class="rounded-2xl border border-white/10 bg-white/[0.02] p-4">
+            <p class="font-mono text-[10px] font-medium uppercase tracking-wider text-text-faint">// mercado</p>
+            <p class="mt-2 text-sm leading-relaxed text-text-dim">{row.market}</p>
+            <p class="mt-4 font-mono text-[10px] font-medium uppercase tracking-wider text-brand">// vzion</p>
+            <p class="mt-2 text-sm leading-relaxed font-medium text-text">{row.vzion}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- Desktop: tabla comparativa -->
+    <div class="hidden overflow-hidden rounded-[18px] border border-white/10 bg-white/[0.02] md:block">
+      <div class="grid grid-cols-2">
+        <div class="px-6 py-4 font-mono text-[11.5px] font-medium uppercase tracking-widest text-text-faint lg:px-8">
+          // lo que existe
+        </div>
+        <div
+          class="border-l border-white/10 bg-brand/5 px-6 py-4 font-mono text-[11.5px] font-medium uppercase tracking-widest text-brand lg:px-8"
+        >
+          // lo que es vzion
+        </div>
+      </div>
+      {
+        differentiators.map((row) => (
+          <div class="grid grid-cols-2 border-t border-white/7">
+            <div class="px-6 py-5 text-[15.5px] leading-relaxed text-text-dim lg:px-8">{row.market}</div>
+            <div class="border-l border-white/10 bg-brand/[0.03] px-6 py-5 text-[15.5px] leading-relaxed font-medium lg:px-8">
+              {row.vzion}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </Container>
+</section>

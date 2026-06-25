@@ -1,0 +1,88 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Container from "../../components/ui/Container.astro";
+import Eyebrow from "../../components/ui/Eyebrow.astro";
+import Button from "../../components/ui/Button.astro";
+import BrandImage from "../../components/ui/BrandImage.astro";
+import { site } from "../../data/site";
+---
+
+<BaseLayout title="Contacto" description="Cuéntanos cómo funciona tu mundo.">
+  <section class="py-12 sm:py-16 md:py-24">
+    <Container size="lg">
+      <div class="grid items-start gap-10 lg:grid-cols-2 lg:gap-16">
+        <div>
+          <Eyebrow class="mb-5">// contacto</Eyebrow>
+          <h1 class="mb-4 text-[clamp(1.75rem,5vw,3.25rem)] leading-[1.04] font-medium tracking-[-0.035em] sm:mb-5">
+            Cuéntanos cómo funciona tu mundo.
+          </h1>
+          <p class="mb-7 text-base leading-relaxed text-text-muted sm:mb-9 sm:text-lg">
+            No importa en qué etapa estés ni cómo prestes tu servicio hoy. Nos acoplamos y hacemos que escale.
+          </p>
+
+          <div class="flex flex-col gap-4">
+            <div class="flex items-center gap-3.5">
+              <div class="flex h-[42px] w-[42px] shrink-0 items-center justify-center rounded-[11px] bg-brand/10">
+                <BrandImage variant="orange" class="h-[18px] w-auto" width={18} height={18} />
+              </div>
+              <div class="min-w-0">
+                <div class="font-mono text-[11px] tracking-wide text-text-faint uppercase">Email</div>
+                <a href={`mailto:${site.contact.email}`} class="break-all text-base font-semibold hover:text-brand">
+                  {site.contact.email}
+                </a>
+              </div>
+            </div>
+            <div class="flex items-center gap-3.5">
+              <div class="flex h-[42px] w-[42px] shrink-0 items-center justify-center rounded-[11px] bg-brand/10">
+                <BrandImage variant="orange" class="h-[18px] w-auto" width={18} height={18} />
+              </div>
+              <div>
+                <div class="font-mono text-[11px] tracking-wide text-text-faint uppercase">Respuesta</div>
+                <div class="text-base font-semibold">{site.contact.responseTime}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <form class="rounded-[20px] border border-white/10 bg-white/[0.025] px-5 py-7 sm:px-8 sm:py-9">
+          <div class="flex flex-col gap-4">
+            <div>
+              <label class="mb-2 block font-mono text-[11px] font-medium tracking-wider text-text-dim uppercase">
+                Nombre
+              </label>
+              <input
+                type="text"
+                name="nombre"
+                placeholder="Tu nombre"
+                class="w-full rounded-[11px] border border-white/12 bg-white/[0.03] px-4 py-3.5 text-[15px] text-text placeholder:text-text-faint focus:border-brand focus:outline-none"
+              />
+            </div>
+            <div>
+              <label class="mb-2 block font-mono text-[11px] font-medium tracking-wider text-text-dim uppercase">
+                Email
+              </label>
+              <input
+                type="email"
+                name="email"
+                placeholder="tucorreo@empresa.com"
+                class="w-full rounded-[11px] border border-white/12 bg-white/[0.03] px-4 py-3.5 text-[15px] text-text placeholder:text-text-faint focus:border-brand focus:outline-none"
+              />
+            </div>
+            <div>
+              <label class="mb-2 block font-mono text-[11px] font-medium tracking-wider text-text-dim uppercase">
+                ¿Qué necesitas ejecutar?
+              </label>
+              <textarea
+                name="mensaje"
+                rows="5"
+                placeholder="Cuéntanos tu servicio, tu metodología y dónde te frenas..."
+                class="min-h-[120px] w-full resize-y rounded-[11px] border border-white/12 bg-white/[0.03] px-4 py-3.5 text-[15px] text-text placeholder:text-text-faint focus:border-brand focus:outline-none"
+              ></textarea>
+            </div>
+            <Button type="submit" size="lg" class="mt-1 w-full">Enviar mensaje</Button>
+          </div>
+        </form>
+      </div>
+    </Container>
+  </section>
+</BaseLayout>
