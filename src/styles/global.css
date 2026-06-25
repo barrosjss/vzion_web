@@ -345,7 +345,9 @@
 
     .slide-body--split > .slide-block--paragraph,
     .slide-body--split > .slide-block--heading,
-    .slide-body--split > .slide-block--quote {
+    .slide-body--split > .slide-block--quote,
+    .slide-body--split > .slide-block--code,
+    .slide-body--split > .slide-block--callout {
       grid-column: 1 / -1;
     }
 
@@ -359,9 +361,7 @@
     }
 
     .slide-body--split > .slide-block--list,
-    .slide-body--split > .slide-block--callout,
     .slide-body--split > .slide-block--cards,
-    .slide-body--split > .slide-block--code,
     .slide-body--split > .slide-block--boxes {
       grid-column: 2;
       align-self: start;
@@ -535,6 +535,19 @@
   .slide-copy-btn[data-copied="true"] {
     border-color: color-mix(in oklab, var(--color-brand) 35%, transparent);
     color: var(--color-brand);
+  }
+
+  .slide-block--code {
+    min-width: 0;
+  }
+
+  .slide-code__pre {
+    overflow-x: auto;
+  }
+
+  .slide-code__content {
+    display: block;
+    white-space: pre;
   }
 
   .slide-spreadsheet {
