@@ -267,6 +267,49 @@
     max-height: min(58vh, 640px);
   }
 
+  .slide-panel--deck .slide-body--split-short {
+    max-height: none;
+    overflow: visible;
+    align-content: start;
+  }
+
+  @media (min-width: 768px) {
+    .slide-body--split-short {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: 0.75rem 1.5rem;
+      align-items: start;
+    }
+
+    .slide-body--split-short .slide-body__complements {
+      grid-column: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .slide-body--split-short .slide-body__short {
+      grid-column: 2;
+      align-self: center;
+      justify-self: center;
+      width: 100%;
+      max-width: 18rem;
+    }
+
+    .slide-body--split-short .slide-youtube {
+      @apply max-w-none;
+    }
+
+    .slide-body--split-short .slide-block--paragraph p {
+      @apply text-[15px] leading-relaxed sm:text-base;
+    }
+
+    .slide-body--split-short .slide-list-numbered {
+      @apply space-y-2;
+    }
+  }
+
   @media (min-width: 1024px) {
     .slide-panel--content.slide-panel--deck .slide-body,
     .slide-panel--practice.slide-panel--deck .slide-body {
@@ -288,39 +331,6 @@
     .slide-panel--deck:has(.slide-body--split) .slide-subtitle,
     .slide-panel--deck:has(.slide-body--split-short) .slide-subtitle {
       @apply mb-4;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .slide-body--split-short {
-      display: grid;
-      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-      gap: 1rem 1.5rem;
-      align-items: center;
-    }
-
-    .slide-body--split-short .slide-body__complements {
-      grid-column: 1;
-      min-width: 0;
-    }
-
-    .slide-body--split-short .slide-body__short {
-      grid-column: 2;
-      justify-self: center;
-      width: 100%;
-      max-width: 18rem;
-    }
-
-    .slide-body--split-short .slide-youtube {
-      @apply max-w-none;
-    }
-
-    .slide-body--split-short .slide-block--paragraph p {
-      @apply text-[15px] leading-relaxed sm:text-base;
-    }
-
-    .slide-body--split-short .slide-list-numbered {
-      @apply gap-2;
     }
   }
 
