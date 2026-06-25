@@ -1,3 +1,5 @@
+export type LessonFormat = "presentation" | "video" | "activity";
+
 export type LessonBlock =
   | { type: "heading"; text: string }
   | { type: "paragraph"; text: string }
@@ -10,7 +12,7 @@ export type SlideBlock =
   | { type: "paragraph"; text: string }
   | { type: "list"; items: string[]; style?: "bullet" | "check" | "numbered" }
   | { type: "callout"; variant: "tip" | "note" | "warning"; text: string }
-  | { type: "code"; language: string; code: string }
+  | { type: "code"; language: string; code: string; copyable?: boolean }
   | { type: "quote"; text: string }
   | { type: "columns"; cols: 2 | 3; columns: SlideBlock[][] }
   | { type: "cards"; items: { icon?: string; title: string; text: string }[] }
@@ -24,7 +26,16 @@ export type SlideBlock =
     }
   | { type: "figure"; src: string; alt: string; caption?: string }
   | { type: "imagePlaceholder"; label: string; note?: string }
-  | { type: "youtube"; videoId: string; title?: string; caption?: string; short?: boolean };
+  | { type: "youtube"; videoId: string; title?: string; caption?: string; short?: boolean }
+  | {
+      type: "spreadsheet";
+      title?: string;
+      headers: string[];
+      rows: string[][];
+      highlights?: { row: number; col: number }[];
+      caption?: string;
+      copyLabel?: string;
+    };
 
 export type Slide = {
   variant?: "cover" | "content" | "summary" | "practice";
@@ -40,6 +51,7 @@ export type Lesson = {
   title: string;
   duration?: string;
   summary: string;
+  format?: LessonFormat;
   blocks?: LessonBlock[];
   slides?: Slide[];
 };

@@ -178,7 +178,8 @@
   }
 
   @media (min-width: 1280px) {
-    .slide-panel--deck:has(.slide-body--split) {
+    .slide-panel--deck:has(.slide-body--split),
+    .slide-panel--deck:has(.slide-body--split-short) {
       max-width: 72rem;
     }
   }
@@ -279,12 +280,47 @@
       max-height: min(76vh, 840px);
     }
 
-    .slide-panel--deck:has(.slide-body--split) .slide-title {
+    .slide-panel--deck:has(.slide-body--split) .slide-title,
+    .slide-panel--deck:has(.slide-body--split-short) .slide-title {
       @apply mb-4;
     }
 
-    .slide-panel--deck:has(.slide-body--split) .slide-subtitle {
+    .slide-panel--deck:has(.slide-body--split) .slide-subtitle,
+    .slide-panel--deck:has(.slide-body--split-short) .slide-subtitle {
       @apply mb-4;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .slide-body--split-short {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 1rem 1.75rem;
+      align-items: start;
+    }
+
+    .slide-body--split-short > .slide-block--paragraph,
+    .slide-body--split-short > .slide-block--heading,
+    .slide-body--split-short > .slide-block--quote,
+    .slide-body--split-short > .slide-block--list,
+    .slide-body--split-short > .slide-block--callout,
+    .slide-body--split-short > .slide-block--cards,
+    .slide-body--split-short > .slide-block--code,
+    .slide-body--split-short > .slide-block--boxes {
+      grid-column: 1;
+    }
+
+    .slide-body--split-short > .slide-block--youtube {
+      grid-column: 2;
+      grid-row: 1 / -1;
+      align-self: center;
+      justify-self: center;
+      width: 100%;
+      max-width: 20rem;
+    }
+
+    .slide-body--split-short .slide-youtube {
+      @apply max-w-none;
     }
   }
 
@@ -305,7 +341,8 @@
 
     .slide-body--split > .slide-block--figure,
     .slide-body--split > .slide-block--imagePlaceholder,
-    .slide-body--split > .slide-block--youtube {
+    .slide-body--split > .slide-block--youtube,
+    .slide-body--split > .slide-block--spreadsheet {
       grid-column: 1;
       grid-row: 2;
       align-self: start;
@@ -481,6 +518,72 @@
     @apply border-t border-white/8 px-4 py-3 text-sm leading-relaxed text-text-muted sm:px-5;
   }
 
+  .slide-copy-btn {
+    @apply shrink-0 rounded-full border border-white/12 bg-white/[0.04] px-3 py-1 font-mono text-[10px] font-medium uppercase tracking-wider text-text-muted transition-colors hover:border-brand/35 hover:text-brand;
+  }
+
+  .slide-copy-btn[data-copied="true"] {
+    border-color: color-mix(in oklab, var(--color-brand) 35%, transparent);
+    color: var(--color-brand);
+  }
+
+  .slide-spreadsheet {
+    @apply overflow-hidden rounded-[14px] border border-white/10 bg-black/35;
+  }
+
+  .slide-spreadsheet__toolbar {
+    @apply flex flex-wrap items-center justify-between gap-2 border-b border-white/8 px-3 py-2 sm:px-4;
+  }
+
+  .slide-spreadsheet__title {
+    @apply text-xs font-medium text-text sm:text-sm;
+  }
+
+  .slide-spreadsheet__scroll {
+    @apply overflow-x-auto;
+  }
+
+  .slide-spreadsheet__table {
+    @apply w-full min-w-[280px] border-collapse text-left text-xs sm:text-sm;
+  }
+
+  .slide-spreadsheet__corner,
+  .slide-spreadsheet__col-head,
+  .slide-spreadsheet__row-head {
+    @apply border border-white/8 bg-white/[0.03] font-mono text-[10px] font-medium uppercase tracking-wider text-text-dim;
+  }
+
+  .slide-spreadsheet__corner {
+    @apply w-8;
+  }
+
+  .slide-spreadsheet__col-head {
+    @apply min-w-[4.5rem] px-2 py-1.5 sm:px-3;
+  }
+
+  .slide-spreadsheet__letter {
+    @apply mb-0.5 block text-[9px] text-text-faint;
+  }
+
+  .slide-spreadsheet__row-head {
+    @apply w-8 px-1 py-2 text-center;
+  }
+
+  .slide-spreadsheet__cell {
+    @apply border border-white/8 px-2 py-1.5 font-mono text-text sm:px-3 sm:py-2;
+  }
+
+  .slide-spreadsheet__cell--highlight {
+    border-color: color-mix(in oklab, var(--color-brand) 45%, transparent);
+    background: color-mix(in oklab, var(--color-brand) 14%, transparent);
+    color: var(--color-text);
+    box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--color-brand) 22%, transparent);
+  }
+
+  .slide-spreadsheet__caption {
+    @apply border-t border-white/8 px-3 py-2 text-xs leading-relaxed text-text-muted sm:px-4;
+  }
+
   @keyframes slide-in {
     from {
       opacity: 0;
@@ -508,5 +611,27 @@
     .md-only {
       display: none;
     }
+  }
+
+  .lesson-format {
+    @apply inline-flex shrink-0 items-center rounded-full border px-2.5 py-0.5 font-mono text-[10px] font-medium uppercase tracking-wider;
+  }
+
+  .lesson-format--presentation {
+    border-color: color-mix(in oklab, var(--color-brand) 28%, transparent);
+    background: color-mix(in oklab, var(--color-brand) 12%, transparent);
+    color: var(--color-brand);
+  }
+
+  .lesson-format--video {
+    border-color: color-mix(in oklab, var(--color-text) 14%, transparent);
+    background: color-mix(in oklab, var(--color-text) 7%, transparent);
+    color: var(--color-text-muted);
+  }
+
+  .lesson-format--activity {
+    border-color: color-mix(in oklab, var(--color-brand-muted) 35%, transparent);
+    background: color-mix(in oklab, var(--color-brand-muted) 14%, transparent);
+    color: var(--color-brand-hover);
   }
 }

@@ -740,6 +740,49 @@ export const ofimaticaCourse: Course = {
             },
           ],
         },
+        {
+          id: "sheets-descargar-movil",
+          n: "09",
+          title: "Descargar archivos desde el móvil",
+          duration: "4 min",
+          summary: "Short: cómo descargar una hoja de Google Sheets en el celular.",
+          slides: [
+            {
+              variant: "content",
+              eyebrow: "Clase 09 · Hojas de cálculo",
+              title: "Descargar archivos desde el móvil",
+              subtitle: "Lleva tu hoja al celular en Excel, PDF o CSV sin depender de la conexión",
+              blocks: [
+                {
+                  type: "paragraph",
+                  text: "Cuando necesitas trabajar sin internet o compartir el archivo por WhatsApp, conviene descargarlo al dispositivo. El menú de Google Sheets en móvil permite exportar en varios formatos.",
+                },
+                {
+                  type: "list",
+                  style: "numbered",
+                  items: [
+                    "Abre la hoja en la app de Google Sheets o en el navegador del celular",
+                    "Toca el menú ⋮ (tres puntos) en la esquina superior",
+                    "Elige «Descargar» o «Compartir y exportar» → «Guardar como»",
+                    "Selecciona el formato: Excel (.xlsx), PDF o CSV",
+                    "Confirma: el archivo queda en Descargas o en la carpeta que elijas",
+                  ],
+                },
+                {
+                  type: "callout",
+                  variant: "tip",
+                  text: "Si solo necesitas leer datos, PDF basta. Si vas a editar en otro programa, elige Excel (.xlsx).",
+                },
+                {
+                  type: "youtube",
+                  videoId: "yVXQ-MSHF0I",
+                  title: "Descargar un archivo en Google Sheets desde el celular",
+                  short: true,
+                },
+              ],
+            },
+          ],
+        },
       ],
     },
     {
@@ -749,7 +792,7 @@ export const ofimaticaCourse: Course = {
       lessons: [
         {
           id: "buscarv-buscarh",
-          n: "09",
+          n: "10",
           title: "BUSCARV y BUSCARH",
           duration: "2 h",
           summary: "Funciones de búsqueda vertical y horizontal entre tablas.",
@@ -766,26 +809,50 @@ export const ofimaticaCourse: Course = {
               blocks: [
                 {
                   type: "paragraph",
-                  text: "Permite encontrar un valor en una tabla y devolver información relacionada. Ejemplo: dado un código de producto, obtener su precio o nombre.",
+                  text: "Resuelve un problema cotidiano: tienes un identificador (código, cédula, SKU) en una lista y necesitas traer un dato relacionado que está en otra tabla — sin buscar fila por fila ni copiar y pegar.",
                 },
                 {
                   type: "code",
                   language: "excel",
                   code: "=BUSCARV(valor_buscado; tabla; columna; [coincidencia_exacta])",
                 },
+                {
+                  type: "paragraph",
+                  text: "En la práctica aparece en inventarios (código → precio), nómina (cédula → cargo), ventas (cliente → ciudad) y reportes académicos (matrícula → nota). Si dos hojas comparten un campo en común, probablemente puedas unirlas con una función de búsqueda.",
+                },
               ],
             },
             {
               variant: "content",
-              title: "BUSCARV — búsqueda vertical",
+              title: "BUSCARV — ¿para qué sirve?",
+              blocks: [
+                {
+                  type: "paragraph",
+                  text: "BUSCARV busca un valor en la primera columna de una tabla y devuelve un dato de una columna a la derecha. Es la opción natural cuando tus encabezados están en vertical y el código está a la izquierda.",
+                },
+                {
+                  type: "code",
+                  language: "excel",
+                  code: "=BUSCARV(valor_buscado; tabla; número_columna; [coincidencia_exacta])",
+                },
+                {
+                  type: "quote",
+                  text: "«Tengo el código P002 en mi pedido y quiero que Excel traiga automáticamente su precio desde el catálogo de productos.»",
+                },
+              ],
+            },
+            {
+              variant: "content",
+              title: "BUSCARV — puntos clave",
               blocks: [
                 {
                   type: "list",
                   style: "numbered",
                   items: [
                     "El valor buscado debe estar en la primera columna de la tabla",
-                    "Indicas el número de columna cuyo valor quieres devolver",
+                    "Indicas el número de columna cuyo valor quieres devolver (1 = primera columna de la tabla)",
                     "FALSO (o 0) = coincidencia exacta — la más usada en trabajo",
+                    "Si no encuentra el valor, devuelve #N/D: revisa códigos duplicados o espacios extra",
                   ],
                 },
                 {
@@ -796,17 +863,133 @@ export const ofimaticaCourse: Course = {
               ],
             },
             {
-              variant: "content",
-              title: "BUSCARH — búsqueda horizontal",
+              variant: "practice",
+              title: "BUSCARV — ejemplo práctico",
               blocks: [
                 {
                   type: "paragraph",
-                  text: "Igual que BUSCARV pero el valor buscado está en la primera fila. Útil cuando los encabezados están en horizontal.",
+                  text: "Un almacén registra ventas con códigos de producto. En otra hoja está el catálogo con precios. Copia las tablas, pega la fórmula en la celda resaltada y arrastra hacia abajo para completar el pedido.",
+                },
+                {
+                  type: "columns",
+                  cols: 2,
+                  columns: [
+                    [
+                      {
+                        type: "spreadsheet",
+                        title: "Hoja «Productos»",
+                        headers: ["Código", "Producto", "Precio"],
+                        rows: [
+                          ["P001", "Cuaderno", "4500"],
+                          ["P002", "Bolígrafo", "1200"],
+                          ["P003", "Marcador", "2800"],
+                        ],
+                        copyLabel: "Copiar catálogo",
+                        caption: "Pega en la celda A1 de una hoja llamada Productos.",
+                      },
+                    ],
+                    [
+                      {
+                        type: "spreadsheet",
+                        title: "Hoja «Ventas»",
+                        headers: ["Código", "Cantidad", "Precio unitario"],
+                        rows: [
+                          ["P002", "10", ""],
+                          ["P001", "3", ""],
+                          ["P003", "5", ""],
+                        ],
+                        highlights: [
+                          { row: 0, col: 2 },
+                          { row: 1, col: 2 },
+                          { row: 2, col: 2 },
+                        ],
+                        copyLabel: "Copiar pedido",
+                        caption: "Pega en A1 de la hoja Ventas. La columna C es donde va la fórmula.",
+                      },
+                    ],
+                  ],
+                },
+                {
+                  type: "code",
+                  language: "excel",
+                  code: "=BUSCARV(A2;Productos!A:C;3;FALSO)",
+                },
+                {
+                  type: "callout",
+                  variant: "tip",
+                  text: "En clase: pega primero el catálogo, luego el pedido, escribe la fórmula en C2 y arrastra hasta C4. Compara el resultado con la tabla de productos para validar.",
+                },
+              ],
+            },
+            {
+              variant: "content",
+              title: "BUSCARH — ¿para qué sirve?",
+              blocks: [
+                {
+                  type: "paragraph",
+                  text: "BUSCARH hace lo mismo que BUSCARV, pero en horizontal: busca el valor en la primera fila de la tabla y devuelve un dato de una fila inferior. Sirve cuando los periodos, meses o categorías están en columnas.",
+                },
+                {
+                  type: "code",
+                  language: "excel",
+                  code: "=BUSCARH(valor_buscado; tabla; número_fila; [coincidencia_exacta])",
+                },
+                {
+                  type: "quote",
+                  text: "«Tengo los meses como encabezados en la fila 1 y quiero saber cuánto se vendió en febrero sin contar columnas manualmente.»",
+                },
+              ],
+            },
+            {
+              variant: "content",
+              title: "BUSCARH — puntos clave",
+              blocks: [
+                {
+                  type: "list",
+                  style: "numbered",
+                  items: [
+                    "El valor buscado debe estar en la primera fila del rango",
+                    "Indicas el número de fila cuyo valor quieres devolver (1 = primera fila del rango)",
+                    "FALSO (o 0) para coincidencia exacta del mes o etiqueta",
+                    "Menos frecuente que BUSCARV; aparece en reportes con estructura horizontal",
+                  ],
                 },
                 {
                   type: "callout",
                   variant: "note",
-                  text: "En la práctica BUSCARV se usa mucho más; BUSCARH aparece en reportes con estructura horizontal.",
+                  text: "Si tus datos están en columnas verticales, casi siempre conviene BUSCARV. Reserva BUSCARH para tablas «acostadas».",
+                },
+              ],
+            },
+            {
+              variant: "practice",
+              title: "BUSCARH — ejemplo práctico",
+              blocks: [
+                {
+                  type: "paragraph",
+                  text: "Un reporte de ventas tiene los meses en la fila superior y las métricas en filas debajo. Copia la tabla, escribe la consulta en B5 y cambia el mes para demostrar la búsqueda horizontal.",
+                },
+                {
+                  type: "spreadsheet",
+                  title: "Hoja «Ventas mensuales»",
+                  headers: ["", "Ene", "Feb", "Mar"],
+                  rows: [
+                    ["Ventas", "120", "145", "130"],
+                    ["Meta", "100", "150", "140"],
+                  ],
+                  highlights: [{ row: 0, col: 2 }],
+                  copyLabel: "Copiar reporte",
+                  caption: "Pega en B1. La celda resaltada (D2) muestra las ventas de febrero: 145.",
+                },
+                {
+                  type: "code",
+                  language: "excel",
+                  code: "=BUSCARH(\"Feb\";B1:E3;2;FALSO)",
+                },
+                {
+                  type: "callout",
+                  variant: "tip",
+                  text: "En clase: tras pegar la tabla, coloca la fórmula en una celda libre (por ejemplo C5). Cambia «Feb» por «Mar» y verifica que el valor pase de 145 a 130.",
                 },
               ],
             },
@@ -818,9 +1001,10 @@ export const ofimaticaCourse: Course = {
                   type: "list",
                   style: "check",
                   items: [
-                    "BUSCARV une tablas por un código o identificador común",
-                    "Dominarla evita copiar y pegar manualmente entre listas",
-                    "Contenido ampliado disponible en actividades prácticas del curso",
+                    "BUSCARV une tablas cuando el código está en la primera columna",
+                    "BUSCARH une tablas cuando el criterio está en la primera fila",
+                    "Usa FALSO para coincidencia exacta en códigos y etiquetas",
+                    "Copia las tablas y fórmulas de los ejemplos para practicar en vivo",
                   ],
                 },
               ],
@@ -829,7 +1013,7 @@ export const ofimaticaCourse: Course = {
         },
         {
           id: "indice-coincidir",
-          n: "10",
+          n: "11",
           title: "INDICE + COINCIDIR y funciones condicionales",
           duration: "2 h",
           summary: "Búsqueda flexible bidireccional. SUMAR.SI, CONTAR.SI, PROMEDIO.SI.",
@@ -859,7 +1043,7 @@ export const ofimaticaCourse: Course = {
         },
         {
           id: "tablas-dinamicas",
-          n: "11",
+          n: "12",
           title: "Tablas dinámicas",
           duration: "2 h",
           summary: "Crear, configurar y filtrar tablas dinámicas para resumir datos.",
@@ -889,7 +1073,7 @@ export const ofimaticaCourse: Course = {
         },
         {
           id: "presentaciones-ia",
-          n: "12",
+          n: "13",
           title: "Presentaciones, bases de datos e IA",
           duration: "2 h",
           summary: "PowerPoint ejecutivo, Access básico, Copilot y ética digital.",

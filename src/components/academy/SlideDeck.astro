@@ -1,7 +1,11 @@
 ---
 import type { Slide } from "../../data/academy/types";
 import SlideBlock from "./SlideBlock.astro";
-import { usesBareSlideBody, usesSplitSlideLayout } from "../../lib/academy-layout";
+import {
+  usesBareSlideBody,
+  usesSplitShortLayout,
+  usesSplitSlideLayout,
+} from "../../lib/academy-layout";
 
 type Props = {
   slides: Slide[];
@@ -61,6 +65,7 @@ const slideVariants = {
           <div
             class:list={[
               "slide-body space-y-4",
+              usesSplitShortLayout(slide.blocks) && "slide-body--split-short",
               usesSplitSlideLayout(slide.blocks) && "slide-body--split",
               usesBareSlideBody(slide.blocks) && "slide-body--bare",
             ]}
@@ -99,6 +104,7 @@ const slideVariants = {
           <div
             class:list={[
               "slide-body space-y-4",
+              usesSplitShortLayout(slide.blocks) && "slide-body--split-short",
               usesSplitSlideLayout(slide.blocks) && "slide-body--split",
               usesBareSlideBody(slide.blocks) && "slide-body--bare",
             ]}
@@ -246,6 +252,7 @@ const slideVariants = {
 
     viewport.addEventListener("click", (event) => {
       if (!(event instanceof MouseEvent)) return;
+      if ((event.target as HTMLElement).closest("[data-copy-btn]")) return;
       root.focus({ preventScroll: true });
       if ((event.target as HTMLElement).closest("[data-next-lesson-btn]")) return;
       const rect = viewport.getBoundingClientRect();
@@ -271,6 +278,34 @@ const slideVariants = {
     }
 
     show(initial);
+
+    root.addEventListener("click", async (event) => {
+      const button = (event.target as HTMLElement).closest<HTMLButtonElement>("[data-copy-btn]");
+      if (!button) return;
+
+      event.preventDefault();
+      event.stopPropagation();
+
+      const text = button.dataset.copyText;
+      if (!text) return;
+
+      try {
+        await navigator.clipboard.writeText(text);
+        button.dataset.copied = "true";
+        const original = button.textContent;
+        button.textContent = "Copiado";
+        window.setTimeout(() => {
+          button.dataset.copied = "false";
+          button.textContent = original;
+        }, 1800);
+      } catch {
+        const original = button.textContent;
+        button.textContent = "Error al copiar";
+        window.setTimeout(() => {
+          button.textContent = original;
+        }, 1800);
+      }
+    });
   }
 
   document.querySelectorAll<HTMLElement>("[data-slide-deck]").forEach(initSlideDeck);

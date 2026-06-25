@@ -1,11 +1,19 @@
 ---
 import type { SlideBlock } from "../../data/academy/types";
+import { isSpreadsheetCellHighlighted, spreadsheetToTsv } from "../../lib/spreadsheet";
 
 type Props = {
   blocks?: SlideBlock[];
 };
 
 const { blocks = [] } = Astro.props;
+
+const columnLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+
+function showCodeCopy(block: Extract<SlideBlock, { type: "code" }>): boolean {
+  if (block.copyable === false) return false;
+  return block.copyable === true || block.language === "excel";
+}
 
 const calloutStyles = {
   tip: "border-brand/30 bg-brand/8",
@@ -96,11 +104,20 @@ const boxStyles = {
     }
 
     if (block.type === "code") {
+      const canCopy = showCodeCopy(block);
+
       return (
         <div class="slide-block slide-block--code">
           <div class="overflow-x-auto rounded-[14px] border border-white/10 bg-black/40">
-            <div class="border-b border-white/8 px-4 py-2 font-mono text-[11px] uppercase tracking-wider text-text-dim">
-              {block.language}
+            <div class="flex items-center justify-between gap-3 border-b border-white/8 px-4 py-2">
+              <span class="font-mono text-[11px] uppercase tracking-wider text-text-dim">{block.language}</span>
+              {
+                canCopy && (
+                  <button type="button" class="slide-copy-btn" data-copy-btn data-copy-text={block.code}>
+                    Copiar fórmula
+                  </button>
+                )
+              }
             </div>
             <pre class="p-4 font-mono text-sm leading-relaxed text-text sm:text-[15px]">
               <code>{block.code}</code>
@@ -180,6 +197,59 @@ const boxStyles = {
             <span class="slide-image-placeholder__icon" aria-hidden="true">🖼️</span>
             <p class="slide-image-placeholder__label">{block.label}</p>
             {block.note && <p class="slide-image-placeholder__note">{block.note}</p>}
+          </div>
+        </div>
+      );
+    }
+
+    if (block.type === "spreadsheet") {
+      const tsv = spreadsheetToTsv(block.headers, block.rows);
+
+      return (
+        <div class="slide-block slide-block--spreadsheet">
+          <div class="slide-spreadsheet">
+            <div class="slide-spreadsheet__toolbar">
+              {block.title && <p class="slide-spreadsheet__title">{block.title}</p>}
+              <button type="button" class="slide-copy-btn" data-copy-btn data-copy-text={tsv}>
+                {block.copyLabel ?? "Copiar tabla"}
+              </button>
+            </div>
+            <div class="slide-spreadsheet__scroll">
+              <table class="slide-spreadsheet__table">
+                <thead>
+                  <tr>
+                    <th class="slide-spreadsheet__corner" scope="col" aria-hidden="true" />
+                    {block.headers.map((header, colIndex) => (
+                      <th class="slide-spreadsheet__col-head" scope="col">
+                        <span class="slide-spreadsheet__letter">{columnLetters[colIndex]}</span>
+                        <span>{header}</span>
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {block.rows.map((row, rowIndex) => (
+                    <tr>
+                      <th class="slide-spreadsheet__row-head" scope="row">
+                        {rowIndex + 1}
+                      </th>
+                      {row.map((cell, colIndex) => (
+                        <td
+                          class:list={[
+                            "slide-spreadsheet__cell",
+                            isSpreadsheetCellHighlighted(block.highlights, rowIndex, colIndex) &&
+                              "slide-spreadsheet__cell--highlight",
+                          ]}
+                        >
+                          {cell}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            {block.caption && <p class="slide-spreadsheet__caption">{block.caption}</p>}
           </div>
         </div>
       );

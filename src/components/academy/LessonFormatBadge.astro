@@ -1,0 +1,20 @@
+---
+import { cn } from "../../lib/utils";
+import type { LessonFormat } from "../../data/academy/types";
+import { lessonFormatMeta } from "../../data/academy";
+
+type Props = {
+  format: LessonFormat;
+  class?: string;
+};
+
+const { format, class: className } = Astro.props;
+const meta = lessonFormatMeta[format];
+---
+
+<span
+  class={cn("lesson-format", `lesson-format--${format}`, className)}
+  title={meta.description}
+>
+  {meta.label}
+</span>

@@ -1,4 +1,4 @@
-import type { Course } from "./types";
+import type { Course, Lesson, LessonFormat } from "./types";
 import { ofimaticaCourse } from "./ofimatica";
 import { pythonCourse } from "./python";
 
@@ -51,4 +51,33 @@ export function getAdjacentLessons(courseId: string, lessonId: string) {
 
 export function lessonUsesSlides(lesson: { slides?: unknown[]; blocks?: unknown[] }): boolean {
   return Boolean(lesson.slides && lesson.slides.length > 0);
+}
+
+export const lessonFormatMeta = {
+  presentation: {
+    label: "Presentación",
+    description: "Slides con teoría, ejemplos y material de clase.",
+  },
+  video: {
+    label: "Video",
+    description: "Clase en formato audiovisual.",
+  },
+  activity: {
+    label: "Actividad",
+    description: "Ejercicio práctico, taller o evaluación.",
+  },
+} satisfies Record<LessonFormat, { label: string; description: string }>;
+
+export const lessonFormats = Object.keys(lessonFormatMeta) as LessonFormat[];
+
+export function getLessonFormat(lesson: Lesson): LessonFormat {
+  if (lesson.format) return lesson.format;
+
+  const slides = lesson.slides ?? [];
+
+  if (slides.some((slide) => slide.blocks?.some((block) => block.type === "youtube"))) {
+    return "video";
+  }
+
+  return "presentation";
 }

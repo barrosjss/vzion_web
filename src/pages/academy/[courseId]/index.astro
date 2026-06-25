@@ -2,7 +2,15 @@
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import Container from "../../../components/ui/Container.astro";
 import Button from "../../../components/ui/Button.astro";
-import { courses, getCourseById, getCourseStats, getLessonPath } from "../../../data/academy";
+import LessonFormatBadge from "../../../components/academy/LessonFormatBadge.astro";
+import {
+  courses,
+  getCourseById,
+  getCourseStats,
+  getLessonFormat,
+  getLessonPath,
+  lessonFormats,
+} from "../../../data/academy";
 
 export function getStaticPaths() {
   return courses.map((course) => ({ params: { courseId: course.id } }));
@@ -49,6 +57,11 @@ const { moduleCount, lessonCount } = getCourseStats(course);
         <p class="font-mono text-xs text-text-dim">
           {moduleCount} módulos · {lessonCount} clases
         </p>
+        <div class="mt-4 flex flex-wrap items-center gap-2" aria-label="Tipos de clase">
+          {lessonFormats.map((format) => (
+            <LessonFormatBadge format={format} />
+          ))}
+        </div>
       </div>
 
       <div class="space-y-8">
@@ -69,7 +82,10 @@ const { moduleCount, lessonCount } = getCourseStats(course);
                   >
                     <span class="w-8 shrink-0 font-mono text-sm text-text-faint">{lesson.n}</span>
                     <div class="min-w-0 flex-1">
-                      <h3 class="text-base font-semibold tracking-tight sm:text-lg">{lesson.title}</h3>
+                      <div class="flex flex-wrap items-center gap-x-2.5 gap-y-1.5">
+                        <h3 class="text-base font-semibold tracking-tight sm:text-lg">{lesson.title}</h3>
+                        <LessonFormatBadge format={getLessonFormat(lesson)} />
+                      </div>
                       <p class="mt-0.5 text-sm text-text-muted">{lesson.summary}</p>
                     </div>
                     {lesson.duration && (
