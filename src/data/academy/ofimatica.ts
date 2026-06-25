@@ -723,7 +723,7 @@ export const ofimaticaCourse: Course = {
           n: "08",
           title: "Google Sheets desde el móvil",
           duration: "5 min",
-          summary: "Video corto: Google Sheets en celular y tablet.",
+          summary: "Video: Google Sheets en celular y tablet.",
           slides: [
             {
               variant: "content",
@@ -735,7 +735,6 @@ export const ofimaticaCourse: Course = {
                   type: "youtube",
                   videoId: "h8C8KhGRJBI",
                   title: "Google Sheets desde el móvil",
-                  short: true,
                 },
               ],
             },

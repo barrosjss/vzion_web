@@ -1,6 +1,7 @@
 ---
 import type { Slide } from "../../data/academy/types";
 import SlideBlock from "./SlideBlock.astro";
+import { usesBareSlideBody, usesSplitSlideLayout } from "../../lib/academy-layout";
 
 type Props = {
   slides: Slide[];
@@ -57,7 +58,13 @@ const slideVariants = {
           {slide.eyebrow && <p class="slide-eyebrow">{slide.eyebrow}</p>}
           {slide.title && <h2 class="slide-title">{slide.title}</h2>}
           {slide.subtitle && <p class="slide-subtitle">{slide.subtitle}</p>}
-          <div class="slide-body space-y-4">
+          <div
+            class:list={[
+              "slide-body space-y-4",
+              usesSplitSlideLayout(slide.blocks) && "slide-body--split",
+              usesBareSlideBody(slide.blocks) && "slide-body--bare",
+            ]}
+          >
             <SlideBlock blocks={slide.blocks ?? []} />
           </div>
           {index < slides.length - 1 && <div class="slide-divider" aria-hidden="true" />}
@@ -89,7 +96,13 @@ const slideVariants = {
           {slide.eyebrow && <p class="slide-eyebrow">{slide.eyebrow}</p>}
           {slide.title && <h2 class="slide-title">{slide.title}</h2>}
           {slide.subtitle && <p class="slide-subtitle">{slide.subtitle}</p>}
-          <div class="slide-body space-y-4">
+          <div
+            class:list={[
+              "slide-body space-y-4",
+              usesSplitSlideLayout(slide.blocks) && "slide-body--split",
+              usesBareSlideBody(slide.blocks) && "slide-body--bare",
+            ]}
+          >
             <SlideBlock blocks={slide.blocks ?? []} />
           </div>
           {

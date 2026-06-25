@@ -32,26 +32,34 @@ const boxStyles = {
     if (block.type === "heading") {
       const Tag = block.level === 3 ? "h3" : "h2";
       return (
-        <Tag
-          class:list={[
-            "font-semibold tracking-tight text-text",
-            block.level === 3 ? "mb-3 text-base sm:text-lg" : "mb-4 text-lg sm:text-xl",
-          ]}
-        >
-          {block.text}
-        </Tag>
+        <div class="slide-block slide-block--heading">
+          <Tag
+            class:list={[
+              "font-semibold tracking-tight text-text",
+              block.level === 3 ? "mb-3 text-base sm:text-lg" : "mb-4 text-lg sm:text-xl",
+            ]}
+          >
+            {block.text}
+          </Tag>
+        </div>
       );
     }
 
     if (block.type === "paragraph") {
-      return <p class="text-sm leading-relaxed text-text-muted sm:text-base">{block.text}</p>;
+      return (
+        <div class="slide-block slide-block--paragraph">
+          <p class="text-sm leading-relaxed text-text-muted sm:text-base">{block.text}</p>
+        </div>
+      );
     }
 
     if (block.type === "quote") {
       return (
-        <blockquote class="border-l-2 border-brand/50 py-1 pl-4 text-sm italic leading-relaxed text-text-muted sm:text-base">
-          {block.text}
-        </blockquote>
+        <div class="slide-block slide-block--quote">
+          <blockquote class="border-l-2 border-brand/50 py-1 pl-4 text-sm italic leading-relaxed text-text-muted sm:text-base">
+            {block.text}
+          </blockquote>
+        </div>
       );
     }
 
@@ -64,34 +72,40 @@ const boxStyles = {
             : "list-disc space-y-2 pl-5 marker:text-brand";
 
       return (
-        <ul class:list={["text-sm leading-relaxed text-text-muted sm:text-base", listClass]}>
-          {block.items.map((item) => (
-            <li>{item}</li>
-          ))}
-        </ul>
+        <div class="slide-block slide-block--list">
+          <ul class:list={["text-sm leading-relaxed text-text-muted sm:text-base", listClass]}>
+            {block.items.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
       );
     }
 
     if (block.type === "callout") {
       return (
-        <div class:list={["rounded-[14px] border px-4 py-3.5 sm:px-5", calloutStyles[block.variant]]}>
-          <span class="mb-1 block font-mono text-[10px] font-medium uppercase tracking-widest text-brand">
-            {calloutLabels[block.variant]}
-          </span>
-          <p class="text-sm leading-relaxed text-text sm:text-[15px]">{block.text}</p>
+        <div class="slide-block slide-block--callout">
+          <div class:list={["rounded-[14px] border px-4 py-3.5 sm:px-5", calloutStyles[block.variant]]}>
+            <span class="mb-1 block font-mono text-[10px] font-medium uppercase tracking-widest text-brand">
+              {calloutLabels[block.variant]}
+            </span>
+            <p class="text-sm leading-relaxed text-text sm:text-[15px]">{block.text}</p>
+          </div>
         </div>
       );
     }
 
     if (block.type === "code") {
       return (
-        <div class="overflow-x-auto rounded-[14px] border border-white/10 bg-black/40">
-          <div class="border-b border-white/8 px-4 py-2 font-mono text-[11px] uppercase tracking-wider text-text-dim">
-            {block.language}
+        <div class="slide-block slide-block--code">
+          <div class="overflow-x-auto rounded-[14px] border border-white/10 bg-black/40">
+            <div class="border-b border-white/8 px-4 py-2 font-mono text-[11px] uppercase tracking-wider text-text-dim">
+              {block.language}
+            </div>
+            <pre class="p-4 font-mono text-sm leading-relaxed text-text sm:text-[15px]">
+              <code>{block.code}</code>
+            </pre>
           </div>
-          <pre class="p-4 font-mono text-sm leading-relaxed text-text sm:text-[15px]">
-            <code>{block.code}</code>
-          </pre>
         </div>
       );
     }
@@ -103,60 +117,70 @@ const boxStyles = {
           : "grid gap-4 sm:grid-cols-2";
 
       return (
-        <div class={gridClass}>
-          {block.columns.map((column) => (
-            <div class="space-y-3">
-              <Astro.self blocks={column} />
-            </div>
-          ))}
+        <div class="slide-block slide-block--columns">
+          <div class={gridClass}>
+            {block.columns.map((column) => (
+              <div class="space-y-3">
+                <Astro.self blocks={column} />
+              </div>
+            ))}
+          </div>
         </div>
       );
     }
 
     if (block.type === "cards") {
       return (
-        <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {block.items.map((item) => (
-            <div class="rounded-[14px] border border-white/8 bg-surface-card p-4 text-center">
-              {item.icon && <div class="mb-2 text-2xl" aria-hidden="true">{item.icon}</div>}
-              <strong class="mb-1 block text-sm font-semibold text-text">{item.title}</strong>
-              <p class="text-xs leading-relaxed text-text-muted sm:text-sm">{item.text}</p>
-            </div>
-          ))}
+        <div class="slide-block slide-block--cards">
+          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {block.items.map((item) => (
+              <div class="rounded-[14px] border border-white/8 bg-surface-card p-4 text-center">
+                {item.icon && <div class="mb-2 text-2xl" aria-hidden="true">{item.icon}</div>}
+                <strong class="mb-1 block text-sm font-semibold text-text">{item.title}</strong>
+                <p class="text-xs leading-relaxed text-text-muted sm:text-sm">{item.text}</p>
+              </div>
+            ))}
+          </div>
         </div>
       );
     }
 
     if (block.type === "boxes") {
       return (
-        <div class="grid gap-3 sm:grid-cols-2">
-          {block.items.map((item) => (
-            <div class:list={["rounded-[14px] border p-4", boxStyles[item.variant ?? "default"]]}>
-              <h3 class="mb-2 text-sm font-semibold text-text">{item.title}</h3>
-              <div class="space-y-2">
-                <Astro.self blocks={item.blocks} />
+        <div class="slide-block slide-block--boxes">
+          <div class="grid gap-3 sm:grid-cols-2">
+            {block.items.map((item) => (
+              <div class:list={["rounded-[14px] border p-4", boxStyles[item.variant ?? "default"]]}>
+                <h3 class="mb-2 text-sm font-semibold text-text">{item.title}</h3>
+                <div class="space-y-2">
+                  <Astro.self blocks={item.blocks} />
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       );
     }
 
     if (block.type === "figure") {
       return (
-        <figure class="slide-figure">
-          <img src={block.src} alt={block.alt} class="slide-figure__img" loading="lazy" decoding="async" />
-          {block.caption && <figcaption class="slide-figure__caption">{block.caption}</figcaption>}
-        </figure>
+        <div class="slide-block slide-block--figure">
+          <figure class="slide-figure">
+            <img src={block.src} alt={block.alt} class="slide-figure__img" loading="lazy" decoding="async" />
+            {block.caption && <figcaption class="slide-figure__caption">{block.caption}</figcaption>}
+          </figure>
+        </div>
       );
     }
 
     if (block.type === "imagePlaceholder") {
       return (
-        <div class="slide-image-placeholder" role="img" aria-label={block.label}>
-          <span class="slide-image-placeholder__icon" aria-hidden="true">🖼️</span>
-          <p class="slide-image-placeholder__label">{block.label}</p>
-          {block.note && <p class="slide-image-placeholder__note">{block.note}</p>}
+        <div class="slide-block slide-block--imagePlaceholder">
+          <div class="slide-image-placeholder" role="img" aria-label={block.label}>
+            <span class="slide-image-placeholder__icon" aria-hidden="true">🖼️</span>
+            <p class="slide-image-placeholder__label">{block.label}</p>
+            {block.note && <p class="slide-image-placeholder__note">{block.note}</p>}
+          </div>
         </div>
       );
     }
@@ -164,19 +188,21 @@ const boxStyles = {
     if (block.type === "youtube") {
       const embedTitle = block.title ?? "Video de YouTube";
       return (
-        <figure class:list={["slide-youtube", block.short && "slide-youtube--short"]}>
-          <div class="slide-youtube__frame">
-            <iframe
-              src={`https://www.youtube.com/embed/${block.videoId}`}
-              title={embedTitle}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen
-              loading="lazy"
-              referrerpolicy="strict-origin-when-cross-origin"
-            />
-          </div>
-          {block.caption && <figcaption class="slide-youtube__caption">{block.caption}</figcaption>}
-        </figure>
+        <div class="slide-block slide-block--youtube">
+          <figure class:list={["slide-youtube", block.short && "slide-youtube--short"]}>
+            <div class="slide-youtube__frame">
+              <iframe
+                src={`https://www.youtube.com/embed/${block.videoId}`}
+                title={embedTitle}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+                loading="lazy"
+                referrerpolicy="strict-origin-when-cross-origin"
+              />
+            </div>
+            {block.caption && <figcaption class="slide-youtube__caption">{block.caption}</figcaption>}
+          </figure>
+        </div>
       );
     }
 
