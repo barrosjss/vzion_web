@@ -1,6 +1,8 @@
 import type { Course } from "./types";
 import { fundamentosOfimaticaQuiz } from "./ofimatica/quizzes/fundamentosQuiz";
 import { hojasCalculoQuiz } from "./ofimatica/quizzes/hojasCalculoQuiz";
+import { buscarvBuscarhQuiz } from "./ofimatica/quizzes/buscarvBuscarhQuiz";
+import { indiceCoincidirQuiz } from "./ofimatica/quizzes/indiceCoincidirQuiz";
 
 export const ofimaticaCourse: Course = {
   id: "ofimatica",
@@ -1075,8 +1077,17 @@ export const ofimaticaCourse: Course = {
           ],
         },
         {
-          id: "indice-coincidir",
+          id: "buscarv-buscarh-quiz",
           n: "11",
+          title: "Cuestionario — BUSCARV y BUSCARH",
+          duration: "15 min",
+          summary: "Evaluación con preguntas aleatorias del tema.",
+          format: "quiz",
+          quiz: buscarvBuscarhQuiz,
+        },
+        {
+          id: "indice-coincidir",
+          n: "12",
           title: "INDICE + COINCIDIR y funciones condicionales",
           duration: "2 h",
           summary: "Búsqueda flexible bidireccional. SUMAR.SI, CONTAR.SI, PROMEDIO.SI.",
@@ -1401,6 +1412,15 @@ export const ofimaticaCourse: Course = {
               ],
             },
           ],
+        },
+        {
+          id: "indice-coincidir-quiz",
+          n: "13",
+          title: "Cuestionario — INDICE + COINCIDIR",
+          duration: "15 min",
+          summary: "Evaluación con preguntas aleatorias del tema.",
+          format: "quiz",
+          quiz: indiceCoincidirQuiz,
         },
       ],
     },

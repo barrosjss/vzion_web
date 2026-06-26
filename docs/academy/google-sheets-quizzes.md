@@ -88,6 +88,8 @@ Si `PUBLIC_QUIZ_SHEETS_URL` está vacía, el cuestionario funciona igual pero **
 | Datos Primitivos | Cuestionario — Datos Primitivos | `datos-primitivos-quiz` |
 | Fundamentos de ofimática | Cuestionario — Fundamentos | `fundamentos-ofimatica-quiz` |
 | Hojas de cálculo | Cuestionario — Hojas de cálculo | `hojas-calculo-quiz` |
+| Excel avanzado | Cuestionario — BUSCARV y BUSCARH | `buscarv-buscarh-quiz` |
+| Excel avanzado | Cuestionario — INDICE + COINCIDIR | `indice-coincidir-quiz` |
 
 Bancos de preguntas:
 
@@ -95,6 +97,8 @@ Bancos de preguntas:
 - `src/data/academy/python/quizzes/datosPrimitivosQuiz.ts`
 - `src/data/academy/ofimatica/quizzes/fundamentosQuiz.ts`
 - `src/data/academy/ofimatica/quizzes/hojasCalculoQuiz.ts`
+- `src/data/academy/ofimatica/quizzes/buscarvBuscarhQuiz.ts`
+- `src/data/academy/ofimatica/quizzes/indiceCoincidirQuiz.ts`
 
 Para añadir otro cuestionario: define un `Quiz` en datos, asigna `format: "quiz"` y `quiz` en `course.ts`.
 
