@@ -1,4 +1,6 @@
 import type { Course } from "./types";
+import { fundamentosOfimaticaQuiz } from "./ofimatica/quizzes/fundamentosQuiz";
+import { hojasCalculoQuiz } from "./ofimatica/quizzes/hojasCalculoQuiz";
 
 export const ofimaticaCourse: Course = {
   id: "ofimatica",
@@ -415,6 +417,15 @@ export const ofimaticaCourse: Course = {
             },
           ],
         },
+        {
+          id: "fundamentos-ofimatica-quiz",
+          n: "05",
+          title: "Cuestionario — Fundamentos",
+          duration: "15 min",
+          summary: "Evaluación con preguntas aleatorias del módulo.",
+          format: "quiz",
+          quiz: fundamentosOfimaticaQuiz,
+        },
       ],
     },
     {
@@ -783,6 +794,15 @@ export const ofimaticaCourse: Course = {
             },
           ],
         },
+        {
+          id: "hojas-calculo-quiz",
+          n: "10",
+          title: "Cuestionario — Hojas de cálculo",
+          duration: "15 min",
+          summary: "Evaluación con preguntas aleatorias del módulo.",
+          format: "quiz",
+          quiz: hojasCalculoQuiz,
+        },
       ],
     },
     {
@@ -1078,7 +1098,7 @@ export const ofimaticaCourse: Course = {
                 {
                   type: "code",
                   language: "excel",
-                  code: "=INDICE(rango_resultado; COINCIDIR(valor_buscado; rango_búsqueda; 0))",
+                  code: "=INDICE(rango_resultado; COINCIDIR(valor_buscado; tabla; 0))",
                 },
                 {
                   type: "paragraph",
@@ -1097,37 +1117,16 @@ export const ofimaticaCourse: Course = {
                 {
                   type: "code",
                   language: "excel",
-                  code: "=COINCIDIR(valor_buscado; rango_búsqueda; [tipo_coincidencia])",
+                  code: "=COINCIDIR(valor_buscado; tabla; [tipo_coincidencia])",
                 },
                 {
                   type: "code",
                   language: "excel",
-                  code: "=INDICE(rango; número_fila; [número_columna])",
+                  code: "=INDICE(rango_resultado; número_fila; [número_columna])",
                 },
                 {
                   type: "quote",
                   text: "«Sé el nombre del producto y quiero que Excel me devuelva su código, que está en una columna a la izquierda — BUSCARV no puede hacerlo.»",
-                },
-              ],
-            },
-            {
-              variant: "content",
-              title: "INDICE + COINCIDIR — puntos clave",
-              blocks: [
-                {
-                  type: "list",
-                  style: "numbered",
-                  items: [
-                    "COINCIDIR con 0 busca coincidencia exacta — la más usada en trabajo",
-                    "El rango de INDICE y el de COINCIDIR deben tener el mismo número de filas",
-                    "INDICE puede devolver una celda de cualquier columna, no solo las de la derecha",
-                    "Si COINCIDIR no encuentra el valor, devuelve #N/D antes de que INDICE falle",
-                  ],
-                },
-                {
-                  type: "callout",
-                  variant: "tip",
-                  text: "Piensa en dos pasos: primero «¿en qué fila está?» (COINCIDIR), luego «¿qué dato de esa fila necesito?» (INDICE).",
                 },
               ],
             },
@@ -1398,80 +1397,6 @@ export const ofimaticaCourse: Course = {
                     "SUMAR.SI, CONTAR.SI y PROMEDIO.SI analizan datos con criterios",
                     "Copia las tablas y fórmulas de los ejemplos para practicar en vivo",
                   ],
-                },
-              ],
-            },
-          ],
-        },
-        {
-          id: "tablas-dinamicas",
-          n: "12",
-          title: "Tablas dinámicas",
-          duration: "2 h",
-          summary: "Crear, configurar y filtrar tablas dinámicas para resumir datos.",
-          slides: [
-            {
-              variant: "cover",
-              eyebrow: "Módulo avanzado · Días 4-5",
-              title: "Tablas dinámicas",
-              subtitle: "Resume miles de filas en segundos sin escribir fórmulas complejas",
-            },
-            {
-              variant: "content",
-              title: "¿Qué es una tabla dinámica?",
-              blocks: [
-                {
-                  type: "paragraph",
-                  text: "Herramienta que agrupa, suma, cuenta o promedia datos arrastrando campos. Ideal para ventas por región, gastos por mes o asistencia por curso.",
-                },
-                {
-                  type: "callout",
-                  variant: "tip",
-                  text: "Requisito: tus datos deben estar en formato de tabla con encabezados en la primera fila, sin filas vacías en medio.",
-                },
-              ],
-            },
-          ],
-        },
-        {
-          id: "presentaciones-ia",
-          n: "13",
-          title: "Presentaciones, bases de datos e IA",
-          duration: "2 h",
-          summary: "PowerPoint ejecutivo, Access básico, Copilot y ética digital.",
-          slides: [
-            {
-              variant: "cover",
-              eyebrow: "Módulo avanzado · Días 7-11",
-              title: "Presentaciones, BD e IA",
-              subtitle: "Comunicación visual, datos relacionales y herramientas de inteligencia artificial",
-            },
-            {
-              variant: "content",
-              title: "Panorama del módulo avanzado",
-              blocks: [
-                {
-                  type: "columns",
-                  cols: 3,
-                  columns: [
-                    [
-                      { type: "heading", text: "Presentaciones", level: 3 },
-                      { type: "list", style: "bullet", items: ["Diseño ejecutivo", "Branding", "Canva y alternativas"] },
-                    ],
-                    [
-                      { type: "heading", text: "Bases de datos", level: 3 },
-                      { type: "list", style: "bullet", items: ["Conceptos relacionales", "Access básico", "Excel como BD"] },
-                    ],
-                    [
-                      { type: "heading", text: "IA", level: 3 },
-                      { type: "list", style: "bullet", items: ["Copilot en Excel", "ChatGPT", "Ética digital"] },
-                    ],
-                  ],
-                },
-                {
-                  type: "callout",
-                  variant: "note",
-                  text: "Este bloque se irá ampliando con el material del curso intensivo. La IA asiste, pero tú debes verificar cada resultado.",
                 },
               ],
             },
