@@ -13,6 +13,8 @@ import { sqlalchemySlides } from "./slides/sqlalchemySlides";
 import { streamlitSlides } from "./slides/streamlitSlides";
 import { fastapiSlides } from "./slides/fastapiSlides";
 import { fastapiDbSlides } from "./slides/fastapiDbSlides";
+import { fundamentosQuiz } from "./quizzes/fundamentosQuiz";
+import { datosPrimitivosQuiz } from "./quizzes/datosPrimitivosQuiz";
 
 export const pythonCourse: Course = {
   id: "python",
@@ -65,6 +67,15 @@ export const pythonCourse: Course = {
             },
           ],
         },
+        {
+          id: "fundamentos-python-quiz",
+          n: "03",
+          title: "Cuestionario — Fundamentos",
+          duration: "15 min",
+          summary: "Evaluación con preguntas aleatorias del módulo.",
+          format: "quiz",
+          quiz: fundamentosQuiz,
+        },
       ],
     },
     {
@@ -108,6 +119,15 @@ export const pythonCourse: Course = {
           duration: "75 min",
           summary: "Tipos int, float, str y bool. Operadores y conversión de tipos.",
           slides: datosPrimitivosSlides,
+        },
+        {
+          id: "datos-primitivos-quiz",
+          n: "03",
+          title: "Cuestionario — Datos Primitivos",
+          duration: "15 min",
+          summary: "Evaluación con preguntas aleatorias del módulo.",
+          format: "quiz",
+          quiz: datosPrimitivosQuiz,
         },
       ],
     },

@@ -787,4 +787,183 @@
     background: color-mix(in oklab, var(--color-brand-muted) 14%, transparent);
     color: var(--color-brand-hover);
   }
+
+  .lesson-format--quiz {
+    border-color: color-mix(in oklab, var(--color-brand) 40%, transparent);
+    background: color-mix(in oklab, var(--color-brand) 16%, transparent);
+    color: var(--color-brand);
+  }
+
+  .sr-only {
+    @apply absolute m-[-1px] h-px w-px overflow-hidden border-0 p-0 whitespace-nowrap;
+    clip: rect(0, 0, 0, 0);
+  }
+
+  .quiz-app {
+    @apply mx-auto flex min-h-[100dvh] max-w-3xl flex-col px-4 pb-8 pt-4 sm:px-6;
+  }
+
+  .quiz-app__header {
+    @apply mb-6 flex flex-wrap items-center gap-x-4 gap-y-2 border-b border-white/8 pb-4;
+  }
+
+  .quiz-app__back {
+    @apply font-mono text-[12.5px] font-medium text-text-dim transition-colors hover:text-text;
+  }
+
+  .quiz-app__lesson-title {
+    @apply flex-1 text-sm font-medium text-text-muted;
+  }
+
+  .quiz-app__phase {
+    @apply font-mono text-[11px] uppercase tracking-wider text-text-dim;
+  }
+
+  .quiz-app__main {
+    @apply flex-1;
+  }
+
+  .quiz-app__footer {
+    @apply mt-8 border-t border-white/8 pt-6;
+  }
+
+  .quiz-app__next {
+    @apply inline-flex rounded-full border border-brand/35 bg-brand/10 px-5 py-2.5 text-sm font-semibold text-brand transition-colors hover:border-brand/55 hover:bg-brand/15;
+  }
+
+  .quiz-panel {
+    @apply rounded-[20px] border border-white/8 bg-white/[0.025] p-5 sm:p-8;
+  }
+
+  .quiz-eyebrow {
+    @apply mb-3 font-mono text-[11px] font-medium uppercase tracking-widest text-brand;
+  }
+
+  .quiz-title {
+    @apply mb-3 text-[clamp(1.35rem,3.5vw,2rem)] font-medium leading-tight tracking-[-0.03em] text-text;
+  }
+
+  .quiz-description,
+  .quiz-meta {
+    @apply mb-6 text-sm leading-relaxed text-text-muted sm:text-base;
+  }
+
+  .quiz-form {
+    @apply flex flex-col gap-4;
+  }
+
+  .quiz-field {
+    @apply flex flex-col gap-2;
+  }
+
+  .quiz-field__label {
+    @apply font-mono text-[11px] font-medium uppercase tracking-wider text-text-dim;
+  }
+
+  .quiz-field__input {
+    @apply rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-text outline-none transition-colors placeholder:text-text-dim focus:border-brand/45;
+  }
+
+  .quiz-form__error {
+    @apply text-sm text-red-400;
+  }
+
+  .quiz-btn {
+    @apply inline-flex items-center justify-center rounded-full px-5 py-2.5 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-45;
+  }
+
+  .quiz-btn--primary {
+    @apply border border-brand/40 bg-brand/15 text-brand hover:border-brand/60 hover:bg-brand/20;
+  }
+
+  .quiz-btn--ghost {
+    @apply border border-white/10 bg-transparent text-text-muted hover:border-white/20 hover:text-text;
+  }
+
+  .quiz-progress {
+    @apply mb-6 h-1.5 overflow-hidden rounded-full bg-white/8;
+  }
+
+  .quiz-progress__bar {
+    @apply h-full rounded-full bg-brand transition-[width] duration-300;
+  }
+
+  .quiz-question-index {
+    @apply mb-2 font-mono text-[11px] uppercase tracking-wider text-text-dim;
+  }
+
+  .quiz-question {
+    @apply mb-6 text-lg font-medium leading-snug text-text sm:text-xl;
+  }
+
+  .quiz-options {
+    @apply mb-8 flex flex-col gap-3 border-0 p-0;
+  }
+
+  .quiz-option {
+    @apply flex cursor-pointer items-start gap-3 rounded-xl border border-white/8 bg-black/15 px-4 py-3 text-sm leading-relaxed text-text-muted transition-colors hover:border-brand/30;
+  }
+
+  .quiz-option--selected {
+    border-color: color-mix(in oklab, var(--color-brand) 40%, transparent);
+    background: color-mix(in oklab, var(--color-brand) 10%, transparent);
+    color: var(--color-text);
+  }
+
+  .quiz-option input {
+    @apply mt-1 shrink-0 accent-[var(--color-brand)];
+  }
+
+  .quiz-actions {
+    @apply flex flex-wrap items-center justify-between gap-3;
+  }
+
+  .quiz-score {
+    @apply mb-4 text-lg text-text sm:text-xl;
+  }
+
+  .quiz-result-list {
+    @apply mb-6 flex flex-col gap-3;
+  }
+
+  .quiz-result-item {
+    @apply rounded-xl border px-4 py-3 text-sm;
+  }
+
+  .quiz-result-item--ok {
+    border-color: color-mix(in oklab, var(--color-brand) 30%, transparent);
+    background: color-mix(in oklab, var(--color-brand) 8%, transparent);
+  }
+
+  .quiz-result-item--fail {
+    @apply border-red-500/25 bg-red-500/5;
+  }
+
+  .quiz-result-item__question {
+    @apply mb-1 font-medium text-text;
+  }
+
+  .quiz-result-item__answer,
+  .quiz-result-item__correct,
+  .quiz-result-item__note {
+    @apply text-text-muted;
+  }
+
+  .quiz-submit-status {
+    @apply mb-5 rounded-xl border px-4 py-3 text-sm;
+  }
+
+  .quiz-submit-status--ok {
+    border-color: color-mix(in oklab, var(--color-brand) 35%, transparent);
+    background: color-mix(in oklab, var(--color-brand) 10%, transparent);
+    color: var(--color-brand);
+  }
+
+  .quiz-submit-status--warn {
+    @apply border-amber-500/30 bg-amber-500/10 text-amber-200;
+  }
+
+  .quiz-app__loading {
+    @apply text-sm text-text-muted;
+  }
 }

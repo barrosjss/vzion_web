@@ -1,4 +1,26 @@
-export type LessonFormat = "presentation" | "video" | "activity";
+export type LessonFormat = "presentation" | "video" | "activity" | "quiz";
+
+export type QuizOption = {
+  id: string;
+  text: string;
+};
+
+export type QuizQuestion = {
+  id: string;
+  text: string;
+  options: QuizOption[];
+  correctOptionId: string;
+  explanation?: string;
+};
+
+export type Quiz = {
+  id: string;
+  title: string;
+  description: string;
+  questionCount: number;
+  passingScore?: number;
+  questions: QuizQuestion[];
+};
 
 export type LessonBlock =
   | { type: "heading"; text: string }
@@ -56,6 +78,7 @@ export type Lesson = {
   format?: LessonFormat;
   blocks?: LessonBlock[];
   slides?: Slide[];
+  quiz?: Quiz;
 };
 
 export type AcademyModule = {

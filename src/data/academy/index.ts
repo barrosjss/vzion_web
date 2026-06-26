@@ -66,6 +66,10 @@ export const lessonFormatMeta = {
     label: "Actividad",
     description: "Ejercicio práctico, taller o evaluación.",
   },
+  quiz: {
+    label: "Cuestionario",
+    description: "Evaluación con preguntas aleatorias y registro de calificación.",
+  },
 } satisfies Record<LessonFormat, { label: string; description: string }>;
 
 export const lessonFormats = Object.keys(lessonFormatMeta) as LessonFormat[];
@@ -80,4 +84,8 @@ export function getLessonFormat(lesson: Lesson): LessonFormat {
   }
 
   return "presentation";
+}
+
+export function lessonUsesQuiz(lesson: Lesson): boolean {
+  return lesson.format === "quiz" && Boolean(lesson.quiz);
 }

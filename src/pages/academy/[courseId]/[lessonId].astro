@@ -5,6 +5,7 @@ import Container from "../../../components/ui/Container.astro";
 import Button from "../../../components/ui/Button.astro";
 import LessonContent from "../../../components/ui/LessonContent.astro";
 import SlideDeck from "../../../components/academy/SlideDeck.astro";
+import QuizApp from "../../../components/academy/QuizApp.astro";
 import {
   courses,
   getLessonById,
@@ -32,14 +33,31 @@ if (!result) {
 
 const { course, module, lesson } = result;
 const { prev, next } = getAdjacentLessons(courseId!, lessonId!);
-const useSlides = lessonUsesSlides(lesson);
+const useQuiz = lesson.format === "quiz" && lesson.quiz;
+const useSlides = !useQuiz && lessonUsesSlides(lesson);
 const courseHref = `/academy/${course.id}`;
 const prevLessonHref = prev ? getLessonPath(course.id, prev.lesson.id) : undefined;
 const nextLessonHref = next ? getLessonPath(course.id, next.lesson.id) : undefined;
 ---
 
 {
-  useSlides && lesson.slides ? (
+  useQuiz && lesson.quiz ? (
+    <AcademySlideLayout title={`${lesson.title} — ${course.title}`} description={lesson.summary}>
+      <QuizApp
+        quiz={lesson.quiz}
+        lessonTitle={lesson.title}
+        courseTitle={course.title}
+        courseId={course.id}
+        moduleId={module.id}
+        moduleTitle={module.title}
+        lessonId={lesson.id}
+        courseHref={courseHref}
+        prevLessonHref={prevLessonHref}
+        nextLessonHref={nextLessonHref}
+        nextLessonTitle={next?.lesson.title}
+      />
+    </AcademySlideLayout>
+  ) : useSlides && lesson.slides ? (
     <AcademySlideLayout title={`${lesson.title} — ${course.title}`} description={lesson.summary}>
       <SlideDeck
         slides={lesson.slides}

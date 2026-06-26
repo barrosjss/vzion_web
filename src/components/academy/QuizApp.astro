@@ -1,0 +1,404 @@
+---
+import type { Quiz } from "../../data/academy/types";
+import { getQuizSheetsEndpoint } from "../../data/academy/quiz-sheets.config";
+
+type Props = {
+  quiz: Quiz;
+  lessonTitle: string;
+  courseTitle: string;
+  courseId: string;
+  moduleId: string;
+  moduleTitle: string;
+  lessonId: string;
+  courseHref: string;
+  prevLessonHref?: string;
+  nextLessonHref?: string;
+  nextLessonTitle?: string;
+};
+
+const {
+  quiz,
+  lessonTitle,
+  courseTitle,
+  courseId,
+  moduleId,
+  moduleTitle,
+  lessonId,
+  courseHref,
+  prevLessonHref,
+  nextLessonHref,
+  nextLessonTitle,
+} = Astro.props;
+
+const endpoint = getQuizSheetsEndpoint();
+const context = {
+  courseId,
+  courseTitle,
+  moduleId,
+  moduleTitle,
+  lessonId,
+  endpoint,
+};
+---
+
+<div
+  class="quiz-app"
+  data-quiz={JSON.stringify(quiz)}
+  data-context={JSON.stringify(context)}
+>
+  <header class="quiz-app__header">
+    <a href={courseHref} class="quiz-app__back">← {courseTitle}</a>
+    <p class="quiz-app__lesson-title">{lessonTitle}</p>
+    <span class="quiz-app__phase md-only" data-quiz-phase hidden></span>
+  </header>
+
+  <main class="quiz-app__main" data-quiz-root>
+    <p class="quiz-app__loading">Cargando cuestionario…</p>
+  </main>
+
+  {
+    nextLessonHref && (
+      <footer class="quiz-app__footer" data-quiz-footer hidden>
+        <a href={nextLessonHref} class="quiz-app__next">
+          Siguiente: {nextLessonTitle}
+        </a>
+      </footer>
+    )
+  }
+</div>
+
+<script>
+  import {
+    pickRandomQuestions,
+    buildQuizSubmission,
+    submitQuizResult,
+    type QuizStudent,
+  } from "../../lib/quiz";
+  import type { Quiz, QuizQuestion } from "../../data/academy/types";
+
+  type QuizContext = {
+    courseId: string;
+    courseTitle: string;
+    moduleId: string;
+    moduleTitle: string;
+    lessonId: string;
+    endpoint: string;
+  };
+
+  type Phase = "register" | "quiz" | "results";
+
+  const root = document.querySelector<HTMLElement>("[data-quiz-root]");
+  const app = document.querySelector<HTMLElement>(".quiz-app");
+  const phaseLabel = document.querySelector<HTMLElement>("[data-quiz-phase]");
+  const footer = document.querySelector<HTMLElement>("[data-quiz-footer]");
+
+  if (!root || !app) {
+    throw new Error("QuizApp: contenedor no encontrado");
+  }
+
+  const quiz = JSON.parse(app.dataset.quiz ?? "{}") as Quiz;
+  const context = JSON.parse(app.dataset.context ?? "{}") as QuizContext;
+
+  let phase: Phase = "register";
+  let student: QuizStudent = { fullName: "", email: "" };
+  let questions: QuizQuestion[] = [];
+  let answers: Record<string, string> = {};
+  let currentIndex = 0;
+  let submitMessage = "";
+  let submitOk = false;
+  let isSubmitting = false;
+
+  function escapeHtml(value: string): string {
+    return value
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;");
+  }
+
+  function isValidEmail(email: string): boolean {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  function isValidName(name: string): boolean {
+    const trimmed = name.trim();
+    return trimmed.length >= 5 && trimmed.includes(" ");
+  }
+
+  function updatePhaseLabel(): void {
+    if (!phaseLabel) return;
+
+    const labels: Record<Phase, string> = {
+      register: "Registro",
+      quiz: `Pregunta ${currentIndex + 1} / ${questions.length}`,
+      results: "Resultados",
+    };
+
+    phaseLabel.textContent = labels[phase];
+    phaseLabel.hidden = phase === "register";
+  }
+
+  function renderRegister(): void {
+    phase = "register";
+    updatePhaseLabel();
+
+    root.innerHTML = `
+      <section class="quiz-panel">
+        <p class="quiz-eyebrow">Cuestionario</p>
+        <h1 class="quiz-title">${escapeHtml(quiz.title)}</h1>
+        <p class="quiz-description">${escapeHtml(quiz.description)}</p>
+        <p class="quiz-meta">
+          Se presentarán <strong>${quiz.questionCount}</strong> preguntas elegidas al azar.
+          Necesitas al menos <strong>${quiz.passingScore ?? 70}%</strong> para aprobar.
+        </p>
+
+        <form class="quiz-form" data-quiz-register>
+          <label class="quiz-field">
+            <span class="quiz-field__label">Nombre completo</span>
+            <input
+              class="quiz-field__input"
+              type="text"
+              name="fullName"
+              autocomplete="name"
+              required
+              minlength="5"
+              placeholder="Ej. Ana García López"
+              value="${escapeHtml(student.fullName)}"
+            />
+          </label>
+
+          <label class="quiz-field">
+            <span class="quiz-field__label">Correo electrónico</span>
+            <input
+              class="quiz-field__input"
+              type="email"
+              name="email"
+              autocomplete="email"
+              required
+              placeholder="alumno@ejemplo.com"
+              value="${escapeHtml(student.email)}"
+            />
+          </label>
+
+          <p class="quiz-form__error" data-quiz-error hidden></p>
+
+          <button type="submit" class="quiz-btn quiz-btn--primary">
+            Comenzar cuestionario
+          </button>
+        </form>
+      </section>
+    `;
+
+    const form = root.querySelector<HTMLFormElement>("[data-quiz-register]");
+    const errorEl = root.querySelector<HTMLElement>("[data-quiz-error]");
+
+    form?.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const data = new FormData(form);
+      const fullName = String(data.get("fullName") ?? "").trim();
+      const email = String(data.get("email") ?? "").trim().toLowerCase();
+
+      if (!isValidName(fullName)) {
+        if (errorEl) {
+          errorEl.textContent = "Escribe tu nombre completo (nombre y apellido).";
+          errorEl.hidden = false;
+        }
+        return;
+      }
+
+      if (!isValidEmail(email)) {
+        if (errorEl) {
+          errorEl.textContent = "Introduce un correo electrónico válido.";
+          errorEl.hidden = false;
+        }
+        return;
+      }
+
+      student = { fullName, email };
+      questions = pickRandomQuestions(quiz);
+      answers = {};
+      currentIndex = 0;
+      renderQuestion();
+    });
+  }
+
+  function renderQuestion(): void {
+    phase = "quiz";
+    updatePhaseLabel();
+    if (footer) footer.hidden = true;
+
+    const question = questions[currentIndex];
+    const selected = answers[question.id] ?? "";
+    const progress = ((currentIndex + 1) / questions.length) * 100;
+
+    root.innerHTML = `
+      <section class="quiz-panel">
+        <div class="quiz-progress" role="progressbar" aria-valuenow="${currentIndex + 1}" aria-valuemin="1" aria-valuemax="${questions.length}">
+          <div class="quiz-progress__bar" style="width: ${progress}%"></div>
+        </div>
+
+        <p class="quiz-question-index">Pregunta ${currentIndex + 1} de ${questions.length}</p>
+        <h2 class="quiz-question">${escapeHtml(question.text)}</h2>
+
+        <fieldset class="quiz-options">
+          <legend class="sr-only">Opciones de respuesta</legend>
+          ${question.options
+            .map(
+              (option) => `
+            <label class="quiz-option${selected === option.id ? " quiz-option--selected" : ""}">
+              <input
+                type="radio"
+                name="answer"
+                value="${escapeHtml(option.id)}"
+                ${selected === option.id ? "checked" : ""}
+              />
+              <span>${escapeHtml(option.text)}</span>
+            </label>
+          `,
+            )
+            .join("")}
+        </fieldset>
+
+        <div class="quiz-actions">
+          <button type="button" class="quiz-btn quiz-btn--ghost" data-quiz-prev ${currentIndex === 0 ? "disabled" : ""}>
+            Anterior
+          </button>
+          <button type="button" class="quiz-btn quiz-btn--primary" data-quiz-next ${selected ? "" : "disabled"}>
+            ${currentIndex === questions.length - 1 ? "Ver resultados" : "Siguiente"}
+          </button>
+        </div>
+      </section>
+    `;
+
+    root.querySelectorAll<HTMLInputElement>('input[name="answer"]').forEach((input) => {
+      input.addEventListener("change", () => {
+        answers[question.id] = input.value;
+        const nextBtn = root.querySelector<HTMLButtonElement>("[data-quiz-next]");
+        if (nextBtn) nextBtn.disabled = false;
+        input.closest(".quiz-option")?.classList.add("quiz-option--selected");
+        input
+          .closest(".quiz-options")
+          ?.querySelectorAll(".quiz-option")
+          .forEach((label) => {
+            if (label !== input.closest(".quiz-option")) {
+              label.classList.remove("quiz-option--selected");
+            }
+          });
+      });
+    });
+
+    root.querySelector<HTMLButtonElement>("[data-quiz-prev]")?.addEventListener("click", () => {
+      if (currentIndex > 0) {
+        currentIndex -= 1;
+        renderQuestion();
+      }
+    });
+
+    root.querySelector<HTMLButtonElement>("[data-quiz-next]")?.addEventListener("click", () => {
+      if (!answers[question.id]) return;
+
+      if (currentIndex < questions.length - 1) {
+        currentIndex += 1;
+        renderQuestion();
+        return;
+      }
+
+      void renderResults();
+    });
+  }
+
+  async function renderResults(): Promise<void> {
+    phase = "results";
+    updatePhaseLabel();
+
+    const submission = buildQuizSubmission({
+      quiz,
+      courseId: context.courseId,
+      courseTitle: context.courseTitle,
+      moduleId: context.moduleId,
+      moduleTitle: context.moduleTitle,
+      lessonId: context.lessonId,
+      student,
+      questions,
+      answers,
+    });
+
+    root.innerHTML = `
+      <section class="quiz-panel">
+        <p class="quiz-eyebrow">Resultados</p>
+        <h1 class="quiz-title">${submission.passed ? "¡Aprobado!" : "Sigue practicando"}</h1>
+        <p class="quiz-score">
+          Obtuviste <strong>${submission.score}</strong> de <strong>${submission.total}</strong>
+          (<strong>${submission.percentage}%</strong>)
+        </p>
+        <p class="quiz-meta">
+          ${submission.passed
+            ? "Buen trabajo. Tu calificación se guardará en la hoja de seguimiento."
+            : `Necesitabas al menos ${quiz.passingScore ?? 70}% para aprobar. Repasa el módulo e inténtalo de nuevo.`}
+        </p>
+
+        <div class="quiz-result-list">
+          ${questions
+            .map((question) => {
+              const chosen = answers[question.id];
+              const correct = chosen === question.correctOptionId;
+              const chosenText =
+                question.options.find((option) => option.id === chosen)?.text ?? "Sin respuesta";
+              const correctText =
+                question.options.find((option) => option.id === question.correctOptionId)?.text ?? "";
+
+              return `
+                <article class="quiz-result-item ${correct ? "quiz-result-item--ok" : "quiz-result-item--fail"}">
+                  <p class="quiz-result-item__question">${escapeHtml(question.text)}</p>
+                  <p class="quiz-result-item__answer">Tu respuesta: ${escapeHtml(chosenText)}</p>
+                  ${correct ? "" : `<p class="quiz-result-item__correct">Correcta: ${escapeHtml(correctText)}</p>`}
+                  ${question.explanation ? `<p class="quiz-result-item__note">${escapeHtml(question.explanation)}</p>` : ""}
+                </article>
+              `;
+            })
+            .join("")}
+        </div>
+
+        <p class="quiz-submit-status ${submitOk ? "quiz-submit-status--ok" : "quiz-submit-status--warn"}" data-quiz-status>
+          ${isSubmitting ? "Guardando calificación…" : escapeHtml(submitMessage)}
+        </p>
+
+        <div class="quiz-actions">
+          <button type="button" class="quiz-btn quiz-btn--ghost" data-quiz-retry>
+            Intentar de nuevo
+          </button>
+        </div>
+      </section>
+    `;
+
+    root.querySelector<HTMLButtonElement>("[data-quiz-retry]")?.addEventListener("click", () => {
+      questions = pickRandomQuestions(quiz);
+      answers = {};
+      currentIndex = 0;
+      submitMessage = "";
+      submitOk = false;
+      renderQuestion();
+    });
+
+    if (!isSubmitting) {
+      isSubmitting = true;
+      const result = await submitQuizResult(context.endpoint, submission);
+      submitMessage = result.message;
+      submitOk = result.ok;
+      isSubmitting = false;
+
+      const statusEl = root.querySelector<HTMLElement>("[data-quiz-status]");
+      if (statusEl) {
+        statusEl.textContent = result.message;
+        statusEl.classList.toggle("quiz-submit-status--ok", result.ok);
+        statusEl.classList.toggle("quiz-submit-status--warn", !result.ok);
+      }
+
+      if (footer && result.ok) {
+        footer.hidden = false;
+      }
+    }
+  }
+
+  renderRegister();
+</script>
