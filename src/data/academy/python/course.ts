@@ -73,16 +73,8 @@ export const pythonCourse: Course = {
       title: "Datos Primitivos",
       lessons: [
         {
-          id: "datos-primitivos",
-          n: "01",
-          title: "Datos Primitivos",
-          duration: "75 min",
-          summary: "Tipos int, float, str y bool. Operadores y conversión de tipos.",
-          slides: datosPrimitivosSlides,
-        },
-        {
           id: "tipos-datos-short",
-          n: "02",
+          n: "01",
           title: "Tipos de Datos",
           duration: "5 min",
           summary: "Short de repaso sobre tipos primitivos en Python.",
@@ -108,6 +100,14 @@ export const pythonCourse: Course = {
               ],
             },
           ],
+        },
+        {
+          id: "datos-primitivos",
+          n: "02",
+          title: "Datos Primitivos",
+          duration: "75 min",
+          summary: "Tipos int, float, str y bool. Operadores y conversión de tipos.",
+          slides: datosPrimitivosSlides,
         },
       ],
     },

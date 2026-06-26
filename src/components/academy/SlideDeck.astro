@@ -72,12 +72,12 @@ function usesMemeSlideBody(slide: Slide): boolean {
         <article class:list={[slideVariants[slide.variant ?? "content"], "slide-panel--stacked"]}>
           {
             slide.variant === "section" ? (
-              <div class="slide-section-card" data-section-label={slide.eyebrow}>
-                {slide.icon && <span class="slide-section-card__icon" aria-hidden="true">{slide.icon}</span>}
+              <>
+                {slide.icon && <span class="slide-topic-icon" aria-hidden="true">{slide.icon}</span>}
                 {slide.eyebrow && <p class="slide-eyebrow">{slide.eyebrow}</p>}
                 {slide.title && <h2 class="slide-title">{slide.title}</h2>}
                 {slide.subtitle && <p class="slide-subtitle">{slide.subtitle}</p>}
-              </div>
+              </>
             ) : (
               <>
                 {slide.eyebrow && <p class="slide-eyebrow">{slide.eyebrow}</p>}
@@ -144,12 +144,12 @@ function usesMemeSlideBody(slide: Slide): boolean {
         >
           {
             slide.variant === "section" ? (
-              <div class="slide-section-card" data-section-label={slide.eyebrow}>
-                {slide.icon && <span class="slide-section-card__icon" aria-hidden="true">{slide.icon}</span>}
+              <>
+                {slide.icon && <span class="slide-topic-icon" aria-hidden="true">{slide.icon}</span>}
                 {slide.eyebrow && <p class="slide-eyebrow">{slide.eyebrow}</p>}
                 {slide.title && <h2 class="slide-title">{slide.title}</h2>}
                 {slide.subtitle && <p class="slide-subtitle">{slide.subtitle}</p>}
-              </div>
+              </>
             ) : (
               <>
                 {slide.eyebrow && <p class="slide-eyebrow">{slide.eyebrow}</p>}

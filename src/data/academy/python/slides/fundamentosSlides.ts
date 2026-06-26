@@ -657,9 +657,6 @@ export const fundamentosSlides: Slide[] = [
     ]
   },
   {
-    "variant": "cover" as const
-  },
-  {
     "variant": "content" as const,
     "title": "pip — El gestor de paquetes de Python",
     "blocks": [

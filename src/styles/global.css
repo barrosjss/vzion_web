@@ -131,36 +131,30 @@
   }
 
   .slide-panel--deck {
-    @apply absolute inset-0 z-[1] flex w-full flex-col overflow-hidden px-8 py-8 lg:px-14 lg:py-10;
+    @apply absolute inset-0 z-[1] flex w-full flex-col items-center justify-center overflow-x-hidden overflow-y-auto px-8 py-8 lg:px-14 lg:py-10;
     max-width: none;
     margin: 0;
     animation: slide-in 0.25s ease-out;
     background: transparent;
   }
 
-  .slide-panel--deck .slide-eyebrow,
   .slide-panel--deck .slide-title,
   .slide-panel--deck .slide-subtitle,
   .slide-panel--deck .slide-body,
-  .slide-panel--deck .slide-section-card,
   .slide-panel--deck .slide-deck__next-lesson {
     width: 100%;
     max-width: 64rem;
     margin-left: auto;
     margin-right: auto;
+    flex-shrink: 0;
   }
 
-  .slide-panel--content.slide-panel--deck,
-  .slide-panel--practice.slide-panel--deck,
-  .slide-panel--summary.slide-panel--deck {
-    justify-content: flex-start;
-  }
-
-  .slide-panel--cover.slide-panel--deck,
-  .slide-panel--section.slide-panel--deck,
-  .slide-panel--meme.slide-panel--deck {
-    justify-content: center;
-    align-items: center;
+  .slide-panel--deck .slide-eyebrow {
+    width: auto;
+    max-width: min(64rem, 100%);
+    margin-left: auto;
+    margin-right: auto;
+    flex-shrink: 0;
   }
 
   .slide-deck__viewport::before {
@@ -189,7 +183,8 @@
     -webkit-mask-image: radial-gradient(circle at 50% 45%, #000, transparent 78%);
   }
 
-  .slide-deck__viewport[data-active-variant="cover"]::before {
+  .slide-deck__viewport[data-active-variant="cover"]::before,
+  .slide-deck__viewport[data-active-variant="section"]::before {
     opacity: 1;
     background: radial-gradient(closest-side at 50% 44%, rgba(247, 148, 29, 0.18), transparent 76%);
   }
@@ -203,11 +198,6 @@
   .slide-deck__viewport[data-active-variant="practice"]::before,
   .slide-deck__viewport[data-active-variant="meme"]::before {
     opacity: 0.45;
-  }
-
-  .slide-deck__viewport[data-active-variant="section"]::before {
-    opacity: 0.65;
-    background: radial-gradient(closest-side at 50% 42%, rgba(247, 148, 29, 0.14), transparent 76%);
   }
 
   @media (min-width: 1280px) {
@@ -232,11 +222,11 @@
   }
 
   .slide-panel--cover.slide-panel--deck {
-    @apply items-center text-center;
+    @apply text-center;
   }
 
   .slide-panel--cover.slide-panel--deck .slide-eyebrow {
-    @apply mb-6 inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.03] px-4 py-1.5;
+    @apply mb-6 inline-flex w-auto max-w-none items-center gap-2 rounded-full border border-white/12 bg-white/[0.03] px-4 py-1.5;
   }
 
   .slide-panel--cover.slide-panel--deck .slide-eyebrow::before {
@@ -260,68 +250,39 @@
     @apply h-1.5 w-1.5 shrink-0 rounded-full bg-brand;
   }
 
-  .slide-panel--section.slide-panel--deck {
-    background: transparent;
+  .slide-panel--section.slide-panel--deck,
+  .slide-panel--section.slide-panel--stacked {
+    @apply text-center;
   }
 
-  .slide-section-card {
-    @apply relative isolate w-full max-w-3xl overflow-hidden rounded-[2rem] border border-white/12 px-8 py-12 text-center sm:px-12 sm:py-14 lg:px-16 lg:py-16;
-    min-height: min(22rem, 58vh);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  .slide-panel--section.slide-panel--stacked {
     background:
-      radial-gradient(140% 120% at 50% -10%, rgba(247, 148, 29, 0.2), transparent 58%),
-      color-mix(in oklab, var(--color-surface-card) 96%, transparent);
-    box-shadow:
-      0 0 0 1px color-mix(in oklab, white 5%, transparent),
-      0 32px 90px rgba(0, 0, 0, 0.42),
-      inset 0 1px 0 color-mix(in oklab, white 8%, transparent);
+      radial-gradient(130% 120% at 50% 0%, rgba(247, 148, 29, 0.1), transparent 55%),
+      var(--color-surface-card);
   }
 
-  .slide-section-card::after {
-    content: attr(data-section-label);
-    @apply pointer-events-none absolute -right-2 -bottom-4 font-mono font-bold uppercase tracking-tight text-brand/10 select-none;
-    font-size: clamp(4.5rem, 14vw, 8rem);
-    line-height: 1;
+  .slide-panel--section .slide-topic-icon {
+    @apply mb-5 block text-4xl sm:text-5xl;
+    filter: drop-shadow(0 8px 24px rgba(247, 148, 29, 0.22));
   }
 
-  .slide-section-card::before {
-    content: "";
-    @apply pointer-events-none absolute inset-x-12 top-0 h-px;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      color-mix(in oklab, var(--color-brand) 65%, transparent),
-      transparent
-    );
+  .slide-panel--section.slide-panel--deck .slide-eyebrow,
+  .slide-panel--section.slide-panel--stacked .slide-eyebrow {
+    @apply mb-6 inline-flex w-auto max-w-none items-center gap-2 rounded-full border border-white/12 bg-white/[0.03] px-4 py-1.5;
   }
 
-  .slide-section-card__icon {
-    @apply mb-5 block text-5xl sm:text-6xl;
-    filter: drop-shadow(0 10px 28px rgba(247, 148, 29, 0.28));
-  }
-
-  .slide-panel--section .slide-eyebrow {
-    @apply relative z-[1] mb-5 inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.04] px-4 py-1.5;
-  }
-
-  .slide-panel--section .slide-eyebrow::before {
+  .slide-panel--section.slide-panel--deck .slide-eyebrow::before,
+  .slide-panel--section.slide-panel--stacked .slide-eyebrow::before {
     content: "";
     @apply h-1.5 w-1.5 shrink-0 rounded-full bg-brand;
   }
 
   .slide-panel--section .slide-title {
-    @apply relative z-[1] mb-0 text-3xl sm:text-4xl lg:text-5xl;
+    @apply text-[clamp(1.75rem,4.5vw,3rem)];
   }
 
   .slide-panel--section .slide-subtitle {
-    @apply relative z-[1] mx-auto mt-5 max-w-md border-t border-white/10 pt-5 text-base leading-relaxed text-text-muted sm:text-lg;
-  }
-
-  .slide-panel--section.slide-panel--stacked {
-    @apply overflow-visible border-transparent bg-transparent p-0;
+    @apply mx-auto mb-0 max-w-lg text-base leading-relaxed text-text-muted sm:text-lg;
   }
 
   .slide-panel--summary.slide-panel--deck .slide-title {
@@ -516,10 +477,6 @@
 
   .slide-panel--deck:has(.slide-body--bare) .slide-subtitle {
     @apply mb-4;
-  }
-
-  .slide-panel--meme.slide-panel--deck {
-    @apply items-center text-center;
   }
 
   .slide-panel--meme .slide-body--meme {
