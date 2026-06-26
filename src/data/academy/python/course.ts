@@ -57,9 +57,9 @@ export const pythonCourse: Course = {
               subtitle: "Panorama express antes de profundizar en clase",
               blocks: [
                 {
-                  type: "imagePlaceholder",
-                  label: "Video: Python en 8 minutos",
-                  note: "Añade el ID de YouTube del video del curso.",
+                  type: "youtube",
+                  videoId: "PtBHnMMRI0E",
+                  title: "Python en 8 minutos",
                 },
               ],
             },

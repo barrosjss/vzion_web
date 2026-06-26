@@ -39,8 +39,9 @@ export type SlideBlock =
     };
 
 export type Slide = {
-  variant?: "cover" | "section" | "content" | "summary" | "practice";
+  variant?: "cover" | "section" | "content" | "summary" | "practice" | "meme";
   eyebrow?: string;
+  icon?: string;
   title?: string;
   subtitle?: string;
   blocks?: SlideBlock[];

@@ -36,7 +36,12 @@ const slideVariants = {
   content: "slide-panel slide-panel--content",
   summary: "slide-panel slide-panel--summary",
   practice: "slide-panel slide-panel--practice",
+  meme: "slide-panel slide-panel--meme",
 } as const;
+
+function usesMemeSlideBody(slide: Slide): boolean {
+  return slide.variant === "meme";
+}
 ---
 
 <div
@@ -65,33 +70,47 @@ const slideVariants = {
 
         return (
         <article class:list={[slideVariants[slide.variant ?? "content"], "slide-panel--stacked"]}>
-          {slide.eyebrow && <p class="slide-eyebrow">{slide.eyebrow}</p>}
-          {slide.title && <h2 class="slide-title">{slide.title}</h2>}
-          {slide.subtitle && <p class="slide-subtitle">{slide.subtitle}</p>}
-          <div
-            class:list={[
-              "slide-body",
-              !splitShort && "space-y-4",
-              splitShort && "slide-body--split-short",
-              usesSplitSlideLayout(slide.blocks) && "slide-body--split",
-              usesBareSlideBody(slide.blocks) && "slide-body--bare",
-            ]}
-          >
-            {
-              splitShort ? (
-                <>
-                  <div class="slide-body__complements space-y-3">
-                    <SlideBlock blocks={complements} />
-                  </div>
-                  <div class="slide-body__short">
-                    <SlideBlock blocks={short} />
-                  </div>
-                </>
-              ) : (
-                <SlideBlock blocks={slide.blocks ?? []} />
-              )
-            }
-          </div>
+          {
+            slide.variant === "section" ? (
+              <div class="slide-section-card" data-section-label={slide.eyebrow}>
+                {slide.icon && <span class="slide-section-card__icon" aria-hidden="true">{slide.icon}</span>}
+                {slide.eyebrow && <p class="slide-eyebrow">{slide.eyebrow}</p>}
+                {slide.title && <h2 class="slide-title">{slide.title}</h2>}
+                {slide.subtitle && <p class="slide-subtitle">{slide.subtitle}</p>}
+              </div>
+            ) : (
+              <>
+                {slide.eyebrow && <p class="slide-eyebrow">{slide.eyebrow}</p>}
+                {slide.title && <h2 class="slide-title">{slide.title}</h2>}
+                {slide.subtitle && <p class="slide-subtitle">{slide.subtitle}</p>}
+                <div
+                  class:list={[
+                    "slide-body",
+                    !splitShort && "space-y-4",
+                    splitShort && "slide-body--split-short",
+                    usesSplitSlideLayout(slide.blocks) && "slide-body--split",
+                    usesBareSlideBody(slide.blocks) && "slide-body--bare",
+                    usesMemeSlideBody(slide) && "slide-body--meme",
+                  ]}
+                >
+                  {
+                    splitShort ? (
+                      <>
+                        <div class="slide-body__complements space-y-3">
+                          <SlideBlock blocks={complements} />
+                        </div>
+                        <div class="slide-body__short">
+                          <SlideBlock blocks={short} />
+                        </div>
+                      </>
+                    ) : (
+                      <SlideBlock blocks={slide.blocks ?? []} />
+                    )
+                  }
+                </div>
+              </>
+            )
+          }
           {index < slides.length - 1 && <div class="slide-divider" aria-hidden="true" />}
         </article>
         );
@@ -123,33 +142,47 @@ const slideVariants = {
           data-slide-variant={slide.variant ?? "content"}
           hidden={index !== 0}
         >
-          {slide.eyebrow && <p class="slide-eyebrow">{slide.eyebrow}</p>}
-          {slide.title && <h2 class="slide-title">{slide.title}</h2>}
-          {slide.subtitle && <p class="slide-subtitle">{slide.subtitle}</p>}
-          <div
-            class:list={[
-              "slide-body",
-              !splitShort && "space-y-4",
-              splitShort && "slide-body--split-short",
-              usesSplitSlideLayout(slide.blocks) && "slide-body--split",
-              usesBareSlideBody(slide.blocks) && "slide-body--bare",
-            ]}
-          >
-            {
-              splitShort ? (
-                <>
-                  <div class="slide-body__complements space-y-3">
-                    <SlideBlock blocks={complements} />
-                  </div>
-                  <div class="slide-body__short">
-                    <SlideBlock blocks={short} />
-                  </div>
-                </>
-              ) : (
-                <SlideBlock blocks={slide.blocks ?? []} />
-              )
-            }
-          </div>
+          {
+            slide.variant === "section" ? (
+              <div class="slide-section-card" data-section-label={slide.eyebrow}>
+                {slide.icon && <span class="slide-section-card__icon" aria-hidden="true">{slide.icon}</span>}
+                {slide.eyebrow && <p class="slide-eyebrow">{slide.eyebrow}</p>}
+                {slide.title && <h2 class="slide-title">{slide.title}</h2>}
+                {slide.subtitle && <p class="slide-subtitle">{slide.subtitle}</p>}
+              </div>
+            ) : (
+              <>
+                {slide.eyebrow && <p class="slide-eyebrow">{slide.eyebrow}</p>}
+                {slide.title && <h2 class="slide-title">{slide.title}</h2>}
+                {slide.subtitle && <p class="slide-subtitle">{slide.subtitle}</p>}
+                <div
+                  class:list={[
+                    "slide-body",
+                    !splitShort && "space-y-4",
+                    splitShort && "slide-body--split-short",
+                    usesSplitSlideLayout(slide.blocks) && "slide-body--split",
+                    usesBareSlideBody(slide.blocks) && "slide-body--bare",
+                    usesMemeSlideBody(slide) && "slide-body--meme",
+                  ]}
+                >
+                  {
+                    splitShort ? (
+                      <>
+                        <div class="slide-body__complements space-y-3">
+                          <SlideBlock blocks={complements} />
+                        </div>
+                        <div class="slide-body__short">
+                          <SlideBlock blocks={short} />
+                        </div>
+                      </>
+                    ) : (
+                      <SlideBlock blocks={slide.blocks ?? []} />
+                    )
+                  }
+                </div>
+              </>
+            )
+          }
           {
             index === slides.length - 1 && nextLessonHref && (
               <a href={nextLessonHref} class="slide-deck__next-lesson" data-next-lesson-btn>

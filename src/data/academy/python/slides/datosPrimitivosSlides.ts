@@ -59,7 +59,7 @@ export const datosPrimitivosSlides: Slide[] = [
   },
   {
     "variant": "content" as const,
-    "title": "🔤 String str",
+    "title": "🔤 String <str>",
     "blocks": [
       {
         "type": "paragraph",
@@ -118,18 +118,92 @@ export const datosPrimitivosSlides: Slide[] = [
     "blocks": [
       {
         "type": "paragraph",
-        "text": "Los métodos se llaman con punto después del string o variable:"
+        "text": "Los métodos se llaman con punto después del string o variable. Referencia rápida de los más usados:"
       },
       {
-        "type": "code",
-        "language": "python",
-        "code": "nombre = \"  jesus barros  \"\nprint(nombre.strip())         # \"jesus barros\"\nprint(nombre.strip().title())  # \"Jesus Barros\""
+        "type": "spreadsheet",
+        "title": "Métodos de str",
+        "headers": ["Método", "Ejemplo", "Resultado"],
+        "rows": [
+          [".upper()", "\"hola\".upper()", "\"HOLA\""],
+          [".lower()", "\"Python\".lower()", "\"python\""],
+          [".capitalize()", "\"python\".capitalize()", "\"Python\""],
+          [".title()", "\"hola mundo\".title()", "\"Hola Mundo\""],
+          [".strip()", "\"  hola  \".strip()", "\"hola\""],
+          [".replace()", "\"hola mundo\".replace(\"hola\", \"hi\")", "\"hi mundo\""],
+          [".split()", "\"a,b,c\".split(\",\")", "['a', 'b', 'c']"],
+          [".join()", "\" \".join([\"hola\", \"mundo\"])", "\"hola mundo\""],
+          [".find()", "\"python\".find(\"th\")", "2"],
+          [".startswith()", "\"python\".startswith(\"py\")", "True"],
+          [".endswith()", "\"archivo.txt\".endswith(\".txt\")", "True"]
+        ],
+        "copyLabel": "Copiar tabla"
       }
     ]
   },
   {
     "variant": "content" as const,
-    "title": "🔢 Integer int",
+    "title": "💡 Strings en la práctica",
+    "blocks": [
+      {
+        "type": "paragraph",
+        "text": "Los métodos más útiles en el día a día: limpiar datos, formatear texto, separar información y validar entradas."
+      },
+      {
+        "type": "boxes",
+        "items": [
+          {
+            "variant": "brand",
+            "title": "strip() + title()",
+            "blocks": [
+              {
+                "type": "paragraph",
+                "text": "Limpiar espacios y capitalizar nombres ingresados por el usuario."
+              }
+            ]
+          },
+          {
+            "variant": "default",
+            "title": "split() + join()",
+            "blocks": [
+              {
+                "type": "paragraph",
+                "text": "Separar CSV en columnas y volver a unir listas en una sola cadena."
+              }
+            ]
+          },
+          {
+            "variant": "default",
+            "title": "replace()",
+            "blocks": [
+              {
+                "type": "paragraph",
+                "text": "Sustituir texto sin crear un string nuevo manualmente."
+              }
+            ]
+          },
+          {
+            "variant": "muted",
+            "title": "startswith() / endswith()",
+            "blocks": [
+              {
+                "type": "paragraph",
+                "text": "Validar extensiones de archivo, prefijos de URL o formatos de dato."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "code",
+        "language": "python",
+        "code": "# Limpiar y formatear input del usuario\nnombre = \"  jesus barros  \"\nprint(nombre.strip().title())   # \"Jesus Barros\"\n\n# Separar datos de un CSV\ndatos = \"Ana,25,Python\"\nnombre, edad, curso = datos.split(\",\")\nprint(nombre, edad)             # Ana 25\n\n# Unir una lista en una frase\npalabras = [\"Python\", \"es\", \"genial\"]\nprint(\" \".join(palabras))       # Python es genial\n\n# Reemplazar texto\nprint(\"Hola mundo\".replace(\"mundo\", \"Python\"))  # Hola Python\n\n# Validar extensión de archivo\narchivo = \"reporte.pdf\"\nif archivo.endswith(\".pdf\"):\n    print(\"Archivo PDF válido\")"
+      }
+    ]
+  },
+  {
+    "variant": "content" as const,
+    "title": "🔢 Integer <int>",
     "blocks": [
       {
         "type": "paragraph",
@@ -144,7 +218,34 @@ export const datosPrimitivosSlides: Slide[] = [
   },
   {
     "variant": "content" as const,
-    "title": "📐 Float float",
+    "title": "➕ Operadores aritméticos",
+    "blocks": [
+      {
+        "type": "paragraph",
+        "text": "Operadores que puedes usar con enteros y otros tipos numéricos en Python:"
+      },
+      {
+        "type": "spreadsheet",
+        "title": "Operadores",
+        "headers": ["Operador", "Símbolo", "Ejemplo", "Resultado"],
+        "rows": [
+          ["Suma", "+", "5 + 3", "8"],
+          ["Resta", "-", "10 - 4", "6"],
+          ["Multiplicación", "*", "6 * 3", "18"],
+          ["División", "/", "12 / 4", "3"],
+          ["Módulo (residuo de división)", "%", "10 % 3", "1"],
+          ["Potenciación", "**", "2 ** 3", "8"],
+          ["Incremento", "+=", "x += 1", "x + 1"],
+          ["Decremento", "-=", "x -= 1", "x - 1"]
+        ],
+        "copyLabel": "Copiar tabla",
+        "caption": "Python no usa ++ ni -- como C o Java; el incremento y decremento se escriben con += 1 y -= 1."
+      }
+    ]
+  },
+  {
+    "variant": "content" as const,
+    "title": "📐 Float <float>",
     "blocks": [
       {
         "type": "paragraph",
@@ -178,7 +279,7 @@ export const datosPrimitivosSlides: Slide[] = [
   },
   {
     "variant": "content" as const,
-    "title": "✅ Boolean bool",
+    "title": "✅ Boolean <bool>",
     "blocks": [
       {
         "type": "paragraph",
@@ -201,22 +302,50 @@ export const datosPrimitivosSlides: Slide[] = [
     "blocks": [
       {
         "type": "paragraph",
-        "text": "Operadores lógicos — combinan condiciones:"
+        "text": "Primero comparas valores con operadores de comparación (producen True o False); luego combinas esas condiciones con operadores lógicos."
       },
       {
-        "type": "paragraph",
-        "text": "edad    = 20\ntiene_id= True\n\n# and: ambas condiciones deben ser True\nprint(edad >= 18 and tiene_id)  # True\n\n# or: basta con que una sea True\nprint(edad 18 or tiene_id)   # True\n      \n      \n        Operadores de comparación — producen bool:"
+        "type": "spreadsheet",
+        "title": "Operadores de comparación",
+        "headers": ["Operador", "Símbolo", "Ejemplo", "Resultado"],
+        "rows": [
+          ["Igualdad", "==", "5 == 5", "True"],
+          ["Igualdad (tipos distintos)", "==", "5 == \"5\"", "False"],
+          ["Diferencia", "!=", "10 != 3", "True"],
+          ["Mayor que", ">", "8 > 5", "True"],
+          ["Menor que", "<", "3 < 7", "True"],
+          ["Mayor o igual que", ">=", "5 >= 5", "True"],
+          ["Menor o igual que", "<=", "6 <= 4", "False"]
+        ],
+        "copyLabel": "Copiar tabla",
+        "caption": "Python no usa === ni !== (son de JavaScript). Con == no convierte tipos: comparar int con str siempre da False."
+      },
+      {
+        "type": "spreadsheet",
+        "title": "Operadores lógicos",
+        "headers": ["Operador", "Descripción", "Ejemplo", "Resultado"],
+        "rows": [
+          ["and", "Y lógico", "True and False", "False"],
+          ["or", "O lógico", "True or False", "True"],
+          ["not", "Negación lógica", "not True", "False"]
+        ],
+        "copyLabel": "Copiar tabla"
+      },
+      {
+        "type": "heading",
+        "text": "Ejemplo en código",
+        "level": 3
       },
       {
         "type": "code",
         "language": "python",
-        "code": "edad    = 20\ntiene_id= True\n\n# and: ambas condiciones deben ser True\nprint(edad >= 18 and tiene_id)  # True\n\n# or: basta con que una sea True\nprint(edad 18 or tiene_id)   # True"
+        "code": "edad     = 20\ntiene_id = True\n\n# Comparación + and: ambas condiciones deben ser True\nprint(edad >= 18 and tiene_id)  # True\n\n# Comparación + or: basta con que una sea True\nprint(edad < 18 or tiene_id)    # True\n\n# not: invierte el valor booleano\nprint(not tiene_id)             # False"
       }
     ]
   },
   {
     "variant": "content" as const,
-    "title": "∅ NoneType None",
+    "title": "∅ NoneType <None>",
     "blocks": [
       {
         "type": "paragraph",
@@ -254,21 +383,6 @@ export const datosPrimitivosSlides: Slide[] = [
         "type": "code",
         "language": "python",
         "code": "# str → int\nedad_texto = \"25\"\nedad       = int(edad_texto)   # 25\n\n# int → str\nnumero     = 42\ntexto      = str(numero)       # \"42\"\n\n# str → float\nprecio_txt = \"9.99\"\nprecio     = float(precio_txt) # 9.99\n\n# input() SIEMPRE devuelve str\nedad_raw   = input(\"Tu edad: \")\nedad       = int(edad_raw)      # convertir antes de operar"
-      }
-    ]
-  },
-  {
-    "variant": "summary" as const,
-    "title": "📋 Resumen — Datos Primitivos"
-  },
-  {
-    "variant": "practice" as const,
-    "title": "💻 Actividad — Tipos en acción",
-    "blocks": [
-      {
-        "type": "code",
-        "language": "python",
-        "code": "# Código base — completa los ___\n\nnombre = input(\"Tu nombre: \")\nedad   = ___(input(\"Tu edad: \"))\nprecio = ___(input(\"Precio producto: \"))\n\nprecio_iva   = ___\naños_a_100   = ___\n\nprint(\"=\" * 35)\nprint(f\"Hola, {___}\")\nprint(f\"Edad: {edad}\")\nprint(f\"Para los 100: {___} años\")\nprint(f\"Precio + IVA: ${___:.2f}\")\nprint(\"=\" * 35)\n\n# Verificar tipos\nprint(type(nombre), type(edad), type(precio))"
       }
     ]
   },

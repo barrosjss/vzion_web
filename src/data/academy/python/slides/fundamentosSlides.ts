@@ -223,6 +223,16 @@ export const fundamentosSlides: Slide[] = [
     ]
   },
   {
+    "variant": "meme" as const,
+    "blocks": [
+      {
+        "type": "figure",
+        "src": "/academy/python/meme-para-que-sirve.png",
+        "alt": "Meme del gato gruñón: «Y esto, ¿para qué me sirve?» con código Python que dice: para preguntarme cosas que Google ya respondió"
+      }
+    ]
+  },
+  {
     "variant": "content" as const,
     "title": "🌐 Desarrollo Web",
     "blocks": [
@@ -385,7 +395,10 @@ export const fundamentosSlides: Slide[] = [
   },
   {
     "variant": "section" as const,
-    "title": "El mercado laboral"
+    "eyebrow": "Parte 3",
+    "icon": "💼",
+    "title": "El mercado laboral",
+    "subtitle": "Salarios, demanda, empresas y por qué Python domina el sector."
   },
   {
     "variant": "content" as const,
@@ -416,54 +429,6 @@ export const fundamentosSlides: Slide[] = [
             "icon": "",
             "title": "GitHub Octoverse",
             "text": "Python superó a JavaScript como el lenguaje con más repositorios activos en GitHub en 2024."
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "variant": "content" as const,
-    "title": "Demanda laboral con Python"
-  },
-  {
-    "variant": "content" as const,
-    "title": "Salarios — Desarrolladores Python",
-    "blocks": [
-      {
-        "type": "paragraph",
-        "text": "Rango salarial anual — Estados Unidos (USD)"
-      },
-      {
-        "type": "paragraph",
-        "text": "En modo remoto (trabajo para empresas extranjeras desde LATAM)"
-      },
-      {
-        "type": "cards",
-        "items": [
-          {
-            "icon": "",
-            "title": "",
-            "text": ""
-          },
-          {
-            "icon": "",
-            "title": "",
-            "text": ""
-          },
-          {
-            "icon": "",
-            "title": "",
-            "text": ""
-          },
-          {
-            "icon": "",
-            "title": "",
-            "text": ""
-          },
-          {
-            "icon": "",
-            "title": "Plataformas para encontrar trabajo remoto",
-            "text": ""
           }
         ]
       }
@@ -530,7 +495,10 @@ export const fundamentosSlides: Slide[] = [
   },
   {
     "variant": "section" as const,
-    "title": "Primeros pasos"
+    "eyebrow": "Parte 4",
+    "icon": "💻",
+    "title": "Primeros pasos",
+    "subtitle": "Instalación, entornos de trabajo y tu primer programa."
   },
   {
     "variant": "content" as const,
@@ -679,26 +647,17 @@ export const fundamentosSlides: Slide[] = [
     ]
   },
   {
-    "variant": "cover" as const
-  },
-  {
-    "variant": "content" as const,
-    "title": "Estructura básica del código Python",
+    "variant": "meme" as const,
     "blocks": [
       {
-        "type": "paragraph",
-        "text": "Python usa indentación (espacios al inicio de línea) para definir bloques de código. No hay llaves {}."
-      },
-      {
-        "type": "paragraph",
-        "text": "# Variables — sin declarar tipo\nnombre = \"Ana\"\nedad   = 25\nactivo = True\n\n# Condicional — la indentación delimita el bloque\nif edad >= 18:\n    print(\"Es mayor de edad\")\nelse:\n    print(\"Es menor de edad\")\n\n# Bucle\nfor i in range(3):\n    print(f\"Iteración {i}\")\n\n# Función\ndef saludar(nombre):\n    return f\"Hola, {nombre}!\"\n      \n      \n        \n          La indentación NO es opcional en Python. A diferencia de otros lenguajes donde es solo estilo, aquí determina qué código está dentro de un bloque.\n        \n        Convención: usar 4 espacios por nivel de indentación (VS Code lo hace automáticamente)."
-      },
-      {
-        "type": "code",
-        "language": "python",
-        "code": "# Variables — sin declarar tipo\nnombre = \"Ana\"\nedad   = 25\nactivo = True\n\n# Condicional — la indentación delimita el bloque\nif edad >= 18:\n    print(\"Es mayor de edad\")\nelse:\n    print(\"Es menor de edad\")\n\n# Bucle\nfor i in range(3):\n    print(f\"Iteración {i}\")\n\n# Función\ndef saludar(nombre):\n    return f\"Hola, {nombre}!\""
+        "type": "figure",
+        "src": "/academy/python/meme-hola-mundo.png",
+        "alt": "Meme de Gatsby brindando: Excelente trabajo, felicitaciones, acabas de hacer tu primer Hola Mundo. Bienvenido al maravilloso mundo de Python."
       }
     ]
+  },
+  {
+    "variant": "cover" as const
   },
   {
     "variant": "content" as const,
@@ -718,10 +677,6 @@ export const fundamentosSlides: Slide[] = [
         "code": "# Instalar un paquete\n$ pip install requests\n\n# Instalar versión específica\n$ pip install requests==2.31.0\n\n# Ver paquetes instalados\n$ pip list\n\n# Desinstalar\n$ pip uninstall requests\n\n# Guardar dependencias del proyecto\n$ pip freeze > requirements.txt\n\n# Instalar desde requirements.txt\n$ pip install -r requirements.txt"
       }
     ]
-  },
-  {
-    "variant": "content" as const,
-    "title": "¿Por qué Python y no otro lenguaje?"
   },
   {
     "variant": "content" as const,
@@ -808,45 +763,6 @@ export const fundamentosSlides: Slide[] = [
             "text": "Construir APIs profesionales con Python. Endpoints, validación, documentación automática."
           }
         ]
-      }
-    ]
-  },
-  {
-    "variant": "practice" as const,
-    "title": "Actividad — Primer programa",
-    "blocks": [
-      {
-        "type": "paragraph",
-        "text": "Instala Python desde python.org y VS Code con la extensión de Python."
-      },
-      {
-        "type": "paragraph",
-        "text": "Crea un archivo llamado mi_primer_programa.py"
-      },
-      {
-        "type": "cards",
-        "items": [
-          {
-            "icon": "",
-            "title": "Paso 1 — Instalar",
-            "text": "Instala Python desde python.org y VS Code con la extensión de Python."
-          },
-          {
-            "icon": "",
-            "title": "Paso 2 — Crear archivo",
-            "text": "Crea un archivo llamado mi_primer_programa.py"
-          },
-          {
-            "icon": "",
-            "title": "Paso 3 — Escribir y ejecutar",
-            "text": "Escribe el código de la derecha y ejecútalo con python mi_primer_programa.py"
-          }
-        ]
-      },
-      {
-        "type": "code",
-        "language": "python",
-        "code": "# Mi primer programa en Python\n# Cambia los datos por los tuyos\n\nnombre  = \"Tu nombre aquí\"\ncarrera = \"Tu carrera aquí\"\naño     = 2025\n\nprint(\"=\" * 35)\nprint(f\"  Hola, soy {nombre}\")\nprint(f\"  Carrera: {carrera}\")\nprint(f\"  Año: {año}\")\nprint(\"=\" * 35)\nprint(\"¡Python instalado correctamente! 🐍\")"
       }
     ]
   },
