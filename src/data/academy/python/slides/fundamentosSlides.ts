@@ -139,6 +139,12 @@ export const fundamentosSlides: Slide[] = [
       {
         "type": "paragraph",
         "text": "Ya incluía clases, manejo de excepciones, funciones y módulos. Una base sólida desde el inicio."
+      },
+      {
+        "type": "youtube",
+        "videoId": "RTGoX_6h04c",
+        "title": "Historia de Python",
+        "short": true
       }
     ]
   },
@@ -148,7 +154,31 @@ export const fundamentosSlides: Slide[] = [
     "blocks": [
       {
         "type": "paragraph",
-        "text": "Python tiene una filosofía de diseño escrita por Tim Peters. Se puede ver ejecutando import this en cualquier terminal Python."
+        "text": "Python tiene una filosofía de diseño escrita por Tim Peters. Puedes verla completa ejecutando import this en cualquier terminal Python."
+      },
+      {
+        "type": "heading",
+        "text": "Principios más importantes",
+        "level": 3
+      },
+      {
+        "type": "list",
+        "style": "bullet",
+        "items": [
+          "Lo bello es mejor que lo feo.",
+          "Lo explícito es mejor que lo implícito.",
+          "Lo simple es mejor que lo complejo.",
+          "La legibilidad cuenta.",
+          "Debería haber una —y preferiblemente solo una— manera obvia de hacerlo.",
+          "Si la implementación es difícil de explicar, es una mala idea.",
+          "Los errores nunca deberían pasar en silencio."
+        ]
+      },
+      {
+        "type": "youtube",
+        "videoId": "Go7zISQJy90",
+        "title": "El Zen de Python",
+        "short": true
       }
     ]
   },

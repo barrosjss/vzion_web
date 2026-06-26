@@ -42,30 +42,40 @@ export const generalLessons: Lesson[] = [
         title: "Online IDE Pro",
         blocks: [
           {
-            type: "figure",
-            src: "/academy/python/playground-onlineide.png",
-            alt: "Interfaz de Online IDE Pro con editor Python y terminal",
-            caption: "Editor con resaltado de sintaxis, botón Run y terminal integrada.",
-          },
-          {
-            type: "list",
-            style: "bullet",
-            items: [
-              "Es un simulador y editor online para hacer pruebas pequeñas con código Python.",
-              "Úsalo en clase para copiar ejemplos, ejecutarlos y revisar la salida al instante.",
-              "No necesitas instalar nada: solo abre el playground en el navegador.",
+            type: "columns",
+            cols: 2,
+            columns: [
+              [
+                {
+                  type: "figure",
+                  src: "/academy/python/playground-onlineide.png",
+                  alt: "Interfaz de Online IDE Pro con editor Python y terminal",
+                  caption: "Editor con resaltado de sintaxis, botón Run y terminal integrada.",
+                },
+              ],
+              [
+                {
+                  type: "list",
+                  style: "bullet",
+                  items: [
+                    "Es un simulador y editor online para hacer pruebas pequeñas con código Python.",
+                    "Úsalo en clase para copiar ejemplos, ejecutarlos y revisar la salida al instante.",
+                    "No necesitas instalar nada: solo abre el playground en el navegador.",
+                  ],
+                },
+                {
+                  type: "link",
+                  href: "https://www.onlineide.pro/playground/python",
+                  label: "Abrir playground en nueva pestaña",
+                  external: true,
+                },
+                {
+                  type: "callout",
+                  variant: "tip",
+                  text: "Para entregas, captura pantalla con el código y la salida del terminal visibles.",
+                },
+              ],
             ],
-          },
-          {
-            type: "link",
-            href: "https://www.onlineide.pro/playground/python",
-            label: "Abrir playground en nueva pestaña",
-            external: true,
-          },
-          {
-            type: "callout",
-            variant: "tip",
-            text: "Para entregas, captura pantalla con el código y la salida del terminal visibles.",
           },
         ],
       },

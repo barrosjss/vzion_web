@@ -283,6 +283,12 @@
     @apply overflow-y-auto rounded-2xl border border-white/8 px-6 py-5 sm:px-8 sm:py-6;
     background: color-mix(in oklab, var(--color-surface-card) 88%, transparent);
     max-height: min(58vh, 640px);
+    align-content: start;
+  }
+
+  .slide-panel--content.slide-panel--deck .slide-body:has(.slide-block--columns:only-child) {
+    max-height: none;
+    padding-bottom: 1.25rem;
   }
 
   .slide-panel--deck .slide-body--split-short {
@@ -356,8 +362,8 @@
     .slide-body--split {
       display: grid;
       grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-      grid-template-rows: auto minmax(0, 1fr);
-      gap: 0.75rem 1.75rem;
+      grid-template-rows: auto auto;
+      gap: 0.75rem 1.25rem;
       align-items: start;
     }
 
@@ -374,20 +380,22 @@
     .slide-body--split > .slide-block--youtube,
     .slide-body--split > .slide-block--spreadsheet {
       grid-column: 1;
-      grid-row: 2;
+      grid-row: 2 / span 2;
       align-self: start;
     }
 
     .slide-body--split > .slide-block--list,
     .slide-body--split > .slide-block--cards,
-    .slide-body--split > .slide-block--boxes,
-    .slide-body--split > .slide-block--link {
+    .slide-body--split > .slide-block--boxes {
       grid-column: 2;
+      grid-row: 2;
       align-self: start;
     }
 
-    .slide-body--split > .slide-block--list {
-      align-self: center;
+    .slide-body--split > .slide-block--link {
+      grid-column: 2;
+      grid-row: 3;
+      align-self: start;
     }
 
     .slide-body--split .slide-figure__img {
@@ -504,6 +512,24 @@
 
   .slide-figure__caption {
     @apply border-t border-white/8 px-4 py-3 text-sm leading-relaxed text-text-muted sm:px-5;
+  }
+
+  .slide-block--columns .slide-figure__img {
+    max-height: min(36vh, 340px);
+    width: 100%;
+    object-fit: contain;
+    object-position: top center;
+  }
+
+  .slide-block--columns > .grid {
+    align-items: start;
+    gap: 1rem 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .slide-block--columns > .grid {
+      gap: 1rem 1.5rem;
+    }
   }
 
   .slide-image-placeholder {
