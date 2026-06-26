@@ -26,3 +26,7 @@ pnpm-debug.log*
 
 # design handoff reference (local only)
 .handoff/
+
+# local OCR / extraction artifacts
+.tmp/
+__pycache__/

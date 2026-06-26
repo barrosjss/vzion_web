@@ -224,6 +224,24 @@
     @apply h-1.5 w-1.5 shrink-0 rounded-full bg-brand;
   }
 
+  .slide-panel--section.slide-panel--deck {
+    @apply items-center justify-center text-center;
+    background:
+      radial-gradient(130% 120% at 50% 0%, rgba(247, 148, 29, 0.12), transparent 55%),
+      var(--color-surface-card);
+  }
+
+  .slide-panel--section.slide-panel--deck .slide-title {
+    @apply text-3xl sm:text-4xl;
+  }
+
+  .slide-panel--section.slide-panel--stacked {
+    @apply text-center;
+    background:
+      radial-gradient(130% 120% at 50% 0%, rgba(247, 148, 29, 0.1), transparent 55%),
+      var(--color-surface-card);
+  }
+
   .slide-panel--summary.slide-panel--deck .slide-title {
     @apply mb-5;
   }

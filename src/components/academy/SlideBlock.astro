@@ -12,7 +12,7 @@ const columnLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
 function showCodeCopy(block: Extract<SlideBlock, { type: "code" }>): boolean {
   if (block.copyable === false) return false;
-  return block.copyable === true || block.language === "excel";
+  return block.copyable === true || block.language === "excel" || block.language === "python";
 }
 
 const calloutStyles = {
