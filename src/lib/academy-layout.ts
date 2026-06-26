@@ -1,6 +1,6 @@
 import type { SlideBlock } from "../data/academy/types";
 
-const asideBlockTypes = new Set<SlideBlock["type"]>(["list", "cards", "boxes"]);
+const asideBlockTypes = new Set<SlideBlock["type"]>(["list", "cards", "boxes", "link"]);
 
 const complementBlockTypes = new Set<SlideBlock["type"]>([
   "heading",

@@ -202,6 +202,22 @@ const boxStyles = {
       );
     }
 
+    if (block.type === "link") {
+      const external = block.external !== false;
+      return (
+        <div class="slide-block slide-block--link">
+          <a
+            href={block.href}
+            class="slide-external-link"
+            {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+          >
+            {block.label}
+            {external && <span class="slide-external-link__icon" aria-hidden="true">↗</span>}
+          </a>
+        </div>
+      );
+    }
+
     if (block.type === "spreadsheet") {
       const tsv = spreadsheetToTsv(block.headers, block.rows);
 

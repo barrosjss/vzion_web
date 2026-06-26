@@ -48,39 +48,82 @@ export const fundamentosSlides: Slide[] = [
     ]
   },
   {
-    "variant": "section" as const,
-    "title": "¿Qué es Python?"
-  },
-  {
     "variant": "content" as const,
     "title": "¿Qué es Python?",
     "blocks": [
       {
         "type": "paragraph",
-        "text": "Escribe instrucciones cercanas al lenguaje humano, no al lenguaje de la máquina."
+        "text": "Python es un lenguaje de programación de alto nivel, interpretado y de propósito general. Se caracteriza por su sintaxis sencilla y legible, lo que facilita su aprendizaje y uso. Es ampliamente utilizado en diversas áreas, como desarrollo web, ciencia de datos, inteligencia artificial, automatización, ciberseguridad y más."
       },
       {
-        "type": "paragraph",
-        "text": "No necesita compilarse. El código se ejecuta línea a línea en tiempo real."
+        "type": "heading",
+        "text": "Algunas características clave de Python:",
+        "level": 3
       },
+      {
+        "type": "list",
+        "style": "check",
+        "items": [
+          "Sintaxis clara y legible (Alto nivel)",
+          "Orientado a Objetos (POO)",
+          "Multiplataforma",
+          "Gran comunidad y bibliotecas",
+          "Tipado dinámico"
+        ]
+      }
+    ]
+  },
+  {
+    "variant": "content" as const,
+    "title": "Características Principales",
+    "blocks": [
       {
         "type": "cards",
         "items": [
           {
-            "icon": "",
-            "title": "Alto nivel",
-            "text": "Escribe instrucciones cercanas al lenguaje humano, no al lenguaje de la máquina."
+            "icon": "✍️",
+            "title": "Sintaxis simple y clara",
+            "text": "Fácil de leer y escribir, ideal para principiantes y profesionales."
           },
           {
-            "icon": "",
+            "icon": "🔀",
+            "title": "Multiparadigma",
+            "text": "Soporta programación orientada a objetos, imperativa, funcional, etc."
+          },
+          {
+            "icon": "🖥️",
+            "title": "Multiplataforma",
+            "text": "Funciona en Windows, macOS, Linux y más."
+          },
+          {
+            "icon": "🔄",
+            "title": "Dinámico y flexible",
+            "text": "No es fuertemente tipado: las variables pueden cambiar de tipo en tiempo de ejecución."
+          },
+          {
+            "icon": "▶️",
             "title": "Interpretado",
-            "text": "No necesita compilarse. El código se ejecuta línea a línea en tiempo real."
-          },
-          {
-            "icon": "",
-            "title": "Propósito general",
-            "text": "Sirve para web, datos, IA, scripts, ciencia, juegos y mucho más."
+            "text": "No se compila a código máquina directamente, sino que se ejecuta línea por línea."
           }
+        ]
+      }
+    ]
+  },
+  {
+    "variant": "content" as const,
+    "title": "¿Para qué se usa Python?",
+    "blocks": [
+      {
+        "type": "list",
+        "style": "bullet",
+        "items": [
+          "Desarrollo web — con frameworks como Django, Flask",
+          "Análisis de datos y ciencia de datos — con pandas, NumPy, matplotlib",
+          "Inteligencia artificial y machine learning — con TensorFlow, scikit-learn, PyTorch",
+          "Automatización de tareas",
+          "Desarrollo de videojuegos",
+          "Ciberseguridad",
+          "Programación de scripts de sistema"
         ]
       }
     ]
@@ -111,10 +154,6 @@ export const fundamentosSlides: Slide[] = [
   },
   {
     "variant": "content" as const,
-    "title": "Características de Python"
-  },
-  {
-    "variant": "content" as const,
     "title": "Python vs otros lenguajes — Legibilidad",
     "blocks": [
       {
@@ -122,18 +161,29 @@ export const fundamentosSlides: Slide[] = [
         "text": "El mismo programa \"Hola Mundo\" en distintos lenguajes:"
       },
       {
-        "type": "paragraph",
-        "text": "Java"
+        "type": "heading",
+        "text": "Java",
+        "level": 3
       },
       {
         "type": "code",
-        "language": "python",
+        "language": "java",
         "code": "public class Main {\n  public static void main(String[] args) {\n    System.out.println(\"Hola Mundo\");\n  }\n}"
       },
       {
+        "type": "heading",
+        "text": "C++",
+        "level": 3
+      },
+      {
         "type": "code",
-        "language": "python",
+        "language": "cpp",
         "code": "#include <iostream>\nusing namespace std;\nint main() {\n  cout << \"Hola Mundo\" << endl;\n  return 0;\n}"
+      },
+      {
+        "type": "heading",
+        "text": "Python",
+        "level": 3
       },
       {
         "type": "code",
@@ -141,10 +191,6 @@ export const fundamentosSlides: Slide[] = [
         "code": "print(\"Hola Mundo\")"
       }
     ]
-  },
-  {
-    "variant": "section" as const,
-    "title": "¿Para qué sirve?"
   },
   {
     "variant": "content" as const,

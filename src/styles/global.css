@@ -380,7 +380,8 @@
 
     .slide-body--split > .slide-block--list,
     .slide-body--split > .slide-block--cards,
-    .slide-body--split > .slide-block--boxes {
+    .slide-body--split > .slide-block--boxes,
+    .slide-body--split > .slide-block--link {
       grid-column: 2;
       align-self: start;
     }
@@ -553,6 +554,14 @@
   .slide-copy-btn[data-copied="true"] {
     border-color: color-mix(in oklab, var(--color-brand) 35%, transparent);
     color: var(--color-brand);
+  }
+
+  .slide-external-link {
+    @apply inline-flex items-center gap-2 rounded-full border border-brand/35 bg-brand/10 px-5 py-2.5 text-sm font-semibold text-brand transition-colors hover:border-brand/55 hover:bg-brand/15;
+  }
+
+  .slide-external-link__icon {
+    @apply text-xs opacity-80;
   }
 
   .slide-block--code {
