@@ -1200,6 +1200,18 @@ export const ofimaticaCourse: Course = {
             },
             {
               variant: "content",
+              title: "Funciones condicionales — repaso en video",
+              blocks: [
+                {
+                  type: "youtube",
+                  videoId: "jq5A7Zsbfow",
+                  title: "Funciones condicionales en Excel",
+                  short: true,
+                },
+              ],
+            },
+            {
+              variant: "content",
               title: "SUMAR.SI — ¿para qué sirve?",
               blocks: [
                 {
@@ -1214,27 +1226,6 @@ export const ofimaticaCourse: Course = {
                 {
                   type: "quote",
                   text: "«Quiero el total de ventas de la región Norte sin sumar manualmente fila por fila.»",
-                },
-              ],
-            },
-            {
-              variant: "content",
-              title: "SUMAR.SI — puntos clave",
-              blocks: [
-                {
-                  type: "list",
-                  style: "numbered",
-                  items: [
-                    "El criterio puede ser texto entre comillas, un número o una celda de referencia",
-                    "Si omites rango_suma, Excel suma el mismo rango_criterio",
-                    "Usa comodines: «Norte*» incluye Norte, Noreste, etc.",
-                    "Para varios criterios a la vez necesitas SUMAR.SI.CONJUNTO",
-                  ],
-                },
-                {
-                  type: "callout",
-                  variant: "note",
-                  text: "El criterio y los rangos deben tener el mismo tamaño cuando usas rango_suma separado.",
                 },
               ],
             },
@@ -1293,27 +1284,6 @@ export const ofimaticaCourse: Course = {
             },
             {
               variant: "content",
-              title: "CONTAR.SI — puntos clave",
-              blocks: [
-                {
-                  type: "list",
-                  style: "numbered",
-                  items: [
-                    "Solo necesitas un rango y un criterio — más simple que SUMAR.SI",
-                    "Cuenta celdas con texto, números o fechas que coincidan",
-                    "Para contar celdas no vacías usa CONTAR, no CONTAR.SI",
-                    "Combina con SUMAR.SI para informes: cuántos + cuánto vendieron",
-                  ],
-                },
-                {
-                  type: "callout",
-                  variant: "tip",
-                  text: "CONTAR.SI(B2:B5;\"Norte\") sobre la tabla de ventas devuelve 3 registros.",
-                },
-              ],
-            },
-            {
-              variant: "content",
               title: "PROMEDIO.SI — ¿para qué sirve?",
               blocks: [
                 {
@@ -1328,27 +1298,6 @@ export const ofimaticaCourse: Course = {
                 {
                   type: "quote",
                   text: "«¿Cuál fue el ticket promedio de venta en la región Norte?»",
-                },
-              ],
-            },
-            {
-              variant: "content",
-              title: "PROMEDIO.SI — puntos clave",
-              blocks: [
-                {
-                  type: "list",
-                  style: "numbered",
-                  items: [
-                    "Misma estructura que SUMAR.SI: criterio + rango de valores a promediar",
-                    "Ignora filas que no cumplen el criterio, no las cuenta como cero",
-                    "Si ninguna fila cumple, devuelve #DIV/0!",
-                    "Útil para KPIs: venta promedio por zona, nota promedio por curso",
-                  ],
-                },
-                {
-                  type: "callout",
-                  variant: "note",
-                  text: "Sobre la tabla de ventas, PROMEDIO.SI(B2:B5;\"Norte\";C2:C5) da aproximadamente 1206,67.",
                 },
               ],
             },
