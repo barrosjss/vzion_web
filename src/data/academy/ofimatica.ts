@@ -1230,6 +1230,18 @@ export const ofimaticaCourse: Course = {
               ],
             },
             {
+              variant: "content",
+              title: "SUMAR.SI — repaso en video",
+              blocks: [
+                {
+                  type: "youtube",
+                  videoId: "pTgcuepeUqs",
+                  title: "SUMAR.SI en Excel",
+                  short: true,
+                },
+              ],
+            },
+            {
               variant: "practice",
               title: "SUMAR.SI — ejemplo práctico",
               blocks: [
