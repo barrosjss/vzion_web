@@ -76,6 +76,29 @@ export const pythonCourse: Course = {
           format: "quiz",
           quiz: fundamentosQuiz,
         },
+        {
+          id: "funciones-integradas-8min",
+          n: "04",
+          title: "Funciones integradas en 8 minutos",
+          duration: "10 min",
+          summary: "Video: built-in functions de Python en 8 minutos.",
+          format: "video",
+          slides: [
+            {
+              variant: "content",
+              eyebrow: "Módulo 01 · Video",
+              title: "Funciones Integradas de Python en 8 minutos (Built-in Functions)",
+              subtitle: "Repaso rápido de las funciones integradas del lenguaje",
+              blocks: [
+                {
+                  type: "youtube",
+                  videoId: "hHhkLEnowLA",
+                  title: "Funciones Integradas de Python en 8 minutos (Built-in Functions)",
+                },
+              ],
+            },
+          ],
+        },
       ],
     },
     {
