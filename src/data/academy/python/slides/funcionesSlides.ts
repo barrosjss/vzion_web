@@ -329,4 +329,19 @@ export const funcionesSlides: Slide[] = [
       },
     ],
   },
+  {
+    variant: "content",
+    eyebrow: "Video · Funciones",
+    title: "Funciones en Python — repaso en video",
+    subtitle: "Complemento audiovisual después de la presentación",
+    blocks: [
+      {
+        type: "youtube",
+        videoId: "9k91jETchkI",
+        title: "Funciones en Python",
+        start: 822,
+        caption: "El video inicia en el minuto 13:42 del material de referencia.",
+      },
+    ],
+  },
 ];

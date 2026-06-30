@@ -203,35 +203,6 @@ export const pythonCourse: Course = {
             },
           ],
         },
-        {
-          id: "actividad-estructuras",
-          n: "03",
-          title: "Actividad en Clases — Estructuras de Datos",
-          duration: "60 min",
-          summary: "Ejercicios guiados con listas y métodos en el playground.",
-          format: "activity",
-          slides: [
-            {
-              variant: "practice",
-              eyebrow: "Módulo 04 · Actividad",
-              title: "Actividad en clase",
-              subtitle: "Listas, métodos y recorridos con for",
-              blocks: [
-                {
-                  type: "list",
-                  style: "numbered",
-                  items: [
-                    "Abre online-python.com o trinket.io",
-                    "Crea una lista de al menos 5 elementos y muestra el primero y el último",
-                    "Usa append, insert y pop; imprime la lista después de cada cambio",
-                    "Recorre la lista con for e imprime solo los elementos que cumplan una condición",
-                    "Entrega captura de pantalla con código y salida visible",
-                  ],
-                },
-              ],
-            },
-          ],
-        },
       ],
     },
     {
@@ -248,87 +219,25 @@ export const pythonCourse: Course = {
           slides: controlSlides,
         },
         {
-          id: "actividad-condicionales",
+          id: "sentencias-control-video",
           n: "02",
-          title: "Actividad en Clases — Condicionales",
-          duration: "45 min",
-          summary: "Ejercicios de if, elif y else en el playground.",
-          format: "activity",
+          title: "Estructuras de control de flujo",
+          duration: "20 min",
+          summary: "Video: if, else, elif, while, for, break y continue.",
+          format: "video",
           slides: [
             {
-              variant: "practice",
-              eyebrow: "Módulo 05 · Actividad",
-              title: "Condicionales en clase",
+              variant: "content",
+              eyebrow: "Módulo 05 · Video",
+              title:
+                "Estructuras de Control de Flujo en Python: if, else, elif, while, for, break, continue",
+              subtitle: "Repaso en video de condicionales y bucles",
               blocks: [
                 {
-                  type: "list",
-                  style: "numbered",
-                  items: [
-                    "Número positivo o negativo",
-                    "Edad para votar",
-                    "Par o impar",
-                    "Clasificación de notas con elif",
-                    "Calculadora simple con dos números y operación",
-                  ],
-                },
-              ],
-            },
-          ],
-        },
-        {
-          id: "actividad-bucles",
-          n: "03",
-          title: "Actividad en Clases — Bucles",
-          duration: "45 min",
-          summary: "Ejercicios de for, while, break y continue.",
-          format: "activity",
-          slides: [
-            {
-              variant: "practice",
-              eyebrow: "Módulo 05 · Actividad",
-              title: "Bucles en clase",
-              blocks: [
-                {
-                  type: "list",
-                  style: "numbered",
-                  items: [
-                    "Sumar elementos de una lista con for",
-                    "Filtrar palabras que empiecen con vocal",
-                    "Buscar un número en una lista con while + break",
-                    "Filtrar diccionario de estudiantes que aprobaron",
-                  ],
-                },
-              ],
-            },
-          ],
-        },
-        {
-          id: "proyecto-funciones-bucles",
-          n: "04",
-          title: "Proyecto — Funciones y Bucles",
-          duration: "90 min",
-          summary: "Proyecto integrador: menú interactivo o registro de notas.",
-          format: "activity",
-          slides: [
-            {
-              variant: "practice",
-              eyebrow: "Módulo 05 · Proyecto",
-              title: "Proyecto: Funciones y Bucles",
-              blocks: [
-                {
-                  type: "cards",
-                  items: [
-                    {
-                      icon: "🎬",
-                      title: "¿Qué serie ver?",
-                      text: "Menú con opciones, validación de entrada y bucle hasta salir.",
-                    },
-                    {
-                      icon: "📊",
-                      title: "Registro de notas",
-                      text: "Carga de alumnos, promedio y estadísticas con funciones y bucles.",
-                    },
-                  ],
+                  type: "youtube",
+                  videoId: "w53HiWSZnzU",
+                  title:
+                    "Estructuras de Control de Flujo en Python: if, else, elif, while, for, break, continue",
                 },
               ],
             },

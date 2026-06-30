@@ -25,8 +25,31 @@ export const generalLessons: Lesson[] = [
     ],
   },
   {
-    id: "patio-juegos",
+    id: "compilado-interpretado",
     n: "02",
+    title: "Qué es un lenguaje compilado y uno interpretado",
+    duration: "10 min",
+    summary: "Video: diferencias entre lenguajes compilados e interpretados y dónde encaja Python.",
+    format: "video",
+    slides: [
+      {
+        variant: "content",
+        eyebrow: "General · Conceptos",
+        title: "Qué es un lenguaje compilado y uno interpretado",
+        subtitle: "Cómo se ejecuta el código: compilación frente a interpretación",
+        blocks: [
+          {
+            type: "youtube",
+            videoId: "M32Az-IRUQI",
+            title: "Qué es un lenguaje compilado y uno interpretado",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "patio-juegos",
+    n: "03",
     title: "Patio de Juegos (Playground)",
     duration: "5 min",
     summary: "Editor online para probar código Python en clase sin instalar nada.",

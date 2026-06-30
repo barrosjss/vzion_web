@@ -49,7 +49,7 @@ export type SlideBlock =
   | { type: "figure"; src: string; alt: string; caption?: string }
   | { type: "imagePlaceholder"; label: string; note?: string }
   | { type: "link"; href: string; label: string; external?: boolean }
-  | { type: "youtube"; videoId: string; title?: string; caption?: string; short?: boolean }
+  | { type: "youtube"; videoId: string; title?: string; caption?: string; short?: boolean; start?: number }
   | {
       type: "spreadsheet";
       title?: string;

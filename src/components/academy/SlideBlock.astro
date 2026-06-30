@@ -283,12 +283,14 @@ const boxStyles = {
 
     if (block.type === "youtube") {
       const embedTitle = block.title ?? "Video de YouTube";
+      const startParam = block.start ? `?start=${block.start}` : "";
+
       return (
         <div class="slide-block slide-block--youtube">
           <figure class:list={["slide-youtube", block.short && "slide-youtube--short"]}>
             <div class="slide-youtube__frame">
               <iframe
-                src={`https://www.youtube.com/embed/${block.videoId}`}
+                src={`https://www.youtube.com/embed/${block.videoId}${startParam}`}
                 title={embedTitle}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowfullscreen
