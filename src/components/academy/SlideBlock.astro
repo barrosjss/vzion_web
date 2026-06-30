@@ -1,6 +1,7 @@
 ---
 import type { SlideBlock } from "../../data/academy/types";
 import { isSpreadsheetCellHighlighted, spreadsheetToTsv } from "../../lib/spreadsheet";
+import { codeHasMarks, highlightCodeMarkup, stripCodeMarks } from "../../lib/code-highlight";
 
 type Props = {
   blocks?: SlideBlock[];
@@ -105,6 +106,8 @@ const boxStyles = {
 
     if (block.type === "code") {
       const canCopy = showCodeCopy(block);
+      const copyText = stripCodeMarks(block.code);
+      const copyLabel = block.language === "python" ? "Copiar código" : "Copiar fórmula";
 
       return (
         <div class="slide-block slide-block--code">
@@ -113,16 +116,23 @@ const boxStyles = {
               <span class="font-mono text-[11px] uppercase tracking-wider text-text-dim">{block.language}</span>
               {
                 canCopy && (
-                  <button type="button" class="slide-copy-btn" data-copy-btn data-copy-text={block.code}>
-                    Copiar fórmula
+                  <button type="button" class="slide-copy-btn" data-copy-btn data-copy-text={copyText}>
+                    {copyLabel}
                   </button>
                 )
               }
             </div>
             <pre class="slide-code__pre p-4 font-mono text-sm leading-relaxed text-text sm:text-[15px]">
-              <code class="slide-code__content">{block.code}</code>
+              {
+                codeHasMarks(block.code) ? (
+                  <code class="slide-code__content" set:html={highlightCodeMarkup(block.code)} />
+                ) : (
+                  <code class="slide-code__content">{block.code}</code>
+                )
+              }
             </pre>
           </div>
+          {block.caption && <p class="slide-code__caption">{block.caption}</p>}
         </div>
       );
     }

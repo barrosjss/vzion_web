@@ -318,6 +318,16 @@ export const controlSlides: Slide[] = [
     ]
   },
   {
+    "variant": "meme" as const,
+    "blocks": [
+      {
+        "type": "figure",
+        "src": "/academy/python/meme-ejercicios.png",
+        "alt": "Meme: ejercicios, ejercicios y más ejercicios por todos lados — programador rodeado de libros de Python y post-its con números de ejercicio"
+      }
+    ]
+  },
+  {
     "variant": "practice" as const,
     "title": "📝 Ejercicios para Casa — Condicionales Básicos",
     "blocks": [
@@ -659,6 +669,16 @@ export const controlSlides: Slide[] = [
         "type": "code",
         "language": "python",
         "code": "notas = []\nprint(\"Ingresa hasta 5 notas (escribe 'fin' para terminar)\")\n\nwhile len(notas)  5:\n    entrada = input(f\"Nota {len(notas)+1}: \")\n    if entrada == \"fin\":\n        break\n    nota = float(entrada)\n    if nota  0 or nota > 5:\n        print(\"⚠️ Nota inválida (0-5), intenta de nuevo\")\n        continue\n    notas.append(nota)\n\nif notas:\n    promedio = sum(notas) / len(notas)\n    print(f\"\\nNotas: {notas}\")\n    print(f\"Promedio: {promedio:.2f}\")\n    print(\"✅ Aprobado\" if promedio >= 3.0 else \"❌ Reprobado\")"
+      }
+    ]
+  },
+  {
+    "variant": "meme" as const,
+    "blocks": [
+      {
+        "type": "figure",
+        "src": "/academy/python/meme-ejercicios.png",
+        "alt": "Meme: ejercicios, ejercicios y más ejercicios por todos lados — programador rodeado de libros de Python y post-its con números de ejercicio"
       }
     ]
   },

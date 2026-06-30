@@ -680,6 +680,19 @@
     white-space: pre;
   }
 
+  .slide-code__mark {
+    border-bottom: 2px solid color-mix(in oklab, var(--color-brand) 75%, transparent);
+    background: color-mix(in oklab, var(--color-brand) 14%, transparent);
+    color: var(--color-text);
+    border-radius: 2px;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+
+  .slide-code__caption {
+    @apply mt-2 text-center text-xs font-medium text-text-muted sm:text-sm;
+  }
+
   .slide-spreadsheet {
     @apply overflow-hidden rounded-[14px] border border-white/10 bg-black/35;
   }

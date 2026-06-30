@@ -34,7 +34,7 @@ export type SlideBlock =
   | { type: "paragraph"; text: string }
   | { type: "list"; items: string[]; style?: "bullet" | "check" | "numbered" }
   | { type: "callout"; variant: "tip" | "note" | "warning"; text: string }
-  | { type: "code"; language: string; code: string; copyable?: boolean }
+  | { type: "code"; language: string; code: string; copyable?: boolean; caption?: string }
   | { type: "quote"; text: string }
   | { type: "columns"; cols: 2 | 3; columns: SlideBlock[][] }
   | { type: "cards"; items: { icon?: string; title: string; text: string }[] }
