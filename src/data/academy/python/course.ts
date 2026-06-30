@@ -158,9 +158,9 @@ export const pythonCourse: Course = {
               title: "Tipos, variables y operadores en Python",
               blocks: [
                 {
-                  type: "imagePlaceholder",
-                  label: "Video del curso sobre variables y operadores",
-                  note: "Añade el ID de YouTube cuando lo tengas.",
+                  type: "youtube",
+                  videoId: "numQzIgpOo0",
+                  title: "Tipos, variables y operadores en Python",
                 },
               ],
             },
