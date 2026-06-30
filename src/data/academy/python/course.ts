@@ -259,8 +259,33 @@ export const pythonCourse: Course = {
           slides: funcionesSlides,
         },
         {
-          id: "errores",
+          id: "funciones-video",
           n: "02",
+          title: "Aprende funciones en Python",
+          duration: "20 min",
+          summary: "Video: def, pass, None, return vs print, argumentos y scope.",
+          format: "video",
+          slides: [
+            {
+              variant: "content",
+              eyebrow: "Módulo 06 · Video",
+              title:
+                "APRENDE FUNCIONES en PYTHON: def, pass, sintaxis, None, return vs print, argumentos, scope y más",
+              subtitle: "Repaso en video de funciones en Python",
+              blocks: [
+                {
+                  type: "youtube",
+                  videoId: "9k91jETchkI",
+                  title:
+                    "APRENDE FUNCIONES en PYTHON: def, pass, sintaxis, None, return vs print, argumentos, scope y más",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          id: "errores",
+          n: "03",
           title: "Try — Except",
           duration: "60 min",
           summary: "Manejo de excepciones y errores comunes.",
