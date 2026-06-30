@@ -266,6 +266,29 @@ export const pythonCourse: Course = {
             },
           ],
         },
+        {
+          id: "github-repositorio",
+          n: "03",
+          title: "Crear un repositorio en GitHub",
+          duration: "10 min",
+          summary: "Video: repaso para crear un repositorio en GitHub.",
+          format: "video",
+          slides: [
+            {
+              variant: "content",
+              eyebrow: "Módulo 05 · Video",
+              title: "Recordar cómo crear un repositorio en GitHub",
+              subtitle: "Repaso en video de Git y GitHub",
+              blocks: [
+                {
+                  type: "youtube",
+                  videoId: "6GDe7vOoJk4",
+                  title: "Recordar cómo crear un repositorio en GitHub",
+                },
+              ],
+            },
+          ],
+        },
       ],
     },
     {
